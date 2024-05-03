@@ -154,9 +154,10 @@ const fetchItems = async () => {
 }};
 
 //deleting an item from the api
+//deleting an item from the api
 const SetItemDelete = async (id) => { 
   try {
-    const res = await fetch ('api/Item/item_delete',
+    const res = await fetch (`api/Item/item_delete/${id}`,
     {method:'DELETE',headers:{'Content-Type':'application/json'},
     body:JSON.stringify()}).then((res) => res.json());
   } catch (error) {

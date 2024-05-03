@@ -20,6 +20,7 @@ import Dashboard from './components/Dashboard';
 import CurruntPO from './pages/CurruntPO';
 import Item_main from './pages/Item_main';
 import Item_add from './pages/Item_add';
+
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
 import SelesOrders from './pages/salesOrders';
@@ -74,7 +75,7 @@ export default function App() {
           <Route path='/listing/:listingId' element={<CurruntPO />} />
           <Route path='/Item_main' element={<Item_main />} />
           <Route path='/Item_add' element={<Item_add />} />
-          <Route path='/Item_Update/:ItemID' element={<Item_Update />} />
+          <Route path='/Item_Update/:ItemID' element={<Item_Update/>} />
           <Route path="/Create-Sales-Order" element={<CreateSalesOrder />} />
           <Route path="/sales-orders" element={<SelesOrders />} />
           <Route path="/update-pending-orders/:id" element={<UpdatePendingSelesOrders />} />
