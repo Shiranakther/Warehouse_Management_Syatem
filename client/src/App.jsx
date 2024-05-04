@@ -23,10 +23,16 @@ import Item_add from './pages/Item_add';
 
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
-import SelesOrders from './pages/salesOrders';
-import UpdatePendingSelesOrders from './pages/updatePendingSelesOrders';
+import SelesOrders from './pages/SalesOrders';
+import UpdatePendingSelesOrders from './pages/UpdatePendingSelesOrders';
+
 import ShippingMNG from './pages/ShippingMNG';
-import VehicleMNG from './pages/VehicleMNG';
+import VehicleMNG from './pages/vehicleList';
+import ShippingList from './pages/shippingList';
+import Updatevehicle from './pages/updatevehicle';
+import UpdateShipping from './pages/updateShipping';
+
+
 import AddVehicles from './pages/AddVehicles';
 import AddShipping from './pages/AddShipping';
 import EnterReturnItems from './pages/EnterReturnItems';
@@ -51,6 +57,7 @@ import Updateshift from './pages/Updateshift';
 import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
+import VehicleList from './pages/vehicleList';
 
 
 
@@ -108,6 +115,16 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AssignWorkerToShift" element={<AssignWorkerToShift />} />
         <Route path="/WorkersAssignList" element={<WorkersAssignList />} />
+
+
+
+        <Route path="/AddVehicles" element={<AddVehicles />} />
+        <Route path="/AddShipping" element={<AddShipping />} />
+        <Route path="/vehicleList" element={<VehicleList />} />
+        <Route path="/shippingList" element={<ShippingList />} />
+        <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
+        <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
