@@ -12,9 +12,10 @@ export default function DisplayLowInventory() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
-  const [showLowInventoryError, setShowLowInventoryError] = useState(false);
+  const [showLowInventoryError, setShowLowInventoryError] = useState([]);
   const [userLowInventories, setUserLowInventorys] = useState([]);
   const dispatch = useDispatch();
+  const aboutContentRef = useRef(null);
 
   useEffect(() => {
     handleShowLowInventory(); // Automatically calls the function when component mounts
@@ -33,7 +34,7 @@ export default function DisplayLowInventory() {
   const handleShowLowInventory = async () => {
     try {
       setShowLowInventoryError(false);
-      const res = await fetch(`/api/user/lowinventory/${currentUser._id}`);
+      const res = await fetch(`/api/user/lowinventories/${currentUser._id}`);
       const data = await res.json();
       if (data.success === false) {
         setShowLowInventoryError(true); // Fix variable name here

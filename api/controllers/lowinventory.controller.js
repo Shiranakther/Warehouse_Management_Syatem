@@ -77,7 +77,7 @@ export const getLowInventory = async (req, res, next) => {
     const lowinventory = await LowInventory.findById(req.params.id);
 
     if (!lowinventory) {
-      return res.status(404).json({ error: 'Low inventory item not found!' });
+      return next(errorHandler(404, 'low inventory items not found!'));
     }
 
     res.status(200).json(lowinventory);
@@ -89,9 +89,15 @@ export const getLowInventory = async (req, res, next) => {
 // Get all low inventory items
 export const getLowInventorys = async (req, res, next) => {
   try {
-    const lowInventory = await LowInventory.find();
-    res.status(200).json(lowInventory);
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+  
+
+    
+
+    return res.status(200).json(lowinventory);
   } catch (error) {
     next(error);
   }
 };
+;
