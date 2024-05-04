@@ -1,15 +1,17 @@
 import express from "express";
-import { AddItems, GetItems, DeleteItems, UpdateItems } from '../controllers/Item.controller.js';
+import {AddItems, GetItems,DeleteItems,UpdateItems,GetsingItems,GetItemreport} from '../controllers/Item.controller.js';
 
 const router = express.Router();
 
 
 
 //getting messages from API route
-router.post('/', AddItems);
-router.post('/getitem', GetItems);
-router.delete('/item_delete', DeleteItems);
-router.post('/Item_update', UpdateItems);
+router.post('/',AddItems);
+router.post('/getitem',GetItems);
+router.post('/getitem/:ItemID', GetsingItems);
+router.delete('/item_delete/:id',DeleteItems);
+router.put('/item_Update/:ItemID',UpdateItems);
+router.get('/item_report',GetItemreport);
 
 export default router;
 
