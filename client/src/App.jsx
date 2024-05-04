@@ -23,8 +23,8 @@ import Item_add from './pages/Item_add';
 
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
-import SelesOrders from './pages/salesOrders';
-import UpdatePendingSelesOrders from './pages/updatePendingSelesOrders';
+import SelesOrders from './pages/SalesOrders';
+import UpdatePendingSelesOrders from './pages/UpdatePendingSelesOrders';
 
 import ShippingMNG from './pages/ShippingMNG';
 import VehicleMNG from './pages/vehicleList';
