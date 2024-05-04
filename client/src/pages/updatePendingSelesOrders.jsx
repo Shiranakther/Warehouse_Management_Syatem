@@ -38,7 +38,7 @@ export default function UpdatePendingSalesOrders() {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:8000/api/order/updateOrder/${id}`, {
+      await axios.put(`http://localhost:3000/api/order/updateOrder/${id}`, {
         Outlet: outlet,
         OrderID: orderId,
         ItemCode: itemCode,
