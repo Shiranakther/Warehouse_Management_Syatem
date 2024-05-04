@@ -208,6 +208,9 @@ export default function Dashboard()
           <Link to="/Create-Sales-Order" className="block p-2 text-blue-200 hover:text-white">
             Create Sales Order
           </Link>
+          <Link to="/sales-orders" className="block p-2 text-blue-200 hover:text-white">
+            View Sales Orders
+          </Link>
           <Link to="/shippings" className="block p-2 text-blue-200 hover:text-white">
           Shipping MNG
           </Link>
