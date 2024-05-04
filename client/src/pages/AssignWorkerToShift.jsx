@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 export default function AssignWorkerToShift() {
   const [shifts, setShifts] = useState([]);
@@ -46,7 +45,6 @@ export default function AssignWorkerToShift() {
     setSelectedStaffForShift(prevState => {
       const updatedSelectedStaff = { ...prevState };
       if (isChecked) {
-        // Remove the staff member from other shifts
         Object.keys(updatedSelectedStaff).forEach(shiftId => {
           if (shiftId !== selectedShift) {
             updatedSelectedStaff[shiftId] = updatedSelectedStaff[shiftId].filter(id => id !== staffId);
@@ -61,44 +59,43 @@ export default function AssignWorkerToShift() {
   };
 
   return (
-    <div className='flex'>
-    
-
-
-    <div className='mt-14 container mx-auto w-3/5 ml-96 '>        
-    <div className="container mx-auto">
-      <div className="flex">
-        <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4 text-blue-500">Select Shift</h2>
-          <select value={selectedShift} onChange={handleShiftChange} className="w-full p-2 mb-4 border rounded">
+    <div className='flex w-3/5 ml-96'>
+      
+    <div className='container mx-auto mt-14'>
+    <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Assign Workers To Shift</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Select Shift</h2>
+          <select value={selectedShift} onChange={handleShiftChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
             <option value="">Select Shift</option>
             {shifts.map(shift => (
               <option key={shift._id} value={shift._id}>{shift.shiftname}</option>
             ))}
           </select>
         </div>
-        <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4  text-blue-500">Select Staff</h2>
-          {staff.map(member => (
-            <div key={member._id} className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value={member._id}
-                checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
-                onChange={handleStaffChange}
-                className="mr-2"
-              />
-              <label>{member.username} - ID: {member.id} - Type: {member.type}</label>
-            </div>
-          ))}
+        <div className="p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Select Staff</h2>
+          <div className="grid grid-cols-1 gap-2">
+            {staff.map(member => (
+              <div key={member._id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  value={member._id}
+                  checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
+                  onChange={handleStaffChange}
+                  className="mr-2 cursor-pointer"
+                />
+                <label className="cursor-pointer">{member.username} - ID: {member.id} - Type: {member.type}</label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      
-      {/* Display selected staff for each shift */}
-      <div className="grid   gap-4 ">
+
+      <div className="mt-8">
         {shifts.map(shift => (
-          <div key={shift._id} className="p-4 border rounded-md shadow-md">
-            <h2 className="text-xl font-bold mb-4 text-slate-500">{shift.shiftname}</h2>
+          <div key={shift._id} className="bg-white rounded-md shadow-md p-6 mb-4">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{shift.shiftname}</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
@@ -131,8 +128,7 @@ export default function AssignWorkerToShift() {
           </div>
         ))}
       </div>
-      </div>
     </div>
-    </div> 
+    </div>
   );
 }
