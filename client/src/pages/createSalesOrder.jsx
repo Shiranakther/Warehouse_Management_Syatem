@@ -146,7 +146,7 @@
 // }
 
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 
 export default function CreateSalesOrder() {
@@ -155,6 +155,27 @@ export default function CreateSalesOrder() {
   const [ItemCode, setItemCode] = useState('');
   const [Quantity, setQuantity] = useState('');
   const [orderItems, setOrderItems] = useState([]);
+
+
+ 
+
+    useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    try {
+      const response = await fetch('/api/Item/getitem', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(AllItems)
+      });
+      const itemData = await response.json();
+      setAllItems(itemData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -207,8 +228,19 @@ export default function CreateSalesOrder() {
 
           <div className="mb-6">
             <label htmlFor="itemCode" className="block text-sm font-medium text-gray-700">Enter Item Code</label>
-            <input type="text" id="itemCode" name="itemCode" className="mt-1 block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Item Code" onChange={(e) => setItemCode(e.target.value)} value={ItemCode} />
+            <input 
+  type="text" 
+  id="itemCode" 
+  name="itemCode" 
+  className="mt-1 block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+  placeholder="Item Code" 
+  onChange={(e) => setItemCode(e.target.value)} 
+  value={ItemCode}  
+/>
+            
           </div>
+
+         
 
           <div className="mb-6">
             <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Enter Quantity</label>
@@ -252,3 +284,5 @@ export default function CreateSalesOrder() {
     </div>
   );
 }
+
+
