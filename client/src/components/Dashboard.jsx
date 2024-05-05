@@ -14,6 +14,10 @@ export default function Dashboard()
     const [showReportLinks, setShowReportLinks] = useState(false);
     const [showOperationLinks, setShowOperationLinks] = useState(false);
     const [showStaffLinks, setShowStaffLinks] = useState(false);
+<<<<<<< Updated upstream
+=======
+    const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
+>>>>>>> Stashed changes
   
     const handleInventoryButtonClick = () => {
       setShowInventoryLinks(!showInventoryLinks); // Toggle the state of showInventoryLinks
@@ -21,6 +25,10 @@ export default function Dashboard()
       setShowPurchasesLinks(false);
       setShowReportLinks(false);
       setShowOperationLinks(false);
+<<<<<<< Updated upstream
+=======
+      setShowPendingRequestLinks(false);
+>>>>>>> Stashed changes
     };
   
     const handlePurchasesButtonClick = () => {
@@ -29,6 +37,7 @@ export default function Dashboard()
       setShowInventoryLinks(false);
       setShowReportLinks(false);
       setShowOperationLinks(false);
+      setShowPendingRequestLinks(false);
     };
   
     const handleReportButtonClick = () => {
@@ -37,6 +46,7 @@ export default function Dashboard()
       setShowInventoryLinks(false);
       setShowPurchasesLinks(false);
       setShowOperationLinks(false);
+      setShowPendingRequestLinks(false);
     };
   
     const handleOperationButtonClick = () => {
@@ -45,6 +55,7 @@ export default function Dashboard()
       setShowInventoryLinks(false);
       setShowPurchasesLinks(false);
       setShowReportLinks(false);
+      setShowPendingRequestLinks(false);
     };
 
     const handleStaffButtonClick = () => {
@@ -53,8 +64,22 @@ export default function Dashboard()
       setShowInventoryLinks(false);
       setShowPurchasesLinks(false);
       setShowReportLinks(false);
+      setShowPendingRequestLinks(false);
     };
 
+<<<<<<< Updated upstream
+=======
+    const handelPendingRequestclick = () => {
+      setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
+      // Hide other link sections when Operations button is clicked
+      setShowStaffLinks(false);
+      setShowInventoryLinks(false);
+      setShowPurchasesLinks(false);
+      setShowReportLinks(false);
+
+    }
+
+>>>>>>> Stashed changes
   const [isRotated1, setIsRotated1] = useState(false);
   const [isRotated2, setIsRotated2] = useState(false);
   const [isRotated3, setIsRotated3] = useState(false);
@@ -81,6 +106,13 @@ export default function Dashboard()
     setIsRotated5(!isRotated5);
   };
 
+<<<<<<< Updated upstream
+=======
+  const handleRotate6 = () => {
+    setIsRotated6(!isRotated6);
+  }
+
+>>>>>>> Stashed changes
   const handleBothClicks1 = () => {
     handleRotate1();
     handleInventoryButtonClick();
@@ -101,6 +133,14 @@ export default function Dashboard()
     handleRotate5();
     handleStaffButtonClick();
   };
+<<<<<<< Updated upstream
+=======
+
+  const handleBothClicks6 = () => {
+    handleRotate6();
+    handelPendingRequestclick();
+  };
+>>>>>>> Stashed changes
     return (
 
         <div className="dashboard-container bg-gray-900 w-72 h-screen fixed left-0 ">
@@ -257,9 +297,12 @@ export default function Dashboard()
           </Link>
           <Link to="/Staffmanagement" className="block p-2 text-blue-200">
 
+<<<<<<< Updated upstream
 
 
 
+=======
+>>>>>>> Stashed changes
           <div>
             <button className="  " onClick={handleBothClicks5}>
                
@@ -292,8 +335,6 @@ export default function Dashboard()
           <Link to="/AssignWorkerToShift" className="block p-2  text-white hover:text-slate-400">
           Assign Worker To Shift
           </Link>
-
-         
           
         </div>
       )}
@@ -303,14 +344,36 @@ export default function Dashboard()
         </div>
       )}
             </div>
-            
-            
+            {userType === 'user' && (
+            <div>
+            <button className=" w-60 flex items-center justify-start px-4 py-2 rounded-xl mt-3 hover:bg-blue-400 " onClick={handleBothClicks6}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 30 32" fill="none" >
+            <path d="M30.564 22.3379C30.5603 21.3425 30.2508 20.3711 29.6757 19.5493C29.1005 18.7275 28.2861 18.0931 27.3378 17.7281L30.5131 6.12069C30.5794 5.87348 30.5864 5.61465 30.5333 5.3644C30.4803 5.11415 30.3688 4.87925 30.2075 4.67805C30.0425 4.48952 29.8364 4.33951 29.6042 4.23907C29.3721 4.13863 29.1198 4.09031 28.866 4.09768H5.60341L5.04307 2.00834C4.94564 1.65499 4.73127 1.34304 4.43336 1.12109C4.13544 0.899141 3.77071 0.77966 3.396 0.781266H0V4.09768H2.08854L6.29959 19.4527C6.39909 19.8144 6.62109 20.1326 6.92942 20.3554C7.23775 20.5782 7.61424 20.6926 7.99759 20.6797H25.47C25.9204 20.6797 26.3523 20.8544 26.6707 21.1654C26.9891 21.4764 27.168 21.8981 27.168 22.3379C27.168 22.7777 26.9891 23.1995 26.6707 23.5105C26.3523 23.8214 25.9204 23.9961 25.47 23.9961H3.396C2.94567 23.9961 2.51377 24.1708 2.19534 24.4818C1.8769 24.7928 1.698 25.2146 1.698 25.6543C1.698 26.0941 1.8769 26.5159 2.19534 26.8269C2.51377 27.1378 2.94567 27.3125 3.396 27.3125H5.39965C5.12039 28.0639 5.03065 28.87 5.13804 29.6624C5.24542 30.4548 5.54677 31.2103 6.01656 31.8649C6.48635 32.5195 7.11075 33.0539 7.83688 33.4228C8.56301 33.7918 9.36948 33.9844 10.188 33.9844C11.0065 33.9844 11.813 33.7918 12.5391 33.4228C13.2653 33.0539 13.8897 32.5195 14.3595 31.8649C14.8293 31.2103 15.1306 30.4548 15.238 29.6624C15.3454 28.87 15.2556 28.0639 14.9764 27.3125H18.9837C18.7294 27.9967 18.6321 28.7271 18.6984 29.452C18.7647 30.1769 18.9931 30.8789 19.3675 31.5082C19.7419 32.1375 20.2531 32.679 20.8651 33.0944C21.4771 33.5097 22.175 33.7889 22.9096 33.9121C23.6441 34.0354 24.3974 33.9997 25.1163 33.8077C25.8352 33.6156 26.5021 33.2719 27.0702 32.8007C27.6382 32.3294 28.0934 31.7422 28.4037 31.0805C28.714 30.4187 28.8718 29.6986 28.866 28.9708C28.8629 28.1141 28.6286 27.2733 28.1868 26.5332C28.9129 26.0861 29.5116 25.4671 29.9272 24.7337C30.3428 24.0003 30.5618 23.1762 30.564 22.3379ZM23.9249 17.3633H9.33901L6.52033 7.41409H26.6586L23.9249 17.3633ZM10.188 30.629C9.85218 30.629 9.52389 30.5317 9.24465 30.3495C8.96542 30.1673 8.74778 29.9083 8.61926 29.6053C8.49075 29.3023 8.45712 28.9689 8.52264 28.6473C8.58815 28.3256 8.74987 28.0301 8.98734 27.7982C9.22481 27.5663 9.52737 27.4084 9.85675 27.3444C10.1861 27.2804 10.5275 27.3133 10.8378 27.4388C11.1481 27.5643 11.4133 27.7768 11.5998 28.0495C11.7864 28.3222 11.886 28.6428 11.886 28.9708C11.886 29.4105 11.7071 29.8323 11.3887 30.1433C11.0702 30.4543 10.6384 30.629 10.188 30.629ZM23.772 30.629C23.4362 30.629 23.1079 30.5317 22.8287 30.3495C22.5494 30.1673 22.3318 29.9083 22.2033 29.6053C22.0748 29.3023 22.0411 28.9689 22.1067 28.6473C22.1722 28.3256 22.3339 28.0301 22.5714 27.7982C22.8088 27.5663 23.1114 27.4084 23.4408 27.3444C23.7701 27.2804 24.1116 27.3133 24.4218 27.4388C24.7321 27.5643 24.9973 27.7768 25.1839 28.0495C25.3704 28.3222 25.47 28.6428 25.47 28.9708C25.47 29.4105 25.2911 29.8323 24.9727 30.1433C24.6543 30.4543 24.2224 30.629 23.772 30.629Z" fill="white"/>
+                </svg>
+                <div className="font-normal text-base w-48 text-white font-sans ml-10 flex justify-start">
+                
+                Pending Requests
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none" style={{ transform: isRotated6 ? 'rotate(90deg)' : 'none' }}>
+                <path d="M0.000411301 8.95104L0.00799345 0.900488C0.00805214 0.821971 0.0292754 0.744854 0.0695296 0.676889C0.109784 0.608924 0.167653 0.552505 0.237315 0.513305C0.306977 0.474105 0.38598 0.453504 0.46638 0.453575C0.546781 0.453645 0.625747 0.474384 0.695338 0.513707L7.8306 4.54557C7.89597 4.58808 7.94955 4.64572 7.98659 4.71334C8.02363 4.78097 8.04298 4.85649 8.04291 4.93318C8.04283 5.00987 8.02335 5.08536 7.98618 5.15292C7.94901 5.22047 7.89532 5.27801 7.82987 5.3204L0.687026 9.33909C0.617361 9.37828 0.538356 9.39888 0.457956 9.3988C0.377555 9.39872 0.298591 9.37797 0.229003 9.33864C0.159415 9.29932 0.101653 9.24279 0.0615262 9.17475C0.0214 9.10671 0.000322093 9.02956 0.000411301 8.95104Z" fill="white"/>
+                </svg>
+            </button>
+            {showPendingRequestLinks  && (
+        <div className='pl-3'>
+          <Link to="/purchase_request" className="block p-2 text-blue-200 hover:text-white">
+            Purchase Request
+          </Link>
+          <Link to="/supplier_request" className="block p-2 text-blue-200 hover:text-white">
+            Supplier pending 
+          </Link>
+         
+        </div>
+      )}
+      </div>
+      )}
         </div>
     </div>
       
         
     );
 }
-
-
-

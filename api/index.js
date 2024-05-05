@@ -174,6 +174,8 @@ import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
 
+import SuppliersRouter from './routes/supplier.route.js';
+
 
 
 // Load environment variables from .env file
@@ -220,6 +222,16 @@ app.use("/api/staff", staffRoutes);
 app.use("/api/shift", shiftRoutes);
 app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 
+<<<<<<< Updated upstream
+=======
+//vehicle & Shift shipping
+app.use('/api/vehicleRoutes', vehicleRouter);
+app.use('/api/shippingRoutes', shippingRouter);
+
+// supplier item 
+app.use('/api/supplier', SuppliersRouter);
+
+>>>>>>> Stashed changes
 // Serve static files
 app.use(express.static(path.join(__dirname, '/client/dist')));
 

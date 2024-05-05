@@ -50,6 +50,17 @@ import Updateshift from './pages/Updateshift';
 import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
+<<<<<<< Updated upstream
+=======
+import VehicleList from './pages/vehicleList';
+import LowInventoryReport from './pages/LowInventoryReport';
+import LowInventoryUpdate from './pages/LowInventoryUpdate';
+import PurchaseReq from './pages/PurchaseReq';
+import SupplierReq from './pages/SupplierReq';
+import SupplierItemsList from './pages/SupplierItemsList';
+
+
+>>>>>>> Stashed changes
 
 
 
@@ -107,6 +118,22 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AssignWorkerToShift" element={<AssignWorkerToShift />} />
         <Route path="/WorkersAssignList" element={<WorkersAssignList />} />
+<<<<<<< Updated upstream
+=======
+
+
+
+        <Route path="/AddVehicles" element={<AddVehicles />} />
+        <Route path="/AddShipping" element={<AddShipping />} />
+        <Route path="/vehicleList" element={<VehicleList />} />
+        <Route path="/shippingList" element={<ShippingList />} />
+        <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
+        <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
+        <Route path="/purchase_request" element={<PurchaseReq />} />
+        <Route path="/supplier_request" element={<SupplierReq />} />
+        <Route path="/supplier_item_list" element={<SupplierItemsList />} />
+
+>>>>>>> Stashed changes
         </Route>
       </Routes>
     </BrowserRouter>
