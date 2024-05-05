@@ -340,12 +340,18 @@ Shipping List
           Assign Worker To Shift
           </Link>
 
+
+
          
           
         </div>
       )}
       </div>
        
+          </Link>
+
+          <Link to="/supplierDetails" className="block p-2 text-blue-200 hover:text-white">
+          Supplier Details
           </Link>
         </div>
       )}

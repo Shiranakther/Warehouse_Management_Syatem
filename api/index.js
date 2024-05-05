@@ -173,6 +173,7 @@ import Maintanceroute from './routes/maintance.route.js';
 import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
+import SuppliersRouter from './routes/supplier.route.js';
 
 
 
@@ -221,6 +222,9 @@ app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 //vehicle & Shift shipping
 app.use('/api/vehicleRoutes', vehicleRouter);
 app.use('/api/shippingRoutes', shippingRouter);
+
+app.use('/api/supplier', SuppliersRouter);
+
 
 
 // Serve static files

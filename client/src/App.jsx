@@ -58,6 +58,7 @@ import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
 import VehicleList from './pages/vehicleList';
+import SupplierDetails from './pages/supplierDetails';
 
 
 
@@ -124,6 +125,8 @@ export default function App() {
         <Route path="/shippingList" element={<ShippingList />} />
         <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
         <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
+        <Route path="/supplierDetails" element={<SupplierDetails />} />
+
 
         </Route>
       </Routes>
