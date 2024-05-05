@@ -49,6 +49,7 @@ import Updatestaff from './pages/Updatestaff';
 import Updateshift from './pages/Updateshift';
 import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
+import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
 import React, { useState } from 'react';
 
 
@@ -107,6 +108,8 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AssignWorkerToShift" element={<AssignWorkerToShift />} />
         <Route path="/WorkersAssignList" element={<WorkersAssignList />} />
+        <Route path='/MaintenanceUpdatePage/:id' element={<MaintenanceUpdatePage />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

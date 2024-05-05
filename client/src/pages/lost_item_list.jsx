@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 const ItemsPage = () => {
   const [items, setItems] = useState([]);
   const [startDate, setStartDate] = useState('');
@@ -36,13 +37,65 @@ const ItemsPage = () => {
     }
   };
 
-  const handleGenerateReport = async () => {
-    try {
-      // Code for generating report
-    } catch (error) {
-      console.error('Error generating report:', error);
+ 
+
+const handleGenerateReport = async () => {
+  try {
+    const itemsToInclude = filteredItems.map(item => {
+      const { _id,__v, createdDate, updatedAt, createdAt, ...itemWithoutMeta } = item;
+      return itemWithoutMeta;
+    });
+
+    const currentDate = new Date();
+    const fileName = `lost_item_list_${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${currentDate.getDate()}`;
+
+    if (window.confirm('Do you want to generate a PDF report? Click "Cancel" for CSV.')) {
+      // Generate PDF report
+      const doc = new jsPDF();
+      doc.autoTable({
+        head: [Object.keys(itemsToInclude[0])],
+        body: itemsToInclude.map(item => Object.values(item)),
+      });
+      doc.save(`${fileName}.pdf`);
+    } else {
+      // Generate CSV report
+      const columnWidths = {
+        itemId: 55,
+        itemName: 60,
+        itemType:55,
+        physicalQuantity:55,
+        variance :55,
+        description:55
+      };
+
+      const columnNames = Object.keys(itemsToInclude[0]).map(column => {
+        const width = columnWidths[column] || column.length;
+        return column.padEnd(width);
+      }).join(',');
+
+      const csvContent = itemsToInclude.map(item => {
+        return Object.values(item).map((value, index) => {
+          const column = Object.keys(item)[index];
+          const width = columnWidths[column] || column.length;
+          return String(value).padEnd(width);
+        }).join(',');
+      }).join('\n');
+
+      const fullCsvContent = `${columnNames}\n${csvContent}`;
+
+      const blob = new Blob([fullCsvContent], { type: 'text/csv;charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${fileName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-  };
+  } catch (error) {
+    console.error('Error generating report:', error);
+  }
+};
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -77,6 +130,7 @@ const ItemsPage = () => {
 
   const handleClearSearch = async () => {
     setSearchItemId('');
+
     try {
       const response = await fetch('/api/lostItem/lost_item_list');
       const data = await response.json();
@@ -87,34 +141,32 @@ const ItemsPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center  ml-11 w-5/6">
-      <div className="border border-blue-500 p-8 rounded-lg mt-44 overflow-x-auto "> {/* Added overflow-x-auto */}
-      <div className="flex flex-row justify-between ">
-  <div className="w-1/4">
-    <h1 className="text-3xl font-bold mb-6">All lost Items</h1>
-  </div>
-  <div className="w-2/4 ">
-    <input type="text" value={searchItemId} onChange={(e) => setSearchItemId(e.target.value)} placeholder="Search by Item ID" className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 mr-1" />
-    <button onClick={handleSearchByItemId} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Search
-    </button>
-    <button onClick={handleClearSearch} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1">
-      Clear
-    </button>
-  </div>
-  <div className="w-2/4 flex  mb-4">
-    <div className="mr-2 ">
-      <label htmlFor="startDate">Start Date:</label>
-      <input type="date" id="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ml-1" />
-    </div>
-    <div className="mr-2">
-      <label htmlFor="endDate">End Date:</label>
-      <input type="date" id="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ml-1" />
-    </div>
-    
-  </div>
-</div>
-
+    <div className="p-8 w-3/4 mx-auto me-0 pt-4">
+      <div className=" p-7 rounded-lg mt-44">
+        <div className="flex flex-row justify-between"> 
+          <div className="w-1/4">
+            <h1 className="text-3xl font-bold mb-6">All lost Items</h1>
+          </div>
+          <div className="w-2/4 ">
+            <input type="text" value={searchItemId} onChange={(e) => setSearchItemId(e.target.value)} placeholder="Search by Item ID" className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 mr-1" />
+            <button onClick={handleSearchByItemId} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Search
+            </button>
+            <button onClick={handleClearSearch} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1">
+              Clear
+            </button>
+          </div>
+          <div className="w-2/4 flex  mb-4">
+            <div className="mr-2 ">
+              <label htmlFor="startDate">Start Date:</label>
+              <input type="date" id="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ml-1" />
+            </div>
+            <div className="mr-2">
+              <label htmlFor="endDate">End Date:</label>
+              <input type="date" id="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 ml-1" />
+            </div>
+          </div>
+        </div>
         <table className="w-3/4">
           <thead>
             <tr>
@@ -142,24 +194,22 @@ const ItemsPage = () => {
                 <td className="border border-blue-500 px-4 py-2">{formatDate(item.createdDate)}</td>
                 <td className="border border-blue-500 px-4 py-2 ">
                   <div className=' flex flex-row justify-between'>
-
-                  <Link to={`/edit_lost_item/${item._id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">
-                    Update
-                  </Link>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDelete(item._id)}>
-                    Delete
-                  </button>
+                    <Link to={`/edit_lost_item/${item._id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">
+                      Update
+                    </Link>
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDelete(item._id)}>
+                      Delete
+                    </button>
                   </div>
-                 
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className="flex justify-start mt-5">
-        <Link to={`/add_lost_item`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
-      Add item
-    </Link>
+          <Link to="/add_lost_item" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+            Add item
+          </Link>
           <button onClick={handleGenerateReport} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Generate Report
           </button>
