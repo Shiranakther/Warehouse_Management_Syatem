@@ -208,8 +208,6 @@ app.use('/api/listing', listingRouter);
 app.use('/api/lowinventory', lowinventoryRouter);
 app.use("/api/Item", itemRoutes);
 app.use('/api/order', orderRoute);
-app.use('/vehicle', vehicleRouter);
-app.use('/shipping', shippingRouter);
 app.use('/api/returns', returnRoute);
 app.use('/api/wastes', wasteRoute);
 app.use("/api/maintance", Maintanceroute);
@@ -219,6 +217,11 @@ app.use("/api/lostItem", lostItemRoutes);
 app.use("/api/staff", staffRoutes);
 app.use("/api/shift", shiftRoutes);
 app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
+
+//vehicle & Shift shipping
+app.use('/api/vehicleRoutes', vehicleRouter);
+app.use('/api/shippingRoutes', shippingRouter);
+
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/client/dist')));

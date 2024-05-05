@@ -154,9 +154,10 @@ const fetchItems = async () => {
 }};
 
 //deleting an item from the api
+//deleting an item from the api
 const SetItemDelete = async (id) => { 
   try {
-    const res = await fetch ('api/Item/item_delete',
+    const res = await fetch (`api/Item/item_delete/${id}`,
     {method:'DELETE',headers:{'Content-Type':'application/json'},
     body:JSON.stringify()}).then((res) => res.json());
   } catch (error) {
@@ -185,7 +186,8 @@ function generatePDF(item){
       item.ItemID,
       item.ItemDiscription,
       item.ItemType,
-      item.ItemNoOfUints
+      item.ItemNoOfUints,
+      item.curruntlevel
     ];
     tableRow.push(itemData);
   });
@@ -203,9 +205,10 @@ const renderItems = (data) => {
           <thead className='bg-slate-700'>
           <tr className=' outline outline-2 rounded-md m-5'>
             <th className='text-center text-lg p-5'>ItemID</th>
-            <th className='text-center text-lg p-5'>Item Type</th>
+            <th className='text-center text-lg p-5'>Item Name</th>
             <th className='text-center text-lg p-5'>Item Discription</th>
             <th className='text-center text-lg p-5'>Units(Kg/L)</th>
+            <th className='text-center text-lg p-5'>Inventory Level</th>
             <th className='text-center text-lg p-5'>Added Date</th>
             <th className='text-center text-lg p-5'>Updated Date</th>
             <th className='text-center text-lg p-5'>Action</th>
@@ -218,6 +221,7 @@ const renderItems = (data) => {
               <td className=' text-sm p-5' id='itype'>{item.ItemType }</td>
               <td className=' text-sm p-5' id='idisc'>{item.ItemDiscription}</td>
               <td className=' text-sm p-5' id='noofunits'>{item.ItemNoOfUints}</td>
+              <td className=' text-sm p-5' id='curruntlevel'>{item.curruntlevel}</td>
               <td className=' text-sm p-5'>{new Date(item.createdAt).toDateString()}</td>
               <td className=' text-sm p-5'>{new Date(item.updatedAt).toDateString()}</td>
               <td><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-blue-600 rounded-md p-3  text-white  hover:bg-slate-700' >Edit</button></Link></td>

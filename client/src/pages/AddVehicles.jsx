@@ -1,148 +1,132 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import { apiUrl } from '../utils/Constants.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AddVehicles = () => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+export default function AddVehicle() {
+  const [formData, setFormData] = useState({
+    vehicleNumber: '',
+    ownerName: '',
+    manufacturedYear: '',
+    brand: '',
+    model: '',
+    mileage: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post('/api/vehicleRoutes/add', formData); // Adjust API endpoint as needed
+      const data = res.data;
+      toast.success(data.message);
+      setFormData({
         vehicleNumber: '',
         ownerName: '',
         manufacturedYear: '',
         brand: '',
         model: '',
         mileage: ''
-    });
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error('Error occurred:', error);
+      toast.error(error.message);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
 
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({ ...formData, [id]: value });
-    };
+  return (
+    <div className='flex'>
+      <div className='p-3 max-w-lg mx-auto mt-16 mr-96 w-3/5'>
+        <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Add Vehicle</h1>
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const isLoggedin = await axios.post(`${apiUrl}/vehicle`, formData);
-            if (isLoggedin) {
-                toast.success('Vehicle Added Successfully!');
-                navigate('/vehicles');
-            }
-        } catch (error) {
-            if (error.message) {
-                toast.error(error.message);
-            }
-            toast.error(error.response.data.message);
-        }
-    };
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <input
+            type="text"
+            placeholder='Vehicle Number'
+            id='vehicleNumber'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.vehicleNumber}
+            onChange={handleChange}
+            autoComplete="current-vehicleNumber"
+            required
+          />
 
-    return (
-        <div className="min-h-screen flex justify-center items-center">
-            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full md:max-w-md">
-                <h1 className="text-3xl text-center mb-8">Add a Vehicle</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="vehicleNumber">
-                            Vehicle Number
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="vehicleNumber"
-                            name="vehicleNumber"
-                            type="text"
-                            placeholder="Vehicle Number"
-                            value={formData.vehicleNumber}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ownerName">
-                            Owner Name
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="ownerName"
-                            name="ownerName"
-                            type="text"
-                            placeholder="Owner Name"
-                            value={formData.ownerName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="manufacturedYear">
-                            Manufactured Year
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="manufacturedYear"
-                            name="manufacturedYear"
-                            type="text"
-                            placeholder="Manufactured Year"
-                            value={formData.manufacturedYear}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="brand">
-                            Brand
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="brand"
-                            name="brand"
-                            type="text"
-                            placeholder="Brand"
-                            value={formData.brand}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="model">
-                            Model
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="model"
-                            name="model"
-                            type="text"
-                            placeholder="Model"
-                            value={formData.model}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mileage">
-                            Mileage
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="mileage"
-                            name="mileage"
-                            type="text"
-                            placeholder="Mileage"
-                            value={formData.mileage}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Add Vehicle
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
-};
+          <input
+            type="text"
+            placeholder='Owner Name'
+            id='ownerName'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.ownerName}
+            onChange={handleChange}
+            autoComplete="current-ownerName"
+            required
+          />
 
-export default AddVehicles;
+          <input
+            type="number"
+            placeholder='Manufactured Year'
+            id='manufacturedYear'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.manufacturedYear}
+            onChange={handleChange}
+            autoComplete="current-manufacturedYear"
+            required
+          />
+
+          <input
+            type="text"
+            placeholder='Brand'
+            id='brand'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.brand}
+            onChange={handleChange}
+            autoComplete="current-brand"
+            required
+          />
+
+          <input
+            type="text"
+            placeholder='Model'
+            id='model'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.model}
+            onChange={handleChange}
+            autoComplete="current-model"
+            required
+          />
+
+          <input
+            type="number"
+            placeholder='Mileage'
+            id='mileage'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.mileage}
+            onChange={handleChange}
+            autoComplete="current-mileage"
+            required
+          />
+
+          <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+            {loading ? 'Loading...' : 'Add Vehicle'}
+          </button>
+        </form>
+        {error && <p className="text-red-700 mt-5">{error}</p>}
+
+        <Link to='/VehicleList'>
+          <div className="bg-slate-600 text-white p-1 rounded-lg uppercase hover:opacity-95 text-center mt-5 w-32 ml-0.5">Vehicle List</div>
+        </Link>
+      </div>
+    </div>
+  );
+}
