@@ -118,5 +118,5 @@ function LowInventoryUpdate(){
   );
 }
 
-export default Item_Update;
+export default LowInventoryUpdate;
 
