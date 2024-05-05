@@ -205,7 +205,7 @@ const renderItems = (data) => {
           <thead className='bg-slate-700'>
           <tr className=' outline outline-2 rounded-md m-5'>
             <th className='text-center text-lg p-5'>ItemID</th>
-            <th className='text-center text-lg p-5'>Item Type</th>
+            <th className='text-center text-lg p-5'>Item Name</th>
             <th className='text-center text-lg p-5'>Item Discription</th>
             <th className='text-center text-lg p-5'>Units(Kg/L)</th>
             <th className='text-center text-lg p-5'>Inventory Level</th>

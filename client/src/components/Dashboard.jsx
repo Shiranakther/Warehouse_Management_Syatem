@@ -167,10 +167,7 @@ export default function Dashboard()
             Add Items
           </Link>
           <Link to="/lowInventory" className="block p-2 text-blue-200 hover:text-white">
-         Low Inventery Item List
-          </Link>
-          <Link to="/createlowinventoy" className="block p-2 text-blue-200 hover:text-white">
-          Asign Low Inventory Level
+         Low Inventery Report
           </Link>
           <Link to="/return" className="block p-2 text-blue-200 hover:text-white">
           Add Return Items

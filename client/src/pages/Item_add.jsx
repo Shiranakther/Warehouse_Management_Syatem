@@ -81,7 +81,7 @@ export default function Item_add() {
         Iten Desription<input className='w-full rounded-md p-3 text-center'
         type="text" 
         placeholder='description' 
-        id='ItemDescription' onChange={handleChange} required/>
+        id='ItemDiscription' onChange={handleChange} required/>
 
         No. of Units<input className='w-full rounded-md p-3 text-center'
         type="number" 

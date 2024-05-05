@@ -4,7 +4,7 @@ import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
 import Item from '../../../api/models/Item.model';
 
-export default function Item_main() {
+export default function LowInventoryReport() {
   const [AllItems,getAllItems] = useState([]);
   const [search, setSearch] = useState(''); //a save state for search bar
   const [loading, setLoading] = useState(false); //a save state for loading status
@@ -128,23 +128,24 @@ const renderItems = (data) => {
       
       <form onSubmit={handleSearch}>
       <input className='w-80 h-12 rounded-md outline outline-2 outline-black  hover:outline-slate-600 pl-10' 
-      type='string' placeholder='Search Items by ItemID' value= {input} 
+      type='string'  placeholder='Search Items By Id  ' value= {input} 
       onChange={e=>
         {setInput(e.target.value);
-          setSearch(e.target.value)}} />
+          setSearch(e.target.value)}} 
+          
+          />
+         
       </form>
       
      
-      <Link to='/Item_add'>
-      <button className='w-20 h-100 bg-blue-600 rounded-md p-3  text-white  hover:bg-slate-700' >New+</button>
-      </Link>
+      
       </div>
       </div>
       
       <div className=''>
         <div className='flex flex-col gap-4'>
           {loading?'Loading....':renderItems(AllItems)&&renderItems(searchItems)}
-          {searchItems.length === 0 && <p className='text-red-700'>No Low InventoryItems Found</p>}
+          {searchItems.length === 0 && <p className='text-red-700'>No Low Inventory Items Found</p>}
           <p className='text-red-700'>{error && 'An Error Occured! Please try again'}</p>
           </div>
       </div>

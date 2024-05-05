@@ -18,8 +18,6 @@ import Dashboard from './components/Dashboard';
 import CurruntPO from './pages/CurruntPO';
 import Item_main from './pages/Item_main';
 import Item_add from './pages/Item_add';
-import lowInventoryList from './pages/lowInventoryList';
-import lowInventoryUpdate from './pages/lowInventoryUpdate';
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
 import SelesOrders from './pages/SalesOrders';
@@ -57,6 +55,10 @@ import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
 import VehicleList from './pages/vehicleList';
+import LowInventoryReport from './pages/LowInventoryReport';
+import LowInventoryUpdate from './pages/LowInventoryUpdate';
+
+
 
 
 
@@ -76,8 +78,8 @@ export default function App() {
           <Route path='/display' element={<Display />} /> 
           <Route path='/create-po' element={<CreatePO />} />
 
-          <Route path='/lowInventory' element={<lowInventoryList/>} />
-          <Route path='/lowInventory_Update/:ItemID' element={<lowInventoryUpdate/>} />
+          <Route path='/lowInventory' element={<LowInventoryReport/>} />
+          <Route path='/lowInventory_Update/:ItemID' element={<LowInventoryUpdate/>} />
 
           <Route path='/createlowinventoy' element={<CreateLowInventory />} />
           <Route path='/po-report' element={<POReport />} />

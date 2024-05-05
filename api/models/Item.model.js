@@ -13,7 +13,7 @@ const itemSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
-    ItemDescription:{
+    ItemDiscription:{
         type: String,
         required: true,
     },

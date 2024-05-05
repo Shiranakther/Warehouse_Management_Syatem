@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 
-function Item_Update(){
+function LowInventoryUpdate(){
   const [item,setItem] = useState({
     ItemID:'',
     ItemType:'',
