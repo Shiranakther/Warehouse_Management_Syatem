@@ -12,15 +12,12 @@ import PrivateRoute from './components/PrivateRoute';
 import CreatePO from './pages/CreatePO';
 import UpdatePO from './pages/UpdatePO';
 import Display from './pages/Display';
-import UpdateLowInventory from './pages/UpdateLowInventory';
 import CreateLowInventory from './pages/CreateLowInventory';
-import DisplayLowInventory from './pages/DisplayLowInventory';
 import POReport from './pages/POReport';
 import Dashboard from './components/Dashboard';
 import CurruntPO from './pages/CurruntPO';
 import Item_main from './pages/Item_main';
 import Item_add from './pages/Item_add';
-
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
 import SelesOrders from './pages/SalesOrders';
@@ -58,6 +55,10 @@ import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
 import VehicleList from './pages/vehicleList';
+import LowInventoryReport from './pages/LowInventoryReport';
+import LowInventoryUpdate from './pages/LowInventoryUpdate';
+
+
 
 
 
@@ -75,8 +76,11 @@ export default function App() {
           <Route path='/' element={<Home />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/display' element={<Display />} /> 
-          <Route path='/displaylowinventory' element={<DisplayLowInventory />} />
           <Route path='/create-po' element={<CreatePO />} />
+
+          <Route path='/lowInventory' element={<LowInventoryReport/>} />
+          <Route path='/lowInventory_Update/:ItemID' element={<LowInventoryUpdate/>} />
+
           <Route path='/createlowinventoy' element={<CreateLowInventory />} />
           <Route path='/po-report' element={<POReport />} />
           <Route path='/listing/:listingId' element={<CurruntPO />} />
@@ -98,7 +102,6 @@ export default function App() {
           <Route path='/addVehicles' element={<AddVehicles />} />
           <Route path='/vehicles' element={<VehicleMNG />} />
           <Route path='/update-po/:listingId' element={<UpdatePO />} />
-          <Route path='/update-lowinventory/:updateLowInventoryId' element={<UpdateLowInventory />} />
         
         <Route path="/add_lost_item" element={<AddLostItem />} />
         <Route path="/lost_item_list" element={<Lostitemlist />} />
