@@ -166,7 +166,7 @@ export default function Dashboard()
           <Link to="/Item_add" className="block p-2 text-blue-200 hover:text-white">
             Add Items
           </Link>
-          <Link to="/displaylowinventory" className="block p-2 text-blue-200 hover:text-white">
+          <Link to="/lowInventory" className="block p-2 text-blue-200 hover:text-white">
          Low Inventery Item List
           </Link>
           <Link to="/createlowinventoy" className="block p-2 text-blue-200 hover:text-white">

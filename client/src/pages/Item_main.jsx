@@ -186,7 +186,8 @@ function generatePDF(item){
       item.ItemID,
       item.ItemDiscription,
       item.ItemType,
-      item.ItemNoOfUints
+      item.ItemNoOfUints,
+      item.curruntlevel
     ];
     tableRow.push(itemData);
   });
@@ -207,6 +208,7 @@ const renderItems = (data) => {
             <th className='text-center text-lg p-5'>Item Type</th>
             <th className='text-center text-lg p-5'>Item Discription</th>
             <th className='text-center text-lg p-5'>Units(Kg/L)</th>
+            <th className='text-center text-lg p-5'>Inventory Level</th>
             <th className='text-center text-lg p-5'>Added Date</th>
             <th className='text-center text-lg p-5'>Updated Date</th>
             <th className='text-center text-lg p-5'>Action</th>
@@ -219,6 +221,7 @@ const renderItems = (data) => {
               <td className=' text-sm p-5' id='itype'>{item.ItemType }</td>
               <td className=' text-sm p-5' id='idisc'>{item.ItemDiscription}</td>
               <td className=' text-sm p-5' id='noofunits'>{item.ItemNoOfUints}</td>
+              <td className=' text-sm p-5' id='curruntlevel'>{item.curruntlevel}</td>
               <td className=' text-sm p-5'>{new Date(item.createdAt).toDateString()}</td>
               <td className=' text-sm p-5'>{new Date(item.updatedAt).toDateString()}</td>
               <td><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-blue-600 rounded-md p-3  text-white  hover:bg-slate-700' >Edit</button></Link></td>
