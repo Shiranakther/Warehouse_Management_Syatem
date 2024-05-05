@@ -88,20 +88,34 @@ export default function AssignWorkerToShift() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:border-blue-500"
             />
-            <div className="grid grid-cols-1 gap-2">
-              {filteredStaff.map(member => (
-                <div key={member._id} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    value={member._id}
-                    checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
-                    onChange={handleStaffChange}
-                    className="mr-2 cursor-pointer"
-                  />
-                  <label className="cursor-pointer">{member.username} - ID: {member.id} - Type: {member.type}</label>
-                </div>
-              ))}
-            </div>
+            <table className="table-auto border border-collapse border-gray-400 w-full">
+  <thead>
+    <tr>
+      <th className="border border-gray-400 px-4 py-2">Name</th>
+      <th className="border border-gray-400 px-4 py-2">ID</th>
+      <th className="border border-gray-400 px-4 py-2">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredStaff.map(member => (
+      <tr key={member._id} className="border border-gray-400">
+        <td className="border border-gray-400 px-4 py-2">
+          <input
+            type="checkbox"
+            value={member._id}
+            checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
+            onChange={handleStaffChange}
+            className="mr-2 cursor-pointer"
+          />
+          {member.username}
+        </td>
+        <td className="border border-gray-400 px-4 py-2">{member.id}</td>
+        <td className="border border-gray-400 px-4 py-2">{member.type}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
           </div>
         </div>
 

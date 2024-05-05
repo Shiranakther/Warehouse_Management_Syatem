@@ -208,12 +208,12 @@ export default function Dashboard()
           <Link to="/Create-Sales-Order" className="block p-2 text-blue-200 hover:text-white">
             Create Sales Order
           </Link>
-          <Link to="/shippings" className="block p-2 text-blue-200 hover:text-white">
+          {/* <Link to="/shippings" className="block p-2 text-blue-200 hover:text-white">
           Shipping MNG
           </Link>
           <Link to="/addShipping" className="block p-2 text-blue-200 hover:text-white">
           Add Shiping Details     
-          </Link>
+          </Link> */}
                
         </div>
       )}
@@ -302,7 +302,7 @@ Shipping List
           <Link to="/MaintenanceListPage" className="block p-2 text-blue-200 hover:text-white">
             Maintanance Schedule
           </Link>
-          <Link to="/Staffmanagement" className="block p-2 text-blue-200">
+          <Link to="" className="block p-2 text-blue-200">
 
 
           
