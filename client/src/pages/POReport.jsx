@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { MdFormatUnderlined } from 'react-icons/md';
 
 export default function POReport() {
   const fileRef = useRef(null);
@@ -59,28 +60,72 @@ export default function POReport() {
 
   function downloadAsPdf() {
     const doc = new jsPDF();
-    
-    // Add title
+
+    // Add header border
+    doc.setDrawColor(0); // Set border color to black
+    doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, 40); // Draw header border with increased height
+
+    // Add header content
+    doc.setFontSize(20);
+    doc.setTextColor(0, 0, 255); // Set color to blue
+    doc.text('Chaminda Stores', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0); // Reset color to black
+    doc.setFontSize(10);
+    doc.setTextColor(130,130,130); // Set color to gray
+    doc.text('No 125, Mapatana, Horana', doc.internal.pageSize.getWidth() / 2, 27, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('TP : 075 - 6175658', doc.internal.pageSize.getWidth() / 2, 34, { align: 'center' });
     doc.setFontSize(16);
-   
-    doc.text('Purchase Order Report', 10, 20);
-    
-    
-    
- ;
-  
+    // Calculate space needed for date and time text
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    const formattedTime = currentDate.toLocaleTimeString('en-US', { timeZone: 'UTC' });
+    const dateTimeText = 'Date: ' + formattedDate + ' Time: ' + formattedTime;
+    const textWidth = doc.getStringUnitWidth(dateTimeText) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+    const availableWidth = doc.internal.pageSize.getWidth() - 20; // Subtracting 20 to provide padding
+    const xPos = 104;
+    const yPos = 40; // Adjust as needed
+
+    // Add current date and time
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0); // Set color to black
+    doc.text(dateTimeText, xPos, yPos, { align: 'center' }); // Adjust the position as needed
+
+    // Add document border
+    doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Draw document border
+
+    // Add title with underline
+    doc.setFontSize(16);
+    doc.setDrawColor(0); // Set140,140 underline color to black
+
+    doc.textWithLink('Purchase Order Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
+
+    // Add footer
+    doc.setFontSize(10);
+    doc.setTextColor(255, 0, 0); // Set color to red
+    doc.text('*****Keep this report Confidential*****', doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 15, { align: 'center' });
+
+    // Capture and add the table
     html2canvas(document.querySelector("#tableToPrint")).then((canvas) => { // Capture only the table
-      const imgData = canvas.toDataURL('image/png');
-      const imgWidth = doc.internal.pageSize.getWidth();
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-      // Add table image
-      doc.addImage(imgData, 'PNG', 10, 40, imgWidth - 20, imgHeight);
-      
-      // Save PDF
-      doc.save('purchase_orders.pdf');
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = doc.internal.pageSize.getWidth() - 20;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        // Add table image
+        doc.addImage(imgData, 'PNG', 10, 70, imgWidth, imgHeight); // Adjust the vertical position
+
+        // Save PDF
+        doc.save('purchase_orders.pdf');
     });
-  }
+}
+
+
+
+
+
+
+
 
   return (
     <div className="p-3 w-4/6 mx-auto ml-96  " ref={aboutContentRef}>

@@ -49,25 +49,72 @@ const handleSearch = (e) => {
 }
 
 //generating a pdf report on all avalable items
-function generatePDF(item){
+function generatePDF(item) {
   const doc = new jsPDF();
-  const tableCol = ["ItemID","ItemType","ItemNoOfUints","curruntlevel"];
+
+  // Add header border
+  doc.setDrawColor(0); // Set border color to black
+  doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, 40); // Draw header border with increased height
+
+  // Add header content
+  doc.setFontSize(20);
+  doc.setTextColor(0, 0, 255); // Set color to blue
+  doc.text('Chaminda Stores', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setTextColor(130,130,130);
+  doc.text('No 125 Mapatana Horana', doc.internal.pageSize.getWidth() / 2, 27, { align: 'center' });
+  doc.text('TP - 0756175658', doc.internal.pageSize.getWidth() / 2, 34, { align: 'center' });
+
+  // Calculate space needed for date and time text
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-US', { timeZone: 'UTC' });
+  const formattedTime = currentDate.toLocaleTimeString('en-US', { timeZone: 'UTC' });
+  const dateTimeText = 'Date: ' + formattedDate + ' Time: ' + formattedTime;
+  const textWidth = doc.getStringUnitWidth(dateTimeText) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+  const availableWidth = doc.internal.pageSize.getWidth() - 20; // Subtracting 20 to provide padding
+  const xPos = 78;
+  const yPos = 40; // Adjust as needed
+
+  // Add current date and time
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0); // Set color to black
+  doc.text(dateTimeText, xPos, yPos, { align: 'left' }); // Adjust the position as needed
+
+  // Add document border
+  doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Draw document border
+
+  // Add title with underline
+  doc.setFontSize(16);
+  doc.setDrawColor(0); // Set underline color to black
+  doc.textWithLink('Item Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
+
+
+  doc.setFontSize(10);
+  doc.setTextColor(255, 0, 0); // Set color to red
+  doc.text('*****Keep this report Confidential*****', doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 15, { align: 'center' });
+
+  
+  // Generate table data
+  const tableCol = ["ItemID", "ItemType", "ItemNoOfUints", "curruntlevel"];
   const tableRow = [];
 
-  item.forEach(item=>{
-    const itemData = [
-      item.ItemID,
-      item.ItemDiscription,
-      item.ItemType,
-      item.ItemNoOfUints
-    ];
-    tableRow.push(itemData);
+  item.forEach(item => {
+      const itemData = [
+          item.ItemID,
+          item.ItemDiscription,
+          item.ItemType,
+          item.ItemNoOfUints
+      ];
+      tableRow.push(itemData);
   });
 
-  doc.autoTable(tableCol,tableRow,{startY:20});
-  doc.text("Item Report",14,15);
+  // Add the table
+  doc.autoTable(tableCol, tableRow, { startY: 70 });
+
+  // Save PDF
   doc.save("report.pdf");
 }
+
 
 //rendering all the items from the api
 const renderItems = (data) => {

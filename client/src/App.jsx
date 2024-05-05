@@ -58,6 +58,7 @@ import VehicleList from './pages/vehicleList';
 import LowInventoryReport from './pages/LowInventoryReport';
 import LowInventoryUpdate from './pages/LowInventoryUpdate';
 
+import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
 
 
 
@@ -127,6 +128,7 @@ export default function App() {
         <Route path="/shippingList" element={<ShippingList />} />
         <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
         <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
+        <Route path='/MaintenanceUpdatePage/:id' element={<MaintenanceUpdatePage />} />
 
         </Route>
       </Routes>
