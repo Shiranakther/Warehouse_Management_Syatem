@@ -72,59 +72,92 @@ const ViewWastageItem = () => {
     }
   };
   
-  return (
-    <div className=" p-8 w-3/4 mx-auto me-0 pt-4">
-       <div className="border border-blue-500 p-6 rounded-lg mt-44">
-     
-        <div className="flex flex-row justify-between"> 
-          <div className="w-2/4">
-            <h1 className="text-3xl font-bold mb-6">View Wastage Items</h1>
 
 
-
+/// level 2
+return (
+    
+  <div className="mx-auto w-3/4 px-4 me-10 pt-20">
+    <div className="text-gray-700 font-roboto text-4xl mb-8">
+      View Wastage Items
+        <div >
+          {/* Render the select input */}
+                    
             </div>
-          <div className="w-2/4">
-          <input 
-              type="text" 
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)} 
-              placeholder="Search items" 
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" 
-            />
-            <button 
-              onClick={handleSearch} 
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-0 rounded ml-1"
-            >
-              Search
-            </button>
+              
+        
+      </div>
+    
 
-          </div>
+          
+           <div className="flex gap-4 mb-4 " >
+            
+          </div> 
+           <input
+          type="text"
+          placeholder="Search by name"
+        //   value={searchQuery}
+        // onChange={(e) => setSearchQuery(e.target.value)} 
+        value={searchQuery} 
+        onChange={(e) => setSearchQuery(e.target.value)} 
+          className="border border-blue-400 py-2 px-4 rounded-md "
+        />
+        <button onClick={handleSearch} 
+        className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11">
+          Search By Name
+        </button>
 
-          </div>
 
-          <button 
-               
-               onClick={handleClearSearch} 
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-0 rounded ml-1"
-            >
-              Clear
-            </button>
+        <input
+          type="date"
+         // value={startDate}
+         // onChange={(e) => setStartDate(e.target.value)}
+          className="border border-blue-400 py-2 px-4 rounded-md mr-5"
+        />
+         
+        <input
+          type="date"
+          //value={endDate}
+          //onChange={(e) => setEndDate(e.target.value)}
+          className="border border-blue-400 py-2 px-4 rounded-md"
+        /> 
+       
+       <button 
+             
+             onClick={handleClearSearch} 
+            className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11"
+          >
+                Clear
+          </button>
 
-      
+
+
+
+
+          
+
+
+
+ 
       <table className="mt-20">
         <thead>
-          <tr>
-            <th className="border border-blue-500 px-4 py-2">Item name</th>
-            <th className="border border-blue-500 px-4 py-2">Item code</th>
-            <th className="border border-blue-500 px-4 py-2">Quantity</th>
-            <th className="border border-blue-500 px-4 py-2">Company name</th>
-            <th className="border border-blue-500 px-4 py-2">Supplier ID</th>
-            <th className="border border-blue-500 px-4 py-2">Damage or expired</th>
-            <th className="border border-blue-500 px-4 py-2">Reason</th>
-            <th className="border border-blue-500 px-4 py-2">Action</th>
+        <tr className="bg-gray-200 text-gray-700">
+            <th className="border border-gray-400 py-2 px-4">Item name</th>
+            <th className="border border-gray-400 py-2 px-4">Item code</th>
+            <th className="border border-gray-400 py-2 px-4">Quantity</th>
+            <th className="border border-gray-400 py-2 px-4">Company name</th>
+            <th className="border border-gray-400 py-2 px-4">Supplier ID</th>
+            <th className="border border-gray-400 py-2 px-4">Damage or expired</th>
+            <th className="border border-gray-400 py-2 px-4">Reason</th>
+            <th className="border border-gray-400 py-2 px-4">Action</th>
           </tr>
         </thead>
-        <tbody>
+
+
+
+
+
+<tbody>
           {WastesItems.map((item) => (
             <tr key={item._id}>
               <td className="border border-blue-500 px-4 py-2">{item.name}</td>
@@ -153,21 +186,35 @@ const ViewWastageItem = () => {
             </tr>
           ))}
         </tbody>
+
+
+
       </table>
-      <div>
       <button
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4  rounded mt-4"
+        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-6"
         onClick={handleGenerateReport}
       >
         Generate Report
       </button>
     </div>
-    </div>
-    </div>
-   
-    
-
-  );
+  //  </div>
+);
 };
 
 export default ViewWastageItem;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

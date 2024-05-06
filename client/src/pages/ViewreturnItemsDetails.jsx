@@ -71,63 +71,95 @@ const ViewreturnItemsDetails = () => {
   
 
   return (
-    <div className="p-8 w-3/4 mx-auto me-0 pt-4">
-      <div className="border border-blue-500 p-7 rounded-lg mt-44">
-        <div className="flex flex-row justify-between"> 
-          <div className="w-1/4">
-            <h1 className="text-3xl font-bold mb-6">View Return Items</h1>
-          </div>
-          <div className="w-2/4">
-            <input 
-              type="text" 
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)} 
-              placeholder="Search items" 
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" 
-            />
-            <button 
-              onClick={handleSearch} 
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-0 rounded ml-1"
-            >
-              Search
-            </button>
-            
-          </div>
+    
+    <div className="mx-auto w-3/4 px-4 me-10 pt-20">
+      <div className="text-gray-700 font-roboto text-4xl mb-8">
+        View Return Items
+          <div >
+            {/* Render the select input */}
+                      
+              </div>
+                
+          
         </div>
-        <button 
+      
+
+            
+             <div className="flex gap-4 mb-4 " >
+              
+            </div> 
+             <input
+            type="text"
+            placeholder="Search by name"
+            value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} 
+            className="border border-blue-400 py-2 px-4 rounded-md "
+          />
+          <button onClick={handleSearch} className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11">
+            Search By Name
+          </button>
+
+
+          <input
+            type="date"
+           // value={startDate}
+           // onChange={(e) => setStartDate(e.target.value)}
+            className="border border-blue-400 py-2 px-4 rounded-md mr-5"
+          />
+           
+          <input
+            type="date"
+            //value={endDate}
+            //onChange={(e) => setEndDate(e.target.value)}
+            className="border border-blue-400 py-2 px-4 rounded-md"
+          /> 
+         
+         <button 
                
                onClick={handleClearSearch} 
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-0 rounded ml-1"
+              className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11"
             >
-              Clear
+                  Clear
             </button>
+
+
+
+
+
+            
+
+ 
+
         <h1 className="absolute top-0 left-0 ml-10 mt-10">Return items details</h1>
         <table className="mt-20">
           <thead>
-            <tr>
-              <th className="border px-4 py-2">Item name</th>
-              <th className="border px-4 py-2">Item code</th>
-              <th className="border px-4 py-2">Quantity</th>
-              <th className="border px-4 py-2">Company name</th>
-              <th className="border px-4 py-2">Supplier ID</th>
-              <th className="border px-4 py-2">Damage or expired</th>
-              <th className="border px-4 py-2">Reason</th>
-              <th className="border px-4 py-2">Action</th>
+          <tr className="bg-gray-200 text-gray-700">
+              <th className="border border-gray-400 py-2 px-4">Item name</th>
+              <th className="border border-gray-400 py-2 px-4">Item Id</th>
+              <th className="border border-gray-400 py-2 px-4">Quantity</th>
+              <th className="border border-gray-400 py-2 px-4">Company name</th>
+              <th className="border border-gray-400 py-2 px-4">Supplier ID</th>
+              <th className="border border-gray-400 py-2 px-4">Damage or expired</th>
+              <th className="border border-gray-400 py-2 px-4">Reason</th>
+              <th className="border border-gray-400 py-2 px-4">Action</th>
             </tr>
           </thead>
+
+      
+
           <tbody>
             {returnItems.map((item) => (
               <tr key={item._id}>
-                <td className="border px-4 py-2">{item.name}</td>
-                <td className="border px-4 py-2">{item.itemCode}</td>
-                <td className="border px-4 py-2">{item.quantity}</td>
-                <td className="border px-4 py-2">{item.companyName}</td>
-                <td className="border px-4 py-2">{item.supplierId}</td>
-                <td className="border px-4 py-2">{item.damageOrExpired}</td>
-                <td className="border px-4 py-2">{item.reason}</td>
-                <td className="border px-4 py-2 w-60">
+                <td className="border border-gray-400 py-2 px-4">{item.name}</td>
+                <td className="border border-gray-400 py-2 px-4 text-blue-500 underline">{item.itemCode}</td>
+                <td className="border border-gray-400 py-2 px-4">{item.quantity}</td>
+                <td className="border border-gray-400 py-2 px-4 ">{item.companyName}</td>
+                <td className="border border-gray-400 py-2 px-4 text-green-500 underline">{item.supplierId}</td>
+                <td className="border border-gray-400 py-2 px-4">{item.damageOrExpired}</td>
+                <td className="border border-gray-400 py-2 px-4">{item.reason}</td>
+                <td className="border border-gray-400 py-2 w-96 px-20">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded mr-9"
                     onClick={() => {
                       window.location.href = `/UplodeReturnItems/${item._id}`;
                     }}
@@ -144,6 +176,10 @@ const ViewreturnItemsDetails = () => {
               </tr>
             ))}
           </tbody>
+
+
+
+          
         </table>
         <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-6"
@@ -152,8 +188,55 @@ const ViewreturnItemsDetails = () => {
           Generate Report
         </button>
       </div>
-    </div>
+    //  </div>
   );
 };
 
 export default ViewreturnItemsDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
