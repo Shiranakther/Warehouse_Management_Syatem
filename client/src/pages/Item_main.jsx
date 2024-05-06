@@ -153,17 +153,35 @@ const fetchItems = async () => {
   setError(true); //if an error occurs set error true
 }};
 
-//deleting an item from the api
-//deleting an item from the api
+// deleting an item from the api
+// deleting an item from the api
+// const SetItemDelete = async (id) => { 
+//   try {
+//     const res = await fetch (`/api/Item/item_delete/${id}`,
+//     {method:'DELETE',headers:{'Content-Type':'application/json'},
+//     body:JSON.stringify()}).then((res) => res.json());
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const SetItemDelete = async (id) => { 
   try {
-    const res = await fetch (`api/Item/item_delete/${id}`,
-    {method:'DELETE',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify()}).then((res) => res.json());
+    await fetch(`/api/Item/item_delete/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    // After successful deletion, filter out the deleted item from AllItems
+    const updatedItems = AllItems.filter(item => item.ItemID !== id);
+    // Update the state with the filtered items
+    getAllItems(updatedItems);
   } catch (error) {
     console.log(error);
   }
 };
+
+
 
 //searching items by ItemID
 const searchItems = AllItems.filter((item) => 
