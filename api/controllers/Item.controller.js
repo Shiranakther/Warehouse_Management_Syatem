@@ -44,7 +44,7 @@ export const GetsingItems = async (req,res,next) => {
     
 };
 
-//deleting an item from the api
+// deleting an item from the api
 export const DeleteItems = async(req,res,next) => {
     try{
         const ItemID = req.params.id;
@@ -62,17 +62,22 @@ export const DeleteItems = async(req,res,next) => {
 
 // export const DeleteItems = async (req, res, next) => {
 //     try {
-//         const ItemID = req.params.id;
-//         const item = await Item.findOneAndDelete({_id: ItemID}); // Pass the query object {_id: ItemID}
+//         const itemId = req.params.id;
+        
+//         // Find the item by ID and delete it
+//         const item = await Item.findByIdAndDelete(itemId);
+
+//         // Check if item exists
 //         if (!item) {
 //             return res.status(404).json({ message: "Item not found" });
 //         }
+
+//         // If deletion is successful, send success response
 //         res.status(200).json({ message: "Item deleted successfully" });
 //     } catch (error) {
 //         next(error);
 //     }
 // };
-
 
 
 //updating the items from the api
@@ -119,4 +124,3 @@ export const GetItemreport = async(req,res,next) => {
         next(error);
     };
 };
-
