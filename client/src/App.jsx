@@ -12,21 +12,24 @@ import PrivateRoute from './components/PrivateRoute';
 import CreatePO from './pages/CreatePO';
 import UpdatePO from './pages/UpdatePO';
 import Display from './pages/Display';
-import UpdateLowInventory from './pages/UpdateLowInventory';
 import CreateLowInventory from './pages/CreateLowInventory';
-import DisplayLowInventory from './pages/DisplayLowInventory';
 import POReport from './pages/POReport';
 import Dashboard from './components/Dashboard';
 import CurruntPO from './pages/CurruntPO';
 import Item_main from './pages/Item_main';
 import Item_add from './pages/Item_add';
-
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
-import SelesOrders from './pages/salesOrders';
-import UpdatePendingSelesOrders from './pages/updatePendingSelesOrders';
+import SelesOrders from './pages/SalesOrders';
+import UpdatePendingSelesOrders from './pages/UpdatePendingSelesOrders';
+
 import ShippingMNG from './pages/ShippingMNG';
-import VehicleMNG from './pages/VehicleMNG';
+import VehicleMNG from './pages/vehicleList';
+import ShippingList from './pages/shippingList';
+import Updatevehicle from './pages/updatevehicle';
+import UpdateShipping from './pages/updateShipping';
+
+
 import AddVehicles from './pages/AddVehicles';
 import AddShipping from './pages/AddShipping';
 import EnterReturnItems from './pages/EnterReturnItems';
@@ -51,6 +54,12 @@ import Updateshift from './pages/Updateshift';
 import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
+import VehicleList from './pages/vehicleList';
+import LowInventoryReport from './pages/LowInventoryReport';
+import LowInventoryUpdate from './pages/LowInventoryUpdate';
+
+import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
+
 
 
 
@@ -68,8 +77,11 @@ export default function App() {
           <Route path='/' element={<Home />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/display' element={<Display />} /> 
-          <Route path='/displaylowinventory' element={<DisplayLowInventory />} />
           <Route path='/create-po' element={<CreatePO />} />
+
+          <Route path='/lowInventory' element={<LowInventoryReport/>} />
+          <Route path='/lowInventory_Update/:ItemID' element={<LowInventoryUpdate/>} />
+
           <Route path='/createlowinventoy' element={<CreateLowInventory />} />
           <Route path='/po-report' element={<POReport />} />
           <Route path='/listing/:listingId' element={<CurruntPO />} />
@@ -91,7 +103,6 @@ export default function App() {
           <Route path='/addVehicles' element={<AddVehicles />} />
           <Route path='/vehicles' element={<VehicleMNG />} />
           <Route path='/update-po/:listingId' element={<UpdatePO />} />
-          <Route path='/update-lowinventory/:updateLowInventoryId' element={<UpdateLowInventory />} />
         
         <Route path="/add_lost_item" element={<AddLostItem />} />
         <Route path="/lost_item_list" element={<Lostitemlist />} />
@@ -108,6 +119,17 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AssignWorkerToShift" element={<AssignWorkerToShift />} />
         <Route path="/WorkersAssignList" element={<WorkersAssignList />} />
+
+
+
+        <Route path="/AddVehicles" element={<AddVehicles />} />
+        <Route path="/AddShipping" element={<AddShipping />} />
+        <Route path="/vehicleList" element={<VehicleList />} />
+        <Route path="/shippingList" element={<ShippingList />} />
+        <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
+        <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
+        <Route path='/MaintenanceUpdatePage/:id' element={<MaintenanceUpdatePage />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

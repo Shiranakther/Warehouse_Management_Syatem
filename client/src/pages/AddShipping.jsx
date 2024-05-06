@@ -1,141 +1,126 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom';
-import { Grid, Paper } from "@mui/material";
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
-import { apiUrl } from '../utils/Constants.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AddShipping = () => {
+export default function AddShipping() {
+  const [formData, setFormData] = useState({
+    userName: '',
+    userMobile: '',
+    userAddress: '',
+    vehicle: '',
+    status: 'In Progress'
+  });
+  const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-
-    const navigate = useNavigate();
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const payload = {
-            userName: data.get('userName'),
-            userMobile: data.get('userMobile'),
-            userAddress: data.get('userAddress')
-        };
-        console.log(payload);
-        try {
-            const isLoggedin = await axios.post(`${apiUrl}/shipping`, payload);
-            if (isLoggedin) {
-                toast.success('Added Successfully!');
-                navigate('/shippings');
-            }
-        } catch (error) {
-            if (error.message) {
-                toast.error(error.message);
-            }
-            toast.error(error.response.data.message);
-        }
+  useEffect(() => {
+    // Fetch vehicles from backend
+    const fetchVehicles = async () => {
+      try {
+        const res = await axios.get('/api/vehicleRoutes/'); // Adjust API endpoint as needed
+        setVehicles(res.data);
+      } catch (error) {
+        console.error('Error fetching vehicles:', error);
+        toast.error('Error fetching vehicles');
+      }
     };
+    fetchVehicles();
+  }, []);
 
-    return (
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
 
-        <Container component="main" maxWidth="lg"  className=' pt-20 '>
-            <Box
-                sx={{
-                    marginTop: 20, // Increase this value to move the form further down
-                    my: 8,
-                    mx: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <Grid container >
-                    <Grid
-                        item
-                        xs={12}
-                        sm={8}
-                        md={5}
-                        mx={'auto'}
-                        component={Paper}
-                        elevation={6}
-                        square
-                    >
-                        <Box
-                            sx={{
-                                my: 8,
-                                mx: 4,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Typography component="h1" variant="h4">
-                                Add Shipping Details
-                            </Typography>
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post('/api/shippingRoutes/', formData); // Adjust API endpoint as needed
+      const data = res.data;
+      toast.success(data.message);
+      setFormData({
+        userName: '',
+        userMobile: '',
+        userAddress: '',
+        vehicle: '',
+        status: 'In Progress'
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error('Error occurred:', error);
+      toast.error(error.message);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
 
-                                <Grid container spacing={2}>
+  return (
+    <div className='flex'>
+      <div className='p-3 max-w-lg mx-auto mt-16 mr-96 w-3/5'>
+        <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Add Shipping</h1>
 
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            name="userName"
-                                            required
-                                            fullWidth
-                                            id="userName"
-                                            label="Name"
-                                            autoFocus
-                                        />
-                                    </Grid>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <input
+            type="text"
+            placeholder='User Name'
+            id='userName'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.userName}
+            onChange={handleChange}
+            autoComplete="current-userName"
+            required
+          />
 
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            name="userMobile"
-                                            type='number'
-                                            required
-                                            fullWidth
-                                            id="userMobile"
-                                            label="Mobile"
-                                            autoFocus
-                                        />
-                                    </Grid>
+          <input
+            type="text"
+            placeholder='User Mobile'
+            id='userMobile'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.userMobile}
+            onChange={handleChange}
+            autoComplete="current-userMobile"
+            required
+          />
 
-                                    <Grid item xs={12} sm={12}>
-                                        <TextField
-                                            name="userAddress"
-                                            required
-                                            fullWidth
-                                            multiline
-                                            rows={4}
-                                            id="userAddress"
-                                            label="Address"
-                                            autoFocus
-                                        />
-                                    </Grid>
+          <input
+            type="text"
+            placeholder='User Address'
+            id='userAddress'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.userAddress}
+            onChange={handleChange}
+            autoComplete="current-userAddress"
+            required
+          />
 
+          <select
+            id='vehicle'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.vehicle}
+            onChange={handleChange}
+            autoComplete="current-vehicle"
+            required
+          >
+            <option value="" disabled>Select Vehicle</option>
+            {vehicles.map((vehicle) => (
+              <option key={vehicle._id} value={vehicle._id}>{vehicle.model}</option>
+            ))}
+          </select>
 
-                                </Grid>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                >
-                                    Add Shipping Details
-                                </Button>
-                                <Grid container justifyContent="flex-end"
-                                    sx={{ mb: 0.5 }}>
+          <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+            {loading ? 'Loading...' : 'Add Shipping'}
+          </button>
+        </form>
+        {error && <p className="text-red-700 mt-5">{error}</p>}
 
-                                </Grid>
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Container>
-    );
-};
-
-export default AddShipping;
-
+        <Link to='/ShippingList'>
+          <div className="bg-slate-600 text-white p-1 rounded-lg uppercase hover:opacity-95 text-center mt-5 w-32 ml-0.5">Shipping List</div>
+        </Link>
+      </div>
+    </div>
+  );
+}
