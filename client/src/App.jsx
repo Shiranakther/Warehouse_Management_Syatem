@@ -23,8 +23,8 @@ import Item_add from './pages/Item_add';
 
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
-import SelesOrders from './pages/salesOrders';
-import UpdatePendingSelesOrders from './pages/updatePendingSelesOrders';
+import SelesOrders from './pages/SalesOrders';
+import UpdatePendingSalesOrders from './pages/UpdatePendingSelesOrders';
 
 import ShippingMNG from './pages/ShippingMNG';
 import VehicleMNG from './pages/vehicleList';
@@ -86,7 +86,7 @@ export default function App() {
           <Route path='/Item_Update/:ItemID' element={<Item_Update/>} />
           <Route path="/Create-Sales-Order" element={<CreateSalesOrder />} />
           <Route path="/sales-orders" element={<SelesOrders />} />
-          <Route path="/update-pending-orders/:id" element={<UpdatePendingSelesOrders />} />
+          <Route path="/update-pending-orders/:id" element={<UpdatePendingSalesOrders />} />
           <Route path='/shippingmng' element={<ShippingMNG />} />
           <Route path='/shippings' element={<ShippingMNG />} />
           <Route path='/addShipping' element={<AddShipping />} />
