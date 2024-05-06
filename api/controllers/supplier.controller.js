@@ -2,7 +2,7 @@ import Sitems from '../models/sitem.moduel.js';
 import Supplier from '../models/supplier.model.js';
 
 export const getSuppliers = async (req, res) => {
-  try {
+  try {Sitems
     const suppliers = await Supplier.find({});
     res.json({ success: true, suppliers });
   } catch (error) {

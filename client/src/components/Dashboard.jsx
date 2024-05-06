@@ -14,10 +14,7 @@ export default function Dashboard()
     const [showReportLinks, setShowReportLinks] = useState(false);
     const [showOperationLinks, setShowOperationLinks] = useState(false);
     const [showStaffLinks, setShowStaffLinks] = useState(false);
-<<<<<<< Updated upstream
-=======
     const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
->>>>>>> Stashed changes
   
     const handleInventoryButtonClick = () => {
       setShowInventoryLinks(!showInventoryLinks); // Toggle the state of showInventoryLinks
@@ -25,10 +22,7 @@ export default function Dashboard()
       setShowPurchasesLinks(false);
       setShowReportLinks(false);
       setShowOperationLinks(false);
-<<<<<<< Updated upstream
-=======
       setShowPendingRequestLinks(false);
->>>>>>> Stashed changes
     };
   
     const handlePurchasesButtonClick = () => {
@@ -67,8 +61,6 @@ export default function Dashboard()
       setShowPendingRequestLinks(false);
     };
 
-<<<<<<< Updated upstream
-=======
     const handelPendingRequestclick = () => {
       setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
       // Hide other link sections when Operations button is clicked
@@ -79,12 +71,12 @@ export default function Dashboard()
 
     }
 
->>>>>>> Stashed changes
   const [isRotated1, setIsRotated1] = useState(false);
   const [isRotated2, setIsRotated2] = useState(false);
   const [isRotated3, setIsRotated3] = useState(false);
   const [isRotated4, setIsRotated4] = useState(false);
   const [isRotated5, setIsRotated5] = useState(false);
+  const [isRotated6, setIsRotated6] = useState(false);
 
   const handleRotate1 = () => {
     setIsRotated1(!isRotated1);
@@ -106,13 +98,10 @@ export default function Dashboard()
     setIsRotated5(!isRotated5);
   };
 
-<<<<<<< Updated upstream
-=======
   const handleRotate6 = () => {
     setIsRotated6(!isRotated6);
   }
 
->>>>>>> Stashed changes
   const handleBothClicks1 = () => {
     handleRotate1();
     handleInventoryButtonClick();
@@ -133,14 +122,11 @@ export default function Dashboard()
     handleRotate5();
     handleStaffButtonClick();
   };
-<<<<<<< Updated upstream
-=======
 
   const handleBothClicks6 = () => {
     handleRotate6();
     handelPendingRequestclick();
   };
->>>>>>> Stashed changes
     return (
 
         <div className="dashboard-container bg-gray-900 w-72 h-screen fixed left-0 ">
@@ -235,6 +221,9 @@ export default function Dashboard()
           <Link to="/addShipping" className="block p-2 text-blue-200 hover:text-white">
           Add Shiping Details     
           </Link>
+          <Link to="/supplier_item_list" className="block p-2 text-blue-200 hover:text-white">
+          Supplier Item List     
+          </Link>
                
         </div>
       )}
@@ -295,14 +284,9 @@ export default function Dashboard()
           <Link to="/MaintenanceListPage" className="block p-2 text-blue-200 hover:text-white">
             Maintanance Schedule
           </Link>
+          
           <Link to="/Staffmanagement" className="block p-2 text-blue-200">
 
-<<<<<<< Updated upstream
-
-
-
-=======
->>>>>>> Stashed changes
           <div>
             <button className="  " onClick={handleBothClicks5}>
                
@@ -335,6 +319,8 @@ export default function Dashboard()
           <Link to="/AssignWorkerToShift" className="block p-2  text-white hover:text-slate-400">
           Assign Worker To Shift
           </Link>
+
+         
           
         </div>
       )}
@@ -361,12 +347,15 @@ export default function Dashboard()
             {showPendingRequestLinks  && (
         <div className='pl-3'>
           <Link to="/purchase_request" className="block p-2 text-blue-200 hover:text-white">
-            Purchase Request
+            Pending Purchse Order Request
           </Link>
           <Link to="/supplier_request" className="block p-2 text-blue-200 hover:text-white">
-            Supplier pending 
+            Pending Supplier Request
           </Link>
          
+          
+          
+          
         </div>
       )}
       </div>
@@ -377,3 +366,6 @@ export default function Dashboard()
         
     );
 }
+
+
+
