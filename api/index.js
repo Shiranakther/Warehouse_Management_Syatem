@@ -173,7 +173,15 @@ import Maintanceroute from './routes/maintance.route.js';
 import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
-import approvePORoutes from './routes/approvePORoutes.route.js';
+// <<<<<<< Dilshan-part
+
+// //supplier items list
+// import SuppliersRouter from './routes/supplier.route.js';
+// import adminRouter from './routes/admin.router.js';
+
+// =======
+// import approvePORoutes from './routes/approvePORoutes.route.js';
+// >>>>>>> dilshantest
 
 
 // Load environment variables from .env file
@@ -219,10 +227,16 @@ app.use("/api/staff", staffRoutes);
 app.use("/api/shift", shiftRoutes);
 app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 
-//vehicle & Shift shipping
-app.use('/api/vehicleRoutes', vehicleRouter);
-app.use('/api/shippingRoutes', shippingRouter);
+// <<<<<<< Dilshan-part
+// //supplier item list
+// app.use('/api/supplier', SuppliersRouter);
+// app.use('/api/admin', adminRouter);
+// =======
+// //vehicle & Shift shipping
+// app.use('/api/vehicleRoutes', vehicleRouter);
+// app.use('/api/shippingRoutes', shippingRouter);
 
+// >>>>>>> dilshantest
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/client/dist')));
