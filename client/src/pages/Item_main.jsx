@@ -196,7 +196,7 @@ const handleSearch = (e) => {
 
 function generatePDF(item){
   const doc = new jsPDF();
-  const tableCol = ["ItemID","ItemDiscription","ItemType","ItemNoOfUints"];
+  const tableCol = ["ItemID","ItemDiscription","ItemType","ItemNoOfUints","supplierName"];
   const tableRow = [];
 
   item.forEach(item=>{
@@ -205,7 +205,8 @@ function generatePDF(item){
       item.ItemDiscription,
       item.ItemType,
       item.ItemNoOfUints,
-      item.curruntlevel
+      item.curruntlevel,
+      item.supplierName
     ];
     tableRow.push(itemData);
   });
@@ -224,6 +225,7 @@ const renderItems = (data) => {
           <tr className=' outline outline-2 rounded-md m-5'>
             <th className='text-center text-lg p-5'>ItemID</th>
             <th className='text-center text-lg p-5'>Item Name</th>
+            <th className='text-center text-lg p-5'>Supplier Name</th>
             <th className='text-center text-lg p-5'>Item Discription</th>
             <th className='text-center text-lg p-5'>Units(Kg/L)</th>
             <th className='text-center text-lg p-5'>Inventory Level</th>
@@ -237,6 +239,7 @@ const renderItems = (data) => {
           <tr key={item.ItemID} className=' outline-2 rounded-md outline outline-black ' >
               <td className=' text-sm p-5' id='iid'>{item.ItemID}</td>
               <td className=' text-sm p-5' id='itype'>{item.ItemType }</td>
+              <td className=' text-sm p-5' id='itype'>{item.supplierName }</td>
               <td className=' text-sm p-5' id='idisc'>{item.ItemDiscription}</td>
               <td className=' text-sm p-5' id='noofunits'>{item.ItemNoOfUints}</td>
               <td className=' text-sm p-5' id='curruntlevel'>{item.curruntlevel}</td>

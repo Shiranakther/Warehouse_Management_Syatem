@@ -77,8 +77,12 @@ export default function Item_add() {
         type="text" 
         placeholder='Item Name' 
         id='ItemType' onChange={handleChange}/> 
+        Supplier Name<input className='w-full rounded-md p-3 text-center' 
+        type="text" 
+        placeholder='Supplier Name' 
+        id='supplierName' onChange={handleChange}/> 
 
-        Iten Desription<input className='w-full rounded-md p-3 text-center'
+        Item Desription<input className='w-full rounded-md p-3 text-center'
         type="text" 
         placeholder='description' 
         id='ItemDiscription' onChange={handleChange} required/>

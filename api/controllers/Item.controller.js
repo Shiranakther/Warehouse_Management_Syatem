@@ -3,13 +3,14 @@ import Item from '../models/Item.model.js';
 
 //adding items through the api
 export const AddItems = async (req,res,next) => {
-    const{ItemID,ItemType,ItemNoOfUints,curruntlevel,ItemDiscription}=req.body; 
+    const{ItemID,ItemType,ItemNoOfUints,curruntlevel,ItemDiscription,supplierName}=req.body; 
     const newItem = new Item({
         ItemID,
         ItemType,
         ItemNoOfUints,
         ItemDiscription,
-        curruntlevel
+        curruntlevel,
+        supplierName
     });
     try {
         await newItem.save();
@@ -83,7 +84,7 @@ export const DeleteItems = async(req,res,next) => {
 //updating the items from the api
 export const UpdateItems = async(req,res,next) => {
     const {ItemID} = req.params; //getting the item id from the params
-    const {ItemDiscription,ItemType,ItemNoOfUints,curruntlevel} = req.body; //getting the item data from the body
+    const {ItemDiscription,ItemType,ItemNoOfUints,curruntlevel,supplierName} = req.body; //getting the item data from the body
     try {
         //finding the item by id and updating the item data
         const UpdateItems = await Item.findOneAndUpdate({ItemID},

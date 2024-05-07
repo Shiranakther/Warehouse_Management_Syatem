@@ -11,6 +11,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePO from './pages/CreatePO';
 import UpdatePO from './pages/UpdatePO';
+import PendingPO from './pages/PendingPO';
 import Display from './pages/Display';
 import CreateLowInventory from './pages/CreateLowInventory';
 import POReport from './pages/POReport';
@@ -103,6 +104,7 @@ export default function App() {
           <Route path='/addVehicles' element={<AddVehicles />} />
           <Route path='/vehicles' element={<VehicleMNG />} />
           <Route path='/update-po/:listingId' element={<UpdatePO />} />
+          <Route path='/pending-po' element={<PendingPO />} />
         
         <Route path="/add_lost_item" element={<AddLostItem />} />
         <Route path="/lost_item_list" element={<Lostitemlist />} />
