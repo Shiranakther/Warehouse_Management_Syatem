@@ -8,6 +8,7 @@ export default function ShippingList() {
   const [shippingList, setShippingList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetchShippings();
@@ -21,11 +22,30 @@ export default function ShippingList() {
     try {
       const response = await axios.get('/api/shippingRoutes');
       setShippingList(response.data);
+      // Extract order object ids from shippingList and fetch corresponding OrderIDs
+      const orderIds = response.data.map(shipping => shipping.orderId);
+      fetchOrders(orderIds);
     } catch (error) {
       console.error('Error fetching shipping list:', error);
       toast.error('Error fetching shippings');
     }
   };
+
+  const fetchOrders = async (orderIds) => {
+    try {
+      const response = await axios.get('/api/order/getAllOrders', {
+        params: { orderIds }
+      });
+      // Extract all orders from the response data
+      const allOrders = response.data.map(item => item.orders).flat();
+      setOrders(allOrders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      toast.error('Error fetching orders');
+    }
+  };
+  
+  
 
   const handleDelete = async (id) => {
     try {
@@ -75,6 +95,9 @@ export default function ShippingList() {
             {/* Table header */}
             <thead>
               <tr className="bg-gray-200">
+                
+                <th className="py-2 px-4 border">Shipping ID</th>
+                <th className="py-2 px-4 border">Order ID</th>
                 <th className="py-2 px-4 border">User Name</th>
                 <th className="py-2 px-4 border">User Mobile</th>
                 <th className="py-2 px-4 border">User Address</th>
@@ -87,26 +110,34 @@ export default function ShippingList() {
             <tbody>
               {searchResults.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-4">No data available</td>
+                  <td colSpan="8" className="text-center py-4">No data available</td>
                 </tr>
               ) : (
-                searchResults.map((shipping, index) => (
-                  <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
-                    <td className="py-2 px-4 border">{shipping.userName}</td>
-                    <td className="py-2 px-4 border">{shipping.userMobile}</td>
-                    <td className="py-2 px-4 border">{shipping.userAddress}</td>
-                    <td className="py-2 px-4 border">{shipping.vehicle ? shipping.vehicle.model : '-'}</td>
-                    <td className="py-2 px-4 border">{shipping.status}</td>
-                    <td className="py-2 px-4 border">
-                      <div className="flex justify-between">
-                        <Link to={`/updateShipping/${shipping._id}`}>
-                          <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Update</button>
-                        </Link>
-                        <button className="bg-red-500 text-white px-3 py-1 rounded ml-2 hover:bg-red-600 focus:outline-none focus:bg-red-600" onClick={() => handleDelete(shipping._id)}>Delete</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                searchResults.map((shipping, index) => {
+                  const order = orders.find(order => order._id === shipping.orderId);
+                  const orderId = order ? order.OrderID : '-';
+                  return (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
+                      
+                      
+                      <td className="py-2 px-4 border">{shipping.shippingId}</td>
+                      <td className="py-2 px-4 border">{orderId}</td>
+                      <td className="py-2 px-4 border">{shipping.userName}</td>
+                      <td className="py-2 px-4 border">{shipping.userMobile}</td>
+                      <td className="py-2 px-4 border">{shipping.userAddress}</td>
+                      <td className="py-2 px-4 border">{shipping.vehicle ? shipping.vehicle.model : '-'}</td>
+                      <td className="py-2 px-4 border">{shipping.status}</td>
+                      <td className="py-2 px-4 border">
+                        <div className="flex justify-between">
+                          <Link to={`/updateShipping/${shipping._id}`}>
+                            <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Update</button>
+                          </Link>
+                          <button className="bg-red-500 text-white px-3 py-1 rounded  hover:bg-red-600 focus:outline-none focus:bg-red-600" onClick={() => handleDelete(shipping._id)}>Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

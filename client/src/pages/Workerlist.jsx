@@ -11,6 +11,9 @@ export default function Workerlist() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [startDate, setStartDate] = useState('');
+const [endDate, setEndDate] = useState('');
+
 
   useEffect(() => {
     fetchStaff();
@@ -49,19 +52,26 @@ export default function Workerlist() {
       
       // Check if the name or ID contains the search term
       const nameOrIdMatch = staff.username.toLowerCase().includes(searchTerm.toLowerCase()) || staff.id.includes(searchTerm);
-
-      // Return true if both conditions are met
-      return typeMatch && nameOrIdMatch;
+  
+      // Check if the join date falls within the time period
+      const withinTimePeriod = (startDate === '' || staff.joindate >= startDate) && (endDate === '' || staff.joindate <= endDate);
+  
+      // Return true if all conditions are met
+      return typeMatch && nameOrIdMatch && withinTimePeriod;
     });
-
+  
     setSearchResults(results);
   };
+  
 
   const clearSearch = () => {
     setSearchTerm('');
+    setStartDate('');
+    setEndDate('');
     setSelectedTypes([]);
     setSearchResults(staffList); // Reset searchResults to all staffList data
   };
+  
 
   const handleTypeChange = (event) => {
     const { value, checked } = event.target;
@@ -75,9 +85,27 @@ export default function Workerlist() {
   function downloadAsPdf() {
     const doc = new jsPDF();
   
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(0, 0, 255); // Set color to blue
+    doc.text('Chaminda Stores', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0); // Reset color to black
+    doc.setFontSize(10);
+    doc.setTextColor(130, 130, 130); // Set color to blue
+    doc.text('No 125, Mapatana, Horana', doc.internal.pageSize.getWidth() / 2, 27, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('TP : 075 - 6175658', doc.internal.pageSize.getWidth() / 2, 34, { align: 'center' });
+  
+    // Footer
+    doc.setFontSize(10);
+    doc.setTextColor(255, 0, 0); // Set color to red
+    doc.text('Keep this report Confidential', doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 15, { align: 'center' });
+  
+    // Table and content
     // Add title
     doc.setFontSize(16);
-    doc.text('Worker List Report', 10, 20);
+    doc.text('Worker List Report', 82, 60);
   
     // Add table
     const table = document.getElementById('tableToPrint');
@@ -86,12 +114,13 @@ export default function Workerlist() {
       const imgWidth = 180; // Adjust width as needed
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
   
-      doc.addImage(imgData, 'PNG', 10, 30, imgWidth, imgHeight);
+      doc.addImage(imgData, 'PNG', 10, 70, imgWidth, imgHeight);
   
       // Save PDF
       doc.save('worker_list_report.pdf');
     });
   }
+  
   
 
   return (
@@ -110,6 +139,7 @@ export default function Workerlist() {
           <button onClick={handleSearch} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Search</button>
           <button onClick={clearSearch} className="bg-gray-500 text-white px-4 py-2 rounded ml-2 hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Clear</button>
         </div>
+        
         <div className="mb-4 flex">
           <label className="mr-4">
             <input
@@ -142,6 +172,23 @@ export default function Workerlist() {
             Labor
           </label>
         </div>
+        <div className="mb-4 flex">
+  <input
+    type="date"
+    value={startDate}
+    onChange={(e) => setStartDate(e.target.value)}
+    className="p-3 rounded-lg border-2 border-gray-300 mr-2 focus:outline-none focus:border-blue-500"
+  />
+  <input
+    type="date"
+    value={endDate}
+    onChange={(e) => setEndDate(e.target.value)}
+    className="p-3 rounded-lg border-2 border-gray-300 mr-2 focus:outline-none focus:border-blue-500"
+  />
+  <button onClick={handleSearch} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Search</button>
+  <button onClick={clearSearch} className="bg-gray-500 text-white px-4 py-2 rounded ml-2 hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Clear</button>
+</div>
+
         <div>
           <table id="tableToPrint" className="w-full border-collapse mt-14">
             {/* Table header */}

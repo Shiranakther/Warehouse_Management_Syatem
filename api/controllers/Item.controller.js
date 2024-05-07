@@ -1,77 +1,16 @@
-// import Item from '../models/Item.model.js';
-
-// export const AddItems = async (req,res,next) => {
-//     const{ItemID,ItemDiscription,ItemType,ItemNoOfUints,userRef}=req.body; 
-//     const newItem = new Item({
-//         ItemID,
-//         ItemDiscription,
-//         ItemType,
-//         ItemNoOfUints,
-//         userRef
-//     });
-//     try {
-//         await newItem.save();
-//         res.status(201).json({massage:"Item added successfully"});
-//     } catch (error) {
-//         next(error);
-//     }
-    
-// };
-
-// export const GetItems = async (req,res,next) => {
-//     try{
-//         const allItems = await Item.find({});
-//         res.status(200).json(allItems);     
-//     }
-//     catch(error){
-//         next(error);
-//     };
-    
-// };
-
-// export const DeleteItems = async(req,res,next) => {
-//     try{
-//         const id=req.params.ItemID;
-//         console.log(id);
-//         const item = await Item.findOneAndDelete(req.params.ItemID);
-//         if(!item){
-//             return res.status(404).json({massage:"Item not found"});
-//         }
-
-//     }
-//     catch(error){
-//         next(error);
-//     }
-// }
-
-// export const UpdateItems = async(req,res,next) => {
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-// }
-
-// export const SearchItems = async(req,res,next) => {
-//     try {
-        
-        
-//     } catch (error) {
-        
-//     }
-// }
 import Item from '../models/Item.model.js';
 
 
 //adding items through the api
 export const AddItems = async (req,res,next) => {
-    const{ItemID,ItemDiscription,ItemType,ItemNoOfUints,userRef}=req.body; 
+    const{ItemID,ItemType,ItemNoOfUints,curruntlevel,ItemDiscription,supplierName}=req.body; 
     const newItem = new Item({
         ItemID,
-        ItemDiscription,
         ItemType,
         ItemNoOfUints,
-        userRef
+        ItemDiscription,
+        curruntlevel,
+        supplierName
     });
     try {
         await newItem.save();
@@ -106,13 +45,15 @@ export const GetsingItems = async (req,res,next) => {
     
 };
 
-//deleting an item from the api
+// deleting an item from the api
 export const DeleteItems = async(req,res,next) => {
     try{
-        const item = await Item.findOneAndDelete(req.params.ItemID);
+        const ItemID = req.params.id;
+        const item = await Item.findOneAndDelete(ItemID);
         if(!item){
             return res.status(404).json({massage:"Item not found"});
         }
+        res.status(200).json({massage:"Item deleted successfully"});
 
     }
     catch(error){
@@ -120,14 +61,34 @@ export const DeleteItems = async(req,res,next) => {
     }
 };
 
+// export const DeleteItems = async (req, res, next) => {
+//     try {
+//         const itemId = req.params.id;
+        
+//         // Find the item by ID and delete it
+//         const item = await Item.findByIdAndDelete(itemId);
+
+//         // Check if item exists
+//         if (!item) {
+//             return res.status(404).json({ message: "Item not found" });
+//         }
+
+//         // If deletion is successful, send success response
+//         res.status(200).json({ message: "Item deleted successfully" });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
+
+
 //updating the items from the api
 export const UpdateItems = async(req,res,next) => {
     const {ItemID} = req.params; //getting the item id from the params
-    const {ItemDiscription,ItemType,ItemNoOfUints} = req.body; //getting the item data from the body
+    const {ItemDiscription,ItemType,ItemNoOfUints,curruntlevel,supplierName} = req.body; //getting the item data from the body
     try {
         //finding the item by id and updating the item data
         const UpdateItems = await Item.findOneAndUpdate({ItemID},
-            {ItemDiscription,ItemType,ItemNoOfUints},
+            {ItemDiscription,ItemType,ItemNoOfUints,curruntlevel},
             {new:true});
             //if the item is not found return a 404 status
             if(!UpdateItems){

@@ -10,6 +10,7 @@ export default function AssignWorkerToShift() {
     const storedData = localStorage.getItem('selectedStaffForShift');
     return storedData ? JSON.parse(storedData) : Object.fromEntries(shifts.map(shift => [shift._id, []]));
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchShiftsAndStaff = async () => {
@@ -58,14 +59,19 @@ export default function AssignWorkerToShift() {
     });
   };
 
+  const filteredStaff = staff.filter(member =>
+    member.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    member.id.toLowerCase().includes(searchTerm.toLowerCase())
+    
+  );
+
   return (
-    <div className='flex w-3/5 ml-96'>
-      
-    <div className='container mx-auto mt-14'>
-    <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Assign Workers To Shift</h1>
+    <div className='flex w-3/4 ml-80'>
+    <div className="container mx-auto mt-14">
+      <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Assign Workers To Shift</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 bg-white rounded-md shadow-md">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Select Shift</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Select Shift</h2>
           <select value={selectedShift} onChange={handleShiftChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
             <option value="">Select Shift</option>
             {shifts.map(shift => (
@@ -74,32 +80,52 @@ export default function AssignWorkerToShift() {
           </select>
         </div>
         <div className="p-6 bg-white rounded-md shadow-md">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Select Staff</h2>
-          <div className="grid grid-cols-1 gap-2">
-            {staff.map(member => (
-              <div key={member._id} className="flex items-center">
-                <input
-                  type="checkbox"
-                  value={member._id}
-                  checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
-                  onChange={handleStaffChange}
-                  className="mr-2 cursor-pointer"
-                />
-                <label className="cursor-pointer">{member.username} - ID: {member.id} - Type: {member.type}</label>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Select Staff</h2>
+          <input
+            type="text"
+            placeholder="Search by Name or ID"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:border-blue-500"
+          />
+          <table className="table-auto border border-collapse border-gray-400 w-full">
+            <thead className="bg-blue-500 text-white">
+              <tr>
+                <th className="border border-gray-400 px-4 py-2">Name</th>
+                <th className="border border-gray-400 px-4 py-2">ID</th>
+                <th className="border border-gray-400 px-4 py-2">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStaff.map(member => (
+                <tr key={member._id} className="border border-gray-400 hover:bg-gray-100">
+                  <td className="border border-gray-400 px-4 py-2">
+                    <input
+                      type="checkbox"
+                      value={member._id}
+                      checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
+                      onChange={handleStaffChange}
+                      className="mr-2 cursor-pointer"
+                    />
+                    {member.username}
+                  </td>
+                  <td className="border border-gray-400 px-4 py-2">{member.id}</td>
+                  <td className="border border-gray-400 px-4 py-2">{member.type}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div className="mt-8">
         {shifts.map(shift => (
           <div key={shift._id} className="bg-white rounded-md shadow-md p-6 mb-4">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">{shift.shiftname}</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4 te">{shift.shiftname}</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-200">
+                <thead className="bg-gray-200">
+                  <tr>
                     <th className="py-2 px-4 border">Name</th>
                     <th className="py-2 px-4 border">ID</th>
                     <th className="py-2 px-4 border">Type</th>

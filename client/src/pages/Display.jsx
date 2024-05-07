@@ -99,7 +99,7 @@ export default function Display() {
           
           <table className="w-full border-collapse"   >
   <thead>
-    <tr className="bg-gray-200 text-gray-700">
+    <tr className="bg-blue-600 text-white " >
       
       <th className="border border-blue-700 py-2 px-4">ID</th>
       <th className="border border-blue-700 py-2 px-4">SUPPLIER NAME</th>
