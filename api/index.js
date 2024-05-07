@@ -168,6 +168,7 @@ import returnRoute from './routes/returnRoute.js';
 import wasteRoute from './routes/wasteRoute.js';
 import lostItemRoutes from './routes/lostItem.route.js'; 
 import Maintanceroute from './routes/maintance.route.js';
+import Disasterroute from './routes/disaster.route.js';
 
 //staff & shifts
 import staffRoutes from './routes/staff.route.js';
@@ -212,7 +213,11 @@ app.use('/api/returns', returnRoute);
 app.use('/api/wastes', wasteRoute);
 app.use("/api/maintance", Maintanceroute);
 app.use("/api/lostItem", lostItemRoutes);
+
+app.use('/api/disaster',Disasterroute)
+
 app.use('/api', approvePORoutes);
+
 
 //staff & Shift routes
 app.use("/api/staff", staffRoutes);

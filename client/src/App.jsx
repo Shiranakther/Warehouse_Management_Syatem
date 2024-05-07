@@ -59,6 +59,7 @@ import LowInventoryReport from './pages/LowInventoryReport';
 import LowInventoryUpdate from './pages/LowInventoryUpdate';
 import PendingPO from './pages/PendingPO';
 import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
+import DisasterManagement from './pages/Disaster_Management';
 
 
 
@@ -131,6 +132,7 @@ export default function App() {
         <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
         <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
         <Route path='/MaintenanceUpdatePage/:id' element={<MaintenanceUpdatePage />} />
+        <Route path="/d-manage" element={<DisasterManagement/>}/>
 
         </Route>
       </Routes>
