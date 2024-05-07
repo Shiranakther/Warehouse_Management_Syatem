@@ -29,6 +29,7 @@ export default function CreatePO() {
         setLoading(false);
       } catch (error) {
         setError(true);
+        
       }
     };
     
@@ -45,7 +46,7 @@ export default function CreatePO() {
             <option value='' >Select Item</option>
             {AllItems.map((item) => (
               <option key={item.ItemID} value={item.ItemID} data-itemtype={item.ItemType}>
-                {item.ItemID}
+                {item.ItemID} - {item.ItemDiscription}
               </option>
             ))}
           </select>
@@ -82,6 +83,7 @@ export default function CreatePO() {
      orderQuentity: 1,
    
   });
+
  
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -119,12 +121,24 @@ export default function CreatePO() {
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
+      }else{
+        window.alert('Successfully created Purchase Order');
+        
       }
       navigate(`/update-po/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      supplierName: '',
+      itemCode: '',
+      itemName: '',
+      orderQuentity: 1
+    });
   };
   
   return (
@@ -186,7 +200,7 @@ export default function CreatePO() {
   </div>
 
   <div className="flex justify-between ml-64 mt-4">
-    <button className="w-48 h-12 rounded-md bg-red-600 text-white font-roboto font-semibold text-lg cursor-pointer hover:bg-red-700 focus:outline-none">Save as Draft</button>
+    <button onClick={resetForm} className="w-48 h-12 rounded-md bg-red-600 text-white font-roboto font-semibold text-lg cursor-pointer hover:bg-red-700 focus:outline-none">Reset</button>
     <button className="w-48 h-12 rounded-md bg-green-600 text-white font-roboto font-semibold text-lg cursor-pointer hover:bg-green-700 focus:outline-none"> {loading ? 'Creating...' : 'Create PO'}</button>
   </div>
 </form>

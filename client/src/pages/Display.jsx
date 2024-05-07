@@ -53,7 +53,11 @@ export default function Display() {
     try {
       const res = await fetch(`/api/listing/delete/${listingId}`, {
         method: 'DELETE',
-      });
+        
+      }
+      
+    );
+       window.alert('Successfully Deleted Purchase Order');
       const data = await res.json();
       if (data.success === false) {
         console.log(data.message);
@@ -79,7 +83,7 @@ export default function Display() {
   };
 
   return (
-    <div className='p-3 w-2/4  mx-auto me-64' ref={aboutContentRef}>
+    <div className='p-3 w-3/4  mx-auto me-10' ref={aboutContentRef}>
      
 
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
@@ -92,8 +96,8 @@ export default function Display() {
       </p>
 
       {userListings && userListings.length >= 0 && (
-        <div className='flex flex-col gap-4'>
-          <h1 className='text-gray-700 font-roboto text-4xl mb-8 mt-10'>
+        <div className='flex flex-col gap-4 mt-10'>
+          <h1 className='text-gray-700 font-roboto text-4xl mb-8 mt-10 ml-96 pl-10 '>
             Purchase Orders
           </h1>
           
@@ -153,7 +157,7 @@ export default function Display() {
           <div className="flex flex-col item-center">
             <button
               onClick={() => handleListingDelete(listing._id)}
-              className="text-red-700 uppercase"
+              className="text-white h-10 w-20 uppercase bg-red-600 px-2 rounded-md ml-5 "
             >
               Delete
             </button>
@@ -163,7 +167,7 @@ export default function Display() {
         <td className="py-2 px-4 border">
           <div className="flex flex-col item-center">
             <Link to={`/update-po/${listing._id}`}>
-              <button className="text-green-700 uppercase">Edit</button>
+              <button className="text-white h-10 w-20 uppercase bg-green-600 px-5 rounded-md ml-5">Edit</button>
             </Link>
           </div>
         </td>

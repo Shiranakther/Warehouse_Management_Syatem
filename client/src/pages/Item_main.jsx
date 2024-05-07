@@ -247,7 +247,7 @@ const renderItems = (data) => {
               <td className=' text-sm text-black bg-white border border-black p-5' id='curruntlevel'>{item.curruntlevel}</td>
               <td className=' text-sm text-black bg-white border border-black p-5'>{new Date(item.createdAt).toDateString()}</td>
               <td className=' text-sm text-black bg-white border border-black p-5'>{new Date(item.updatedAt).toDateString()}</td>
-              <td className='flex flex-column bg-white justify-between pt-4'><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-green-600 rounded-md p-3  text-white  hover:bg-slate-700 m-2' >Edit</button></Link>
+              <td className='text-sm text-black bg-white border border-black p-5 w-60'><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-green-600 rounded-md p-3  text-white  hover:bg-slate-700 m-2' >Edit</button></Link>
               <button className='w-20 bg-red-600 rounded-md p-3  text-white   hover:bg-slate-700 m-2'  onClick={()=>SetItemDelete(item.ItemID)}>Delete</button> </td>
           </tr>
         ))}
