@@ -133,7 +133,7 @@ export default function POReport() {
       {loading && <p>Loading...</p>}
       {userListings && (
         <div className="flex flex-col gap-4 mt-16   p-10  " >
-          <h1 className="text-gray-700 font-roboto text-4xl mb-8">Purchase Order Report</h1>
+          <h1 className="text-gray-600 font-roboto text-5xl mb-12 ml-64">Purchase Order Report</h1>
           <div className="flex gap-4 mb-4 " >
             <input
               type="text"

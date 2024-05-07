@@ -78,28 +78,7 @@ const handleListingDelete = async (listingId) => {
   }
 };
 
-// const handleListingApprove = async (listing) => {
-//   try {
-//     const res = await fetch('/api/approve-po', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(listing),
-//     });
-//     const data = await res.json();
-//     if (!res.ok) {
-//       throw new Error(data.message || 'Failed to approve listing');
-//     }
 
-//     // After successful approval, remove the listing from the current list
-//     setUserListings(prevListings =>
-//       prevListings.filter(prevListing => prevListing._id !== listing._id)
-//     );
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
 
 const handleListingApprove = async (listing) => {
   try {
@@ -137,7 +116,7 @@ const handleListingApprove = async (listing) => {
       {loading && <p>Loading...</p>}
       {userListings && (
         <div className="flex flex-col gap-4 mt-16   p-10  " >
-          <h1 className="text-gray-700 font-roboto text-4xl mb-8">Purchase Order Report</h1>
+          <h1 className="text-gray-700 font-roboto text-4xl mb-8">Pending Purchase Order Requests</h1>
           <div className="flex gap-4 mb-4 " >
             <input
               type="text"
