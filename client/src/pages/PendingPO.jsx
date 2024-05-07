@@ -58,67 +58,7 @@ export default function PendingPO() {
     setUserListings(filteredListings);
   };
 
-  function downloadAsPdf() {
-    const doc = new jsPDF();
-
-    // Add header border
-    doc.setDrawColor(0); // Set border color to black
-    doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, 40); // Draw header border with increased height
-
-    // Add header content
-    doc.setFontSize(20);
-    doc.setTextColor(0, 0, 255); // Set color to blue
-    doc.text('Chaminda Stores', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0); // Reset color to black
-    doc.setFontSize(10);
-    doc.setTextColor(130,130,130); // Set color to gray
-    doc.text('No 125, Mapatana, Horana', doc.internal.pageSize.getWidth() / 2, 27, { align: 'center' });
-    doc.setFontSize(10);
-    doc.text('TP : 075 - 6175658', doc.internal.pageSize.getWidth() / 2, 34, { align: 'center' });
-    doc.setFontSize(16);
-    // Calculate space needed for date and time text
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-US', { timeZone: 'UTC' });
-    const formattedTime = currentDate.toLocaleTimeString('en-US', { timeZone: 'UTC' });
-    const dateTimeText = 'Date: ' + formattedDate + ' Time: ' + formattedTime;
-    const textWidth = doc.getStringUnitWidth(dateTimeText) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-    const availableWidth = doc.internal.pageSize.getWidth() - 20; // Subtracting 20 to provide padding
-    const xPos = 104;
-    const yPos = 40; // Adjust as needed
-
-    // Add current date and time
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0); // Set color to black
-    doc.text(dateTimeText, xPos, yPos, { align: 'center' }); // Adjust the position as needed
-
-    // Add document border
-    doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Draw document border
-
-    // Add title with underline
-    doc.setFontSize(16);
-    doc.setDrawColor(0); // Set140,140 underline color to black
-
-    doc.textWithLink('Purchase Order Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
-
-    // Add footer
-    doc.setFontSize(10);
-    doc.setTextColor(255, 0, 0); // Set color to red
-    doc.text('*****Keep this report Confidential*****', doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 15, { align: 'center' });
-
-    // Capture and add the table
-    html2canvas(document.querySelector("#tableToPrint")).then((canvas) => { // Capture only the table
-        const imgData = canvas.toDataURL('image/png');
-        const imgWidth = doc.internal.pageSize.getWidth() - 20;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        // Add table image
-        doc.addImage(imgData, 'PNG', 10, 70, imgWidth, imgHeight); // Adjust the vertical position
-
-        // Save PDF
-        doc.save('purchase_orders.pdf');
-    });
-}
+  
 const handleListingDelete = async (listingId) => {
   try {
     const res = await fetch(`/api/listing/delete/${listingId}`, {
@@ -138,8 +78,54 @@ const handleListingDelete = async (listingId) => {
   }
 };
 
+// const handleListingApprove = async (listing) => {
+//   try {
+//     const res = await fetch('/api/approve-po', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(listing),
+//     });
+//     const data = await res.json();
+//     if (!res.ok) {
+//       throw new Error(data.message || 'Failed to approve listing');
+//     }
 
+//     // After successful approval, remove the listing from the current list
+//     setUserListings(prevListings =>
+//       prevListings.filter(prevListing => prevListing._id !== listing._id)
+//     );
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
+const handleListingApprove = async (listing) => {
+  try {
+    const res = await fetch('/api/approve-po', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(listing),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || 'Failed to approve listing');
+    }
+
+    // After successful approval, remove the listing from the current list
+    setUserListings(prevListings =>
+      prevListings.filter(prevListing => prevListing._id !== listing._id)
+    );
+
+    // Delete the listing after approval
+    handleListingDelete(listing._id);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 
 
@@ -168,7 +154,7 @@ const handleListingDelete = async (listingId) => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="border border-blue-400 py-2 px-4 rounded-md"
+              className="border border-blue-400 py-2 px-4 rounded-md ml-6"
             />
              
             <input
@@ -184,40 +170,40 @@ const handleListingDelete = async (listingId) => {
           </div>
           <table id="tableToPrint" className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="border border-gray-400 py-2 px-4">supplier Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Code</th>
-                <th className="border border-gray-400 py-2 px-4">Order Quantity</th>
-                <th className="border border-gray-400 py-2 px-4">Created Date</th>
-                <th className="border border-gray-400 py-2 px-4">Last Update</th>
-                <th className="border border-gray-400 py-2 px-4">Status</th>
+              <tr className="bg-blue-500 text-white">
+                <th className="border border-white py-2 px-4">supplier Name</th>
+                <th className="border border-white py-2 px-4">Item Name</th>
+                <th className="border border-white py-2 px-4">Item Code</th>
+                <th className="border border-white py-2 px-4">Order Quantity</th>
+                <th className="border border-white py-2 px-4">Created Date</th>
+                <th className="border border-white py-2 px-4">Last Update</th>
+                <th className="border border-white py-2 px-4">Status</th>
               </tr>
             </thead>
             <tbody>
   {userListings.map((listing) => (
     <tr key={listing._id} className="border-b">
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1 align-center">
         {listing.supplierName}
       </td>
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1">
         {listing.itemName}
       </td>
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1">
         {listing.itemCode}
       </td>
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1">
         {listing.orderQuentity}
       </td>
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1">
         {formatDate(listing.createdAt)}
       </td>
-      <td className="py-2 px-4 border text-slate-700 font-semibold truncate flex-1">
+      <td className="py-2 px-4 border text-slate-800 font-semibold truncate flex-1">
         {formatDate(listing.updatedAt)}
       </td>
       <td className="py-2 px-4 border">
         <div className="flex flex-col item-center">
-        <button className="bg-green-500 text-white uppercase rounded-md border-none mt-2 mb-2 p-2">Approve</button>
+        <button className="bg-green-500 text-white uppercase rounded-md border-none mt-2 mb-2 p-2" onClick={() => handleListingApprove(listing)}>Approve</button>
         <button className="bg-red-500 text-white uppercase rounded-md border-none mt-2 mb-2 p-2" onClick={() => handleListingDelete(listing._id)}>Reject</button>
         </div>
       </td>
@@ -226,9 +212,7 @@ const handleListingDelete = async (listingId) => {
 </tbody>
 
           </table>
-          <button onClick={downloadAsPdf} className=" uppercase text-white uppercase bg-green-500  rounded-md w-2/6 h-10 mt-5 ">
-            Download As PDF
-          </button>
+          
         </div>
       )}
     </div>
