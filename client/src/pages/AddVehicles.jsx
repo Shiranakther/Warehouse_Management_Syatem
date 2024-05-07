@@ -25,9 +25,10 @@ export default function AddVehicle() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('/api/vehicleRoutes/add', formData); // Adjust API endpoint as needed
+      const res = await axios.post('/api/vehicleRoutes/add', formData);
       const data = res.data;
-      toast.success(data.message);
+      console.log(data);
+      toast.success(data.message); // Display success message
       setFormData({
         vehicleNumber: '',
         ownerName: '',
@@ -51,7 +52,7 @@ export default function AddVehicle() {
         <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Add Vehicle</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          <input
+        <input
             type="text"
             placeholder='Vehicle Number'
             id='vehicleNumber'

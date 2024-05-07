@@ -6,21 +6,23 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddShipping() {
   const [formData, setFormData] = useState({
+    shippingId: '', 
+    orderId: '', 
     userName: '',
     userMobile: '',
     userAddress: '',
-    vehicle: '',
-    status: 'In Progress'
+    vehicle: '', 
+    status: 'In Progress',
   });
   const [vehicles, setVehicles] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch vehicles from backend
     const fetchVehicles = async () => {
       try {
-        const res = await axios.get('/api/vehicleRoutes/'); // Adjust API endpoint as needed
+        const res = await axios.get('/api/vehicleRoutes/');
         setVehicles(res.data);
       } catch (error) {
         console.error('Error fetching vehicles:', error);
@@ -28,6 +30,17 @@ export default function AddShipping() {
       }
     };
     fetchVehicles();
+
+    const fetchOrders = async () => {
+      try {
+        const res = await axios.get('/api/order/getAllOrders');
+        setOrders(res.data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+        toast.error('Error fetching orders');
+      }
+    };
+    fetchOrders();
   }, []);
 
   const handleChange = (e) => {
@@ -39,15 +52,20 @@ export default function AddShipping() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('/api/shippingRoutes/', formData); // Adjust API endpoint as needed
+      console.log(formData)
+      const res = await axios.post('/api/shippingRoutes/', formData);
+      console.log(res);
       const data = res.data;
       toast.success(data.message);
       setFormData({
+        ...formData,
+        shippingId: '', 
+        orderId: '',
         userName: '',
         userMobile: '',
         userAddress: '',
         vehicle: '',
-        status: 'In Progress'
+        status: 'In Progress',
       });
       setLoading(false);
     } catch (error) {
@@ -64,6 +82,31 @@ export default function AddShipping() {
         <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Add Shipping</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+          <input
+            type="text"
+            placeholder='Shipping ID'
+            id='shippingId'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.shippingId}
+            onChange={handleChange}
+            autoComplete="current-shippingId"
+            required
+          />
+          
+          <select
+            id='orderId'
+            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+            value={formData.orderId}
+            onChange={handleChange}
+            autoComplete="current-orderId"
+            required
+          >
+            <option value="" disabled>Select Order</option>
+            {orders[0]?.orders.map((order) => (
+              <option key={order._id} value={order._id}>{order.OrderID}</option>
+            ))}
+          </select>
+
           <input
             type="text"
             placeholder='User Name'
@@ -115,6 +158,7 @@ export default function AddShipping() {
             {loading ? 'Loading...' : 'Add Shipping'}
           </button>
         </form>
+
         {error && <p className="text-red-700 mt-5">{error}</p>}
 
         <Link to='/ShippingList'>
