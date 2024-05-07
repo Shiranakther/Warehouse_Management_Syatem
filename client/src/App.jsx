@@ -51,6 +51,9 @@ import AssignWorkerToShift from './pages/AssignWorkerToShift';
 import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
 import SupplierItemsList from './pages/SupplierItemsList';
+import PurchaseReq from './pages/PurchaseReq';
+import PendingSupplier from '../../api/models/pendingSupplier.model';
+import SupplierReq from './pages/SupplierReq';
 
 
 
@@ -109,6 +112,8 @@ export default function App() {
         <Route path="/AssignWorkerToShift" element={<AssignWorkerToShift />} />
         <Route path="/WorkersAssignList" element={<WorkersAssignList />} />
         <Route path="/supplier_item_list" element={<SupplierItemsList />} />
+        <Route path="/purchase_request" element={<PurchaseReq />} />
+        <Route path="/supplier_request" element={<SupplierReq />} />
         </Route>
       </Routes>
     </BrowserRouter>

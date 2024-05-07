@@ -176,6 +176,7 @@ import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
 
 //supplier items list
 import SuppliersRouter from './routes/supplier.route.js';
+import adminRouter from './routes/admin.router.js';
 
 
 
@@ -225,6 +226,7 @@ app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 
 //supplier item list
 app.use('/api/supplier', SuppliersRouter);
+app.use('/api/admin', adminRouter);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/client/dist')));

@@ -330,7 +330,7 @@ export default function Dashboard()
         </div>
       )}
             </div>
-            {userType === 'user' && (
+           
             <div>
             <button className=" w-60 flex items-center justify-start px-4 py-2 rounded-xl mt-3 hover:bg-blue-400 " onClick={handleBothClicks6}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 30 32" fill="none" >
@@ -359,7 +359,7 @@ export default function Dashboard()
         </div>
       )}
       </div>
-      )}
+      
         </div>
     </div>
       
