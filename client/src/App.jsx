@@ -57,7 +57,7 @@ import React, { useState } from 'react';
 import VehicleList from './pages/vehicleList';
 import LowInventoryReport from './pages/LowInventoryReport';
 import LowInventoryUpdate from './pages/LowInventoryUpdate';
-
+import PendingPO from './pages/PendingPO';
 import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
 import DisasterManagement from './pages/Disaster_Management';
 
@@ -70,6 +70,7 @@ export default function App() {
     <BrowserRouter>
   
       <ToastContainer />
+      
       <Routes>
         
       <Route path='/sign-in' element={<SignIn UserType={setUserType} />} />
@@ -104,7 +105,8 @@ export default function App() {
           <Route path='/addVehicles' element={<AddVehicles />} />
           <Route path='/vehicles' element={<VehicleMNG />} />
           <Route path='/update-po/:listingId' element={<UpdatePO />} />
-        
+          <Route path='/pending-po' element={<PendingPO />} />
+       
         <Route path="/add_lost_item" element={<AddLostItem />} />
         <Route path="/lost_item_list" element={<Lostitemlist />} />
         <Route path='/edit_lost_item/:id' element={<EditItemPage />} />

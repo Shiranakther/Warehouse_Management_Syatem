@@ -77,8 +77,12 @@ export default function Item_add() {
         type="text" 
         placeholder='Item Name' 
         id='ItemType' onChange={handleChange}/> 
+        Supplier Name<input className='w-full rounded-md p-3 text-center' 
+        type="text" 
+        placeholder='Supplier Name' 
+        id='supplierName' onChange={handleChange}/> 
 
-        Iten Desription<input className='w-full rounded-md p-3 text-center'
+        Item Desription<input className='w-full rounded-md p-3 text-center'
         type="text" 
         placeholder='description' 
         id='ItemDiscription' onChange={handleChange} required/>
@@ -90,9 +94,9 @@ export default function Item_add() {
 
        
         
-        Currunt Level<input className='w-full rounded-md p-3 text-center'
+        Add Low Inventory Level<input className='w-full rounded-md p-3 text-center'
         type="number" 
-        placeholder='Currunt Level' 
+        placeholder='Add Inventory Level' 
         id='curruntlevel' onChange={handleChange} required/> 
 
         

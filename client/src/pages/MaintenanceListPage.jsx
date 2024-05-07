@@ -38,27 +38,25 @@ const MaintenanceListPage = () => {
     return dateTime.toLocaleString('en-US', options);
   };
 
-  const handleDeleteTask = async (id) => {
-    try {
-      const response = await fetch(`/api/maintance/delete_maintenance_task/${id}`, {
+ 
+const handleDeleteTask = async (id) => {
+  try {
+    const response = await fetch(`/api/maintance/delete_maintenance_task/${id}`, {
       method: 'DELETE'
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to delete maintenance task');
-      }
-  
-      // Fetch the updated list of tasks
-      const updatedTasksResponse = await fetch('/api/maintance/MaintenanceListPage');
-      const updatedTasks = await updatedTasksResponse.json();
-  
-      setMaintenanceTasks(updatedTasks);
-      alert('Maintenance task deleted successfully');
-    } catch (error) {
-      console.error('Error deleting maintenance task:', error);
-      alert('Failed to delete maintenance task');
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete maintenance task');
     }
-  };
+
+    // Fetch the updated list of tasks
+    await fetchMaintenanceTasks();
+    alert('Maintenance task deleted successfully');
+  } catch (error) {
+    console.error('Error deleting maintenance task:', error);
+    alert('Failed to delete maintenance task');
+  }
+};
 
   const handleSearch = () => {
     const filteredTasks = maintenanceTasks.filter(task =>
@@ -72,13 +70,48 @@ const MaintenanceListPage = () => {
   const handleGenerateReport = () => {
     try {
       const doc = new jsPDF();
+  
+      // Add header border
+      doc.setDrawColor(0); // Set border color to black
+      doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, 40); // Draw header border with increased height
+  
+      // Add header content
+      doc.setFontSize(20);
+      doc.setTextColor(0, 0, 255); // Set color to blue
+      doc.text('Chaminda Stores', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0); // Reset color to black
+      doc.setFontSize(10);
+      doc.setTextColor(130,130,130); // Set color to blue
+      doc.text('No 125, Mapatana, Horana', doc.internal.pageSize.getWidth() / 2, 27, { align: 'center' });
+      doc.setFontSize(10);
+      doc.text('TP : 075 - 6175658', doc.internal.pageSize.getWidth() / 2, 34, { align: 'center' });
+  
+      // Add current date and time
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('en-US', { timeZone: 'UTC' });
+      const formattedTime = currentDate.toLocaleTimeString('en-US', { timeZone: 'UTC' });
+      const dateTimeText = 'Date: ' + formattedDate + ' Time: ' + formattedTime;
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0); // Set color to black
+      doc.text(dateTimeText, 104, 40, { align: 'center' }); // Adjust the position as needed
+  
+      // Add document border
+      doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Draw document border
 
-    doc.setFontSize(16); // Set the font size for the title
-    doc.text('Maintenance Report', 55, 30, { align: 'right' }); 
+      // Add title with underline
+    doc.setFontSize(16);
+    doc.setDrawColor(0); // Set140,140 underline color to black
+
+    doc.textWithLink('Maintenance Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
 
 
 
 
+
+
+  
+      // Add table
       doc.autoTable({
         head: [
           ["Task Title", "Equipment/Facility", "Maintenance Type", "Scheduled Date and Time", "Duration (minutes)", "Assigned Technician", "Assigned Technician Contact", "Priority", "Cost Estimation", "Description", "Status"]
@@ -97,30 +130,34 @@ const MaintenanceListPage = () => {
           task.status
         ]),
         columnStyles: {
-          0: {cellWidth: 18},
-          1: {cellWidth: 18},
+          0: {cellWidth: 15},
+          1: {cellWidth: 15},
           2: {cellWidth: 18},
           3: {cellWidth: 15},
-          4: {cellWidth: 16},
-          5: {cellWidth: 20},
-          6: {cellWidth: 20},
+          4: {cellWidth: 15},
+          5: {cellWidth: 15},
+          6: {cellWidth: 15},
           7: {cellWidth: 15},
           8: {cellWidth: 20},
-          9: {cellWidth: 20},
+          9: {cellWidth: 15},
           10: {cellWidth: 20},
         },
-        styles: { fontSize: 8 }, // Set the font size to 8
-        margin: { left: 5, right: 5,top: 40, bottom: 10}
+        styles: { fontSize: 5 }, // Set the font size to 8
+        margin: { left: 15, right: 10,top: 70, bottom: 10}
       });
-
-    const date = new Date();
-    const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    doc.save(`maintenance_tasks_report_${dateString}.pdf`);
+  
+      // Add footer
+      doc.setFontSize(10);
+      doc.setTextColor(255, 0, 0); // Set color to red
+      doc.text('Keep this report Confidential', doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 15, { align: 'center' });
+  
+      // Save PDF
+      const dateString = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+      doc.save(`maintenance_tasks_report_${dateString}.pdf`);
     } catch (err) {
       console.error(err);
     }
   };
-
 
 
 

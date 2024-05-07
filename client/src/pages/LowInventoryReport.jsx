@@ -122,7 +122,7 @@ const renderItems = (data) => {
       <div className='p-3 w-5/6  mx-auto me-96 '>
         <table className=' w-full border-collapse '>
           <thead>
-          <tr className=' bg-gray-200 text-gray-700'>
+          <tr className=' bg-blue-600 text-white'>
             <th className='border border-gray-400 py-2 px-4'>ItemID</th>
             <th className='border border-gray-400 py-2 px-4'>Item Type</th>
             <th className='border border-gray-400 py-2 px-4'>No of Units</th>
@@ -166,7 +166,7 @@ const renderItems = (data) => {
   return (
     
     <div className='w-3/4 ml-96 pt-10  '>
-      <h1 className='text-gray-700 font-roboto text-4xl mb-8 mt-16 pl-2 '>
+      <h1 className='text-gray-600 font-roboto text-5xl mb-8 mt-16 pl-2 ml-72 '>
                Low Inventory Items
              </h1>
       <div className='flex justify-between p-0'>

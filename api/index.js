@@ -154,7 +154,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
-import listingRouter from './routes/listing.route.js';
+import listingRouter from './routes/purchase.route.js';
 import lowinventoryRouter from './routes/lowinventory.route.js';
 import itemRoutes from "./routes/Item.route.js";
 import orderRoute from './routes/order.Route.js'; // Assuming this file exists
@@ -174,7 +174,7 @@ import Disasterroute from './routes/disaster.route.js';
 import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
-
+import approvePORoutes from './routes/approvePORoutes.route.js';
 
 
 // Load environment variables from .env file
@@ -213,7 +213,11 @@ app.use('/api/returns', returnRoute);
 app.use('/api/wastes', wasteRoute);
 app.use("/api/maintance", Maintanceroute);
 app.use("/api/lostItem", lostItemRoutes);
+
 app.use('/api/disaster',Disasterroute)
+
+app.use('/api', approvePORoutes);
+
 
 //staff & Shift routes
 app.use("/api/staff", staffRoutes);

@@ -11,12 +11,12 @@ const listingSchema = new mongoose.Schema(
     itemCode: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     itemName: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     orderQuentity: {
       type: Number,

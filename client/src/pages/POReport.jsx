@@ -133,7 +133,7 @@ export default function POReport() {
       {loading && <p>Loading...</p>}
       {userListings && (
         <div className="flex flex-col gap-4 mt-16   p-10  " >
-          <h1 className="text-gray-700 font-roboto text-4xl mb-8">Purchase Order Report</h1>
+          <h1 className="text-gray-600 font-roboto text-5xl mb-12 ml-64">Purchase Order Report</h1>
           <div className="flex gap-4 mb-4 " >
             <input
               type="text"
@@ -166,14 +166,14 @@ export default function POReport() {
           </div>
           <table id="tableToPrint" className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="border border-gray-400 py-2 px-4">supplier Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Code</th>
-                <th className="border border-gray-400 py-2 px-4">Order Quantity</th>
-                <th className="border border-gray-400 py-2 px-4">Created Date</th>
-                <th className="border border-gray-400 py-2 px-4">Last Update</th>
-                <th className="border border-gray-400 py-2 px-4">Status</th>
+              <tr className="bg-blue-500 text-white">
+                <th className="border border-white py-2 px-4">supplier Name</th>
+                <th className="border border-white py-2 px-4">Item Name</th>
+                <th className="border border-white py-2 px-4">Item Code</th>
+                <th className="border border-white py-2 px-4">Order Quantity</th>
+                <th className="border border-white py-2 px-4">Created Date</th>
+                <th className="border border-white py-2 px-4">Last Update</th>
+                <th className="border border-white py-2 px-4">Status</th>
               </tr>
             </thead>
             <tbody>
