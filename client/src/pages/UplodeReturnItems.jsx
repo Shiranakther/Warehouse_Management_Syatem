@@ -46,6 +46,7 @@ const UplodeReturnItems = () => {
       const data = await response.json();
       if (response.status === 200) {
         navigate('/ViewreturnItemsDetails');
+        alert('Update Successfully');
       } else {
         console.log(data);
       }

@@ -16,7 +16,7 @@ const createWaste = async (req, res) => {
         quantity: req.body.quantity,
         companyName: req.body.companyName,
         supplierId: req.body.supplierId,
-        damageOrExpired: req.body.damageOrExpired,
+        // damageOrExpired: req.body.damageOrExpired,
         reason: req.body.reason,
     });
 
@@ -55,7 +55,7 @@ const updateWaste = async (req, res) => {
         wasteItem.quantity = req.body.quantity;
         wasteItem.companyName = req.body.companyName;
         wasteItem.supplierId = req.body.supplierId;
-        wasteItem.damageOrExpired = req.body.damageOrExpired;
+        // wasteItem.damageOrExpired = req.body.damageOrExpired;
         wasteItem.reason = req.body.reason;
 
         const updatedWaste = await wasteItem.save();

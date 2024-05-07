@@ -208,7 +208,7 @@ export const EnterReturnItems = () => {
     // Basic validation for all fields
     if (!formData.name || !formData.itemCode || !formData.quantity || !formData.companyName || !formData.supplierId ) {
       console.log("Please fill out all fields.");
-      alert("Please fill out all fields.");
+      
       return;
     }
     // Additional validation for quantity
@@ -225,6 +225,7 @@ export const EnterReturnItems = () => {
         body: JSON.stringify(formData),
       });
       navigate('/ViewreturnItemsDetails');
+      alert('Add Return Item Successfully');
       const data = await response.json();
       if (response.status === 200) {
         // Handle success if needed

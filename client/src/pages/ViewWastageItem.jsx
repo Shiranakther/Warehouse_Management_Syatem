@@ -39,8 +39,8 @@ const ViewWastageItem = () => {
     try {
       const doc = new jsPDF();
       doc.autoTable({
-        head: [["Item name", "Item code", "Quantity", "Company name", "Supplier ID", "Damage or expired", "Reason"]],
-        body: WastesItems.map(item => [item.name, item.itemCode, item.quantity, item.companyName, item.supplierId, item.damageOrExpired, item.reason]),
+        head: [["Item name", "Item code", "Quantity", "Company name", "Supplier ID",  "Reason"]],
+        body: WastesItems.map(item => [item.name, item.itemCode, item.quantity, item.companyName, item.supplierId,  item.reason]),
       });
       doc.save("wastage_items_report.pdf");
     } catch (err) {
@@ -49,27 +49,28 @@ const ViewWastageItem = () => {
   };
 
 
+
   const handleSearch = () => {
-    const filteredItems = WastesItemss.filter(item => {
-      // Check if any property of the item includes the search query
+    const filteredItems = WastesItems.filter(item => {
       return Object.values(item).some(val =>
         val.toString().toLowerCase().includes(searchQuery.toLowerCase())
       );
     });
-    setReturnItems(filteredItems);
+    setWastesItems(filteredItems);
   };
-
+  
   const handleClearSearch = async () => {
     setSearchQuery('');
   
-    // Restore all items by fetching them again from the API
     try {
-      const response = await fetch('http://localhost:3000/api/returns/getAllReturns');
+      const response = await fetch('http://localhost:3000/api/wastes/getAllWastes');
       const data = await response.json();
-      setReturnItems(data);
+      setWastesItems(data);
     } catch (err) {
       console.log(err);
     }
+  
+
   };
   
 
@@ -95,17 +96,31 @@ return (
           </div> 
            <input
           type="text"
-          placeholder="Search by name"
+          placeholder="Search by details"
         //   value={searchQuery}
         // onChange={(e) => setSearchQuery(e.target.value)} 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
           className="border border-blue-400 py-2 px-4 rounded-md "
         />
+
+
+
+
         <button onClick={handleSearch} 
-        className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11">
-          Search By Name
+        className="text-white uppercase bg-blue-500 hover:bg-blue-700 px-2 rounded-md  ml-1 mr-1 m-10 text-sm h-11">
+          Search By details
         </button>
+
+               
+       <button 
+             
+             onClick={handleClearSearch} 
+            className="text-white uppercase bg-blue-500 px-2 hover:bg-blue-700 rounded-md  ml-1 mr-20 m-10 text-sm h-11"
+          >
+                Clear
+          </button>
+
 
 
         <input
@@ -121,14 +136,6 @@ return (
           //onChange={(e) => setEndDate(e.target.value)}
           className="border border-blue-400 py-2 px-4 rounded-md"
         /> 
-       
-       <button 
-             
-             onClick={handleClearSearch} 
-            className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11"
-          >
-                Clear
-          </button>
 
 
 
@@ -147,7 +154,6 @@ return (
             <th className="border border-gray-400 py-2 px-4">Quantity</th>
             <th className="border border-gray-400 py-2 px-4">Company name</th>
             <th className="border border-gray-400 py-2 px-4">Supplier ID</th>
-            <th className="border border-gray-400 py-2 px-4">Damage or expired</th>
             <th className="border border-gray-400 py-2 px-4">Reason</th>
             <th className="border border-gray-400 py-2 px-4">Action</th>
           </tr>
@@ -165,7 +171,6 @@ return (
               <td className="border border-blue-500 px-4 py-2">{item.quantity}</td>
               <td className="border border-blue-500 px-4 py-2">{item.companyName}</td>
               <td className="border border-blue-500 px-4 py-2">{item.supplierId}</td>
-              <td className="border border-blue-500 px-4 py-2">{item.damageOrExpired}</td>
               <td className="border border-blue-500 px-4 py-2">{item.reason}</td>
               <td className="border border-blue-500 px-4 py-2 w-60">
                 <button
@@ -202,13 +207,6 @@ return (
 };
 
 export default ViewWastageItem;
-
-
-
-
-
-
-
 
 
 

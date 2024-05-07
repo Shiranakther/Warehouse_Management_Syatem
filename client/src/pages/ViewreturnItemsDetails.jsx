@@ -90,15 +90,23 @@ const ViewreturnItemsDetails = () => {
             </div> 
              <input
             type="text"
-            placeholder="Search by name"
+            placeholder="Search by details"
             value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)} 
             className="border border-blue-400 py-2 px-4 rounded-md "
           />
-          <button onClick={handleSearch} className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11">
-            Search By Name
+          <button onClick={handleSearch} className="text-white uppercase bg-blue-500 px-2 hover:bg-blue-700 rounded-md  ml-1 mr-1 m-10 text-sm h-11">
+            Search By Details
           </button>
 
+
+          <button 
+               
+               onClick={handleClearSearch} 
+              className="text-white uppercase bg-blue-500 px-2 rounded-md  hover:bg-blue-700 ml-1 mr-20 m-10 text-sm h-11"
+            >
+                  Clear
+            </button>
 
           <input
             type="date"
@@ -114,24 +122,20 @@ const ViewreturnItemsDetails = () => {
             className="border border-blue-400 py-2 px-4 rounded-md"
           /> 
          
-         <button 
-               
-               onClick={handleClearSearch} 
-              className="text-white uppercase bg-blue-500 px-2 rounded-md  ml-1 mr-20 m-10 text-sm h-11"
-            >
-                  Clear
-            </button>
+         
 
 
 
 
+   
 
+   
             
 
  
 
-        <h1 className="absolute top-0 left-0 ml-10 mt-10">Return items details</h1>
-        <table className="mt-20">
+        {/* <h1 className="absolute top-0 left-0 ml-10 mt-10">Return items details</h1> */}
+        <table className="mt-20 ">
           <thead>
           <tr className="bg-gray-200 text-gray-700">
               <th className="border border-gray-400 py-2 px-4">Item name</th>
@@ -155,8 +159,8 @@ const ViewreturnItemsDetails = () => {
                 <td className="border border-gray-400 py-2 px-4">{item.quantity}</td>
                 <td className="border border-gray-400 py-2 px-4 ">{item.companyName}</td>
                 <td className="border border-gray-400 py-2 px-4 text-green-500 underline">{item.supplierId}</td>
-                <td className="border border-gray-400 py-2 px-4">{item.damageOrExpired}</td>
-                <td className="border border-gray-400 py-2 px-4">{item.reason}</td>
+                <td className="border border-gray-400 py-2  px-4">{item.damageOrExpired}</td>
+                <td className="border border-gray-400 py-2  px-4">{item.reason}</td>
                 <td className="border border-gray-400 py-2 w-96 px-20">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded mr-9"
@@ -187,8 +191,8 @@ const ViewreturnItemsDetails = () => {
         >
           Generate Report
         </button>
-      </div>
-    //  </div>
+     </div>
+     // </div>
   );
 };
 
