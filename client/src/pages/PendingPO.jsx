@@ -1,9 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-import { MdFormatUnderlined } from 'react-icons/md';
+
 
 export default function PendingPO() {
   const fileRef = useRef(null);
