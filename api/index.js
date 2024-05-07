@@ -176,11 +176,11 @@ import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
 // <<<<<<< Dilshan-part
 
 // //supplier items list
-// import SuppliersRouter from './routes/supplier.route.js';
-// import adminRouter from './routes/admin.router.js';
+import SuppliersRouter from './routes/supplier.route.js';
+import adminRouter from './routes/admin.router.js';
 
-// =======
-// import approvePORoutes from './routes/approvePORoutes.route.js';
+
+import approvePORoutes from './routes/approvePORoutes.route.js';
 // >>>>>>> dilshantest
 
 
@@ -229,12 +229,12 @@ app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 
 // <<<<<<< Dilshan-part
 // //supplier item list
-// app.use('/api/supplier', SuppliersRouter);
-// app.use('/api/admin', adminRouter);
+app.use('/api/supplier', SuppliersRouter);
+app.use('/api/admin', adminRouter);
 // =======
-// //vehicle & Shift shipping
-// app.use('/api/vehicleRoutes', vehicleRouter);
-// app.use('/api/shippingRoutes', shippingRouter);
+//vehicle & Shift shipping
+app.use('/api/vehicleRoutes', vehicleRouter);
+app.use('/api/shippingRoutes', shippingRouter);
 
 // >>>>>>> dilshantest
 

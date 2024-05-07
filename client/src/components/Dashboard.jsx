@@ -16,9 +16,9 @@ export default function Dashboard()
     const [showOperationLinks, setShowOperationLinks] = useState(false);
     const [showStaffLinks, setShowStaffLinks] = useState(false);
 // <<<<<<< Dilshan-part
-//     const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
-// =======
-//     const [showShippingLinks, setshowShippingLinks] = useState(false);
+    const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
+
+    const [showShippingLinks, setshowShippingLinks] = useState(false);
 // >>>>>>> dilshantest
   
     const handleInventoryButtonClick = () => {
@@ -28,7 +28,7 @@ export default function Dashboard()
       setShowReportLinks(false);
       setShowOperationLinks(false);
 // <<<<<<< Dilshan-part
-//       setShowPendingRequestLinks(false);
+      setShowPendingRequestLinks(false);
 // =======
       
 // >>>>>>> dilshantest
@@ -71,23 +71,23 @@ export default function Dashboard()
     };
 
 // <<<<<<< Dilshan-part
-//     const handelPendingRequestclick = () => {
-//       setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
-//       // Hide other link sections when Operations button is clicked
-//       setShowStaffLinks(false);
-//       setShowInventoryLinks(false);
-//       setShowPurchasesLinks(false);
-//       setShowReportLinks(false);
+    const handelPendingRequestclick = () => {
+      setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
+      // Hide other link sections when Operations button is clicked
+      setShowStaffLinks(false);
+      setShowInventoryLinks(false);
+      setShowPurchasesLinks(false);
+      setShowReportLinks(false);
 
-//     }
+    }
 // =======
-//     const handleShippingButtonClick = () => {
-//       setshowShippingLinks(!showShippingLinks); // Toggle the state of showOperationLinks
-//       // Hide other link sections when Operations button is clicked
-//       setShowInventoryLinks(false);
-//       setShowPurchasesLinks(false);
-//       setShowReportLinks(false);
-//     };
+    const handleShippingButtonClick = () => {
+      setshowShippingLinks(!showShippingLinks); // Toggle the state of showOperationLinks
+      // Hide other link sections when Operations button is clicked
+      setShowInventoryLinks(false);
+      setShowPurchasesLinks(false);
+      setShowReportLinks(false);
+    };
 // >>>>>>> dilshantest
 
   const [isRotated1, setIsRotated1] = useState(false);
@@ -122,7 +122,7 @@ export default function Dashboard()
 // <<<<<<< Dilshan-part
 //   }
 // =======
-//   };
+  };
 // >>>>>>> dilshantest
 
   const handleBothClicks1 = () => {
@@ -147,13 +147,13 @@ export default function Dashboard()
   };
 // <<<<<<< Dilshan-part
 
-//   const handleBothClicks6 = () => {
-//     handleRotate6();
-//     handelPendingRequestclick();
-// =======
-//   const handleBothClicks6 = () => {
-//     handleRotate6();
-//     handleShippingButtonClick();
+  const handleBothClicks6 = () => {
+    handleRotate6();
+    handelPendingRequestclick();
+
+  // const handleBothClicks6 = () => {
+    // handleRotate6();
+    handleShippingButtonClick();
 // >>>>>>> dilshantest
   };
     return (
@@ -348,12 +348,7 @@ Shipping List
           
           <Link to="/Staffmanagement" className="block p-2 text-blue-200">
 
-// <<<<<<< Dilshan-part
-// =======
 
-          
-
-// >>>>>>> dilshantest
           <div>
             <button className="  " onClick={handleBothClicks5}>
                
@@ -413,7 +408,7 @@ Shipping List
             </button>
             {showPendingRequestLinks  && (
         <div className='pl-3'>
-          <Link to="/purchase_request" className="block p-2 text-blue-200 hover:text-white">
+          <Link to="/pending-po" className="block p-2 text-blue-200 hover:text-white">
             Pending Purchse Order Request
           </Link>
           <Link to="/supplier_request" className="block p-2 text-blue-200 hover:text-white">
