@@ -36,14 +36,15 @@ export default function ShippingList() {
       const response = await axios.get('/api/order/getAllOrders', {
         params: { orderIds }
       });
-      // Extract the orders array from the response data
-      const ordersData = response.data[0]?.orders || [];
-      setOrders(ordersData);
+      // Extract all orders from the response data
+      const allOrders = response.data.map(item => item.orders).flat();
+      setOrders(allOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
       toast.error('Error fetching orders');
     }
   };
+  
   
 
   const handleDelete = async (id) => {
