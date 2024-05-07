@@ -302,6 +302,9 @@ Shipping List
           <Link to="/MaintenanceListPage" className="block p-2 text-blue-200 hover:text-white">
             Maintanance Schedule
           </Link>
+          <Link to="/d-manage" className="block p-2 text-blue-200 hover:text-white">
+            Disaster Management
+          </Link>
           <Link to="/Staffmanagement" className="block p-2 text-blue-200">
 
 
