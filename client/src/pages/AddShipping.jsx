@@ -94,18 +94,21 @@ export default function AddShipping() {
           />
           
           <select
-            id='orderId'
-            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
-            value={formData.orderId}
-            onChange={handleChange}
-            autoComplete="current-orderId"
-            required
-          >
-            <option value="" disabled>Select Order</option>
-            {orders[0]?.orders.map((order) => (
-              <option key={order._id} value={order._id}>{order.OrderID}</option>
-            ))}
-          </select>
+  id='orderId'
+  className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+  value={formData.orderId}
+  onChange={handleChange}
+  autoComplete="current-orderId"
+  required
+>
+  <option value="" disabled>Select Order</option>
+  {orders.map((orderGroup) => (
+    orderGroup.orders.map((order) => (
+      <option key={order._id} value={order._id}>{order.OrderID}</option>
+    ))
+  ))}
+</select>
+
 
           <input
             type="text"
