@@ -25,6 +25,10 @@ const itemSchema = new mongoose.Schema(
         type: Number,
         required: true,
     },
+    supplierName:{
+        type: String,
+        required: true,
+    },
 },{timestamps:true});
 
 //creating a DB model from the schema

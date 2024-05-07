@@ -173,7 +173,7 @@ import Maintanceroute from './routes/maintance.route.js';
 import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
-
+import approvePORoutes from './routes/approvePORoutes.route.js';
 
 
 // Load environment variables from .env file
@@ -212,6 +212,7 @@ app.use('/api/returns', returnRoute);
 app.use('/api/wastes', wasteRoute);
 app.use("/api/maintance", Maintanceroute);
 app.use("/api/lostItem", lostItemRoutes);
+app.use('/api', approvePORoutes);
 
 //staff & Shift routes
 app.use("/api/staff", staffRoutes);

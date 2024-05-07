@@ -166,14 +166,14 @@ export default function POReport() {
           </div>
           <table id="tableToPrint" className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="border border-gray-400 py-2 px-4">supplier Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Name</th>
-                <th className="border border-gray-400 py-2 px-4">Item Code</th>
-                <th className="border border-gray-400 py-2 px-4">Order Quantity</th>
-                <th className="border border-gray-400 py-2 px-4">Created Date</th>
-                <th className="border border-gray-400 py-2 px-4">Last Update</th>
-                <th className="border border-gray-400 py-2 px-4">Status</th>
+              <tr className="bg-blue-500 text-white">
+                <th className="border border-white py-2 px-4">supplier Name</th>
+                <th className="border border-white py-2 px-4">Item Name</th>
+                <th className="border border-white py-2 px-4">Item Code</th>
+                <th className="border border-white py-2 px-4">Order Quantity</th>
+                <th className="border border-white py-2 px-4">Created Date</th>
+                <th className="border border-white py-2 px-4">Last Update</th>
+                <th className="border border-white py-2 px-4">Status</th>
               </tr>
             </thead>
             <tbody>
