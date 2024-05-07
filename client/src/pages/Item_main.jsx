@@ -221,34 +221,34 @@ const totalUnitsCount = AllItems.reduce((total, item) => total + item.ItemNoOfUi
 const renderItems = (data) => {
     return (
       <div className='w-full '>
-        <table className=' w-full border-separate border-spacing-y-5'>
-          <thead className='bg-slate-700'>
+        <table className='  border border-black '>
+          <thead className='text-md bg-blue-600 text-white'>
           
-          <tr className=' outline outline-2 rounded-md m-5'>
-            <th className='text-center text-lg p-5'>ItemID</th>
-            <th className='text-center text-lg p-5'>Item Name</th>
-            <th className='text-center text-lg p-5'>Supplier Name</th>
-            <th className='text-center text-lg p-5'>Item Discription</th>
-            <th className='text-center text-lg p-5'>Units(Kg/L)</th>
-            <th className='text-center text-lg p-5'>Inventory Level</th>
-            <th className='text-center text-lg p-5'>Added Date</th>
-            <th className='text-center text-lg p-5'>Updated Date</th>
-            <th className='text-center text-lg p-5'>Action</th>
+          <tr className=' outline outline-2 rounded-sm m-5'>
+            <th className='text-center text-sm border border-black p-5'>ItemID</th>
+            <th className='text-center text-sm border border-black p-5'>Item Name</th>
+            <th className='text-center text-sm border border-black p-5'>Supplier Name</th>
+            <th className='text-center text-sm border border-black p-5'>Item Discription</th>
+            <th className='text-center text-sm border border-black p-5'>Units(Kg/L)</th>
+            <th className='text-center text-sm border border-black p-5'>Inventory Level</th>
+            <th className='text-center text-sm border border-black p-5'>Added Date</th>
+            <th className='text-center text-sm border border-black p-5'>Updated Date</th>
+            <th className='text-center text-sm border border-black p-5'>Action</th>
             </tr>
           </thead>
-          <tbody className='border-spacing-y-5'>
+          <tbody className='border-spacing-y-2'>
         {data.map((item) => (
-          <tr key={item.ItemID} className=' outline-2 rounded-md outline outline-black ' >
-              <td className=' text-sm p-5' id='iid'>{item.ItemID}</td>
-              <td className=' text-sm p-5' id='itype'>{item.ItemType }</td>
-              <td className=' text-sm p-5' id='itype'>{item.supplierName }</td>
-              <td className=' text-sm p-5' id='idisc'>{item.ItemDiscription}</td>
-              <td className=' text-sm p-5' id='noofunits'>{item.ItemNoOfUints}</td>
-              <td className=' text-sm p-5' id='curruntlevel'>{item.curruntlevel}</td>
-              <td className=' text-sm p-5'>{new Date(item.createdAt).toDateString()}</td>
-              <td className=' text-sm p-5'>{new Date(item.updatedAt).toDateString()}</td>
-              <td><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-blue-600 rounded-md p-3  text-white  hover:bg-slate-700' >Edit</button></Link></td>
-              <td><button className='w-20 bg-blue-600 rounded-md p-3  text-white   hover:bg-slate-700'  onClick={()=>SetItemDelete(item.ItemID)}>Delete</button> </td>
+          <tr key={item.ItemID} className=' ' >
+              <td className=' text-sm text-black bg-white border border-black p-5' id='iid'>{item.ItemID}</td>
+              <td className=' text-sm text-black bg-white border border-black p-5' id='itype'>{item.ItemType }</td>
+              <td className=' text-sm text-black bg-white border border-black p-5' id='itype'>{item.supplierName }</td>
+              <td className=' text-sm text-black bg-white border border-black p-5' id='idisc'>{item.ItemDiscription}</td>
+              <td className=' text-sm text-black bg-white border border-black p-5' id='noofunits'>{item.ItemNoOfUints}</td>
+              <td className=' text-sm text-black bg-white border border-black p-5' id='curruntlevel'>{item.curruntlevel}</td>
+              <td className=' text-sm text-black bg-white border border-black p-5'>{new Date(item.createdAt).toDateString()}</td>
+              <td className=' text-sm text-black bg-white border border-black p-5'>{new Date(item.updatedAt).toDateString()}</td>
+              <td className='flex flex-column bg-white justify-between pt-4'><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-green-600 rounded-md p-3  text-white  hover:bg-slate-700 m-2' >Edit</button></Link>
+              <button className='w-20 bg-red-600 rounded-md p-3  text-white   hover:bg-slate-700 m-2'  onClick={()=>SetItemDelete(item.ItemID)}>Delete</button> </td>
           </tr>
         ))}
         </tbody>

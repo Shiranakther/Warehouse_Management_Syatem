@@ -154,7 +154,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
-import listingRouter from './routes/listing.route.js';
+import listingRouter from './routes/purchase.route.js';
 import lowinventoryRouter from './routes/lowinventory.route.js';
 import itemRoutes from "./routes/Item.route.js";
 import orderRoute from './routes/order.Route.js'; // Assuming this file exists
