@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const ViewreturnItemsDetails = () => {
+  const ViewreturnItemsDetails = () => {
   const [returnItems, setReturnItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -23,10 +23,10 @@ const ViewreturnItemsDetails = () => {
     getReturnItems();
   }, []);
 
-  const formatDate = (date) => {
+    const formatDate = (date) => {
     const createdAtDate = new Date(date);
     const formattedDate = createdAtDate.toLocaleDateString();
-    return formattedDate;
+   return formattedDate;
   };
 
   const deleteReturnItem = async (id) => {
@@ -81,10 +81,10 @@ const ViewreturnItemsDetails = () => {
       doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Draw document border
 
       // Add title with underline
-    doc.setFontSize(16);
-    doc.setDrawColor(0); // Set140,140 underline color to black
+     doc.setFontSize(16);
+     doc.setDrawColor(0); // Set140,140 underline color to black
 
-    doc.textWithLink('Return Item Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
+     doc.textWithLink('Return Item Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
 
         // Add footer
         doc.setFontSize(10);
@@ -154,14 +154,13 @@ const ViewreturnItemsDetails = () => {
           <div >
             {/* Render the select input */}
                       
-              </div>
-                
+              </div>       
           
         </div>
       
 
             
-             <div className="flex gap-4 mb-4 " >
+         <div className="flex gap-4 mb-4 " >
               
             </div> 
              <input
