@@ -16,6 +16,6 @@ const returnSchema = new mongoose.Schema({
 }
 );
 
-const Return = mongoose.model('Return', returnSchema);
+const Return = mongoose.model('Wastage', returnSchema);
 
 export default Return;

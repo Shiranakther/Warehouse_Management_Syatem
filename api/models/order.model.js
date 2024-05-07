@@ -21,7 +21,7 @@ import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
     Outlet: { type: String, required: true },
     OrderID: { type: String, required: true },
-    ItemCode: { type: Number, required: true },
+    ItemCode: { type: String, required: true },
     Quantity: { type: String, required: true },   
     Status: { type: String, required: true , default: 'Pending' },
 }, {

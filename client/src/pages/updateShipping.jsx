@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddShipping() {
+export default function UpdateShipping() {
+  const { shippingId } = useParams(); // Extracting shippingId from URL params
   const [formData, setFormData] = useState({
     shippingId: '', 
     orderId: '', 
@@ -20,6 +21,17 @@ export default function AddShipping() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchShipping = async () => {
+      try {
+        const res = await axios.get(`/api/shippingRoutes/${shippingId}`);
+        setFormData(res.data);
+      } catch (error) {
+        console.error('Error fetching shipping:', error);
+        toast.error('Error fetching shipping');
+      }
+    };
+    fetchShipping();
+
     const fetchVehicles = async () => {
       try {
         const res = await axios.get('/api/vehicleRoutes/');
@@ -41,7 +53,7 @@ export default function AddShipping() {
       }
     };
     fetchOrders();
-  }, []);
+  }, [shippingId]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -52,21 +64,10 @@ export default function AddShipping() {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log(formData)
-      const res = await axios.post('/api/shippingRoutes/', formData);
+      const res = await axios.put(`/api/shippingRoutes/${shippingId}`, formData);
       console.log(res);
       const data = res.data;
       toast.success(data.message);
-      setFormData({
-        ...formData,
-        shippingId: '', 
-        orderId: '',
-        userName: '',
-        userMobile: '',
-        userAddress: '',
-        vehicle: '',
-        status: 'In Progress',
-      });
       setLoading(false);
     } catch (error) {
       console.error('Error occurred:', error);
@@ -79,38 +80,37 @@ export default function AddShipping() {
   return (
     <div className='flex'>
       <div className='p-3 max-w-lg mx-auto mt-16 mr-96 w-3/5'>
-        <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Add Shipping</h1>
+        <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Update Shipping</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           <input
-            type="text"
-            placeholder='Shipping ID'
-            id='shippingId'
-            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
-            value={formData.shippingId}
-            onChange={handleChange}
-            autoComplete="current-shippingId"
-            required
-          />
-          
-          <select
+  type="text"
+  placeholder='Shipping ID'
+  id='shippingId'
+  className={`bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 ${formData.shippingId ? 'cursor-not-allowed opacity-50' : ''}`}
+  value={formData.shippingId}
+  onChange={handleChange}
+  autoComplete="current-shippingId"
+  required
+  disabled={formData.shippingId}
+/>
+
+<select
   id='orderId'
-  className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
+  className={`bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 ${formData.orderId ? 'cursor-not-allowed opacity-50' : ''}`}
   value={formData.orderId}
   onChange={handleChange}
   autoComplete="current-orderId"
   required
+  disabled={formData.orderId}
 >
   <option value="" disabled>Select Order</option>
-  {orders.map((orderGroup) => (
-    orderGroup.orders.map((order) => (
-      <option key={order._id} value={order._id}>{order.OrderID}</option>
-    ))
+  {orders[0]?.orders.map((order) => (
+    <option key={order._id} value={order._id}>{order.OrderID}</option>
   ))}
 </select>
 
-
-          <input
+<input
             type="text"
             placeholder='User Name'
             id='userName'
@@ -132,16 +132,18 @@ export default function AddShipping() {
             required
           />
 
-          <input
-            type="text"
-            placeholder='User Address'
-            id='userAddress'
-            className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 mb-3'
-            value={formData.userAddress}
-            onChange={handleChange}
-            autoComplete="current-userAddress"
-            required
-          />
+<input
+  type="text"
+  placeholder='User Address'
+  id='userAddress'
+  className={`bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 ${formData.userAddress ? 'cursor-not-allowed opacity-50' : ''}`}
+  value={formData.userAddress}
+  onChange={handleChange}
+  autoComplete="current-userAddress"
+  required
+  disabled={formData.userAddress}
+/>
+
 
           <select
             id='vehicle'
@@ -158,7 +160,7 @@ export default function AddShipping() {
           </select>
 
           <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-            {loading ? 'Loading...' : 'Add Shipping'}
+            {loading ? 'Loading...' : 'Update Shipping'}
           </button>
         </form>
 

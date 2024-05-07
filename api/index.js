@@ -173,11 +173,15 @@ import Maintanceroute from './routes/maintance.route.js';
 import staffRoutes from './routes/staff.route.js';
 import shiftRoutes from './routes/shift.route.js';
 import workersShiftScheduleRoutes from './routes/workersShiftSchedule.route.js';
+// <<<<<<< Dilshan-part
 
-//supplier items list
-import SuppliersRouter from './routes/supplier.route.js';
-import adminRouter from './routes/admin.router.js';
+// //supplier items list
+// import SuppliersRouter from './routes/supplier.route.js';
+// import adminRouter from './routes/admin.router.js';
 
+// =======
+// import approvePORoutes from './routes/approvePORoutes.route.js';
+// >>>>>>> dilshantest
 
 
 // Load environment variables from .env file
@@ -212,21 +216,27 @@ app.use('/api/listing', listingRouter);
 app.use('/api/lowinventory', lowinventoryRouter);
 app.use("/api/Item", itemRoutes);
 app.use('/api/order', orderRoute);
-app.use('/vehicle', vehicleRouter);
-app.use('/shipping', shippingRouter);
 app.use('/api/returns', returnRoute);
 app.use('/api/wastes', wasteRoute);
 app.use("/api/maintance", Maintanceroute);
 app.use("/api/lostItem", lostItemRoutes);
+app.use('/api', approvePORoutes);
 
 //staff & Shift routes
 app.use("/api/staff", staffRoutes);
 app.use("/api/shift", shiftRoutes);
 app.use("/api/workersShiftSchedule", workersShiftScheduleRoutes);
 
-//supplier item list
-app.use('/api/supplier', SuppliersRouter);
-app.use('/api/admin', adminRouter);
+// <<<<<<< Dilshan-part
+// //supplier item list
+// app.use('/api/supplier', SuppliersRouter);
+// app.use('/api/admin', adminRouter);
+// =======
+// //vehicle & Shift shipping
+// app.use('/api/vehicleRoutes', vehicleRouter);
+// app.use('/api/shippingRoutes', shippingRouter);
+
+// >>>>>>> dilshantest
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/client/dist')));

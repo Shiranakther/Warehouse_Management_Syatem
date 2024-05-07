@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 export default function AssignWorkerToShift() {
   const [shifts, setShifts] = useState([]);
@@ -11,6 +10,7 @@ export default function AssignWorkerToShift() {
     const storedData = localStorage.getItem('selectedStaffForShift');
     return storedData ? JSON.parse(storedData) : Object.fromEntries(shifts.map(shift => [shift._id, []]));
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchShiftsAndStaff = async () => {
@@ -46,7 +46,6 @@ export default function AssignWorkerToShift() {
     setSelectedStaffForShift(prevState => {
       const updatedSelectedStaff = { ...prevState };
       if (isChecked) {
-        // Remove the staff member from other shifts
         Object.keys(updatedSelectedStaff).forEach(shiftId => {
           if (shiftId !== selectedShift) {
             updatedSelectedStaff[shiftId] = updatedSelectedStaff[shiftId].filter(id => id !== staffId);
@@ -60,49 +59,73 @@ export default function AssignWorkerToShift() {
     });
   };
 
-  return (
-    <div className='flex'>
+  const filteredStaff = staff.filter(member =>
+    member.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    member.id.toLowerCase().includes(searchTerm.toLowerCase())
     
+  );
 
-
-    <div className='mt-14 container mx-auto w-3/5 ml-96 '>        
-    <div className="container mx-auto">
-      <div className="flex">
-        <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4 text-blue-500">Select Shift</h2>
-          <select value={selectedShift} onChange={handleShiftChange} className="w-full p-2 mb-4 border rounded">
+  return (
+    <div className='flex w-3/4 ml-80'>
+    <div className="container mx-auto mt-14">
+      <h1 className="text-3xl font-bold mb-10 text-center text-slate-500">Assign Workers To Shift</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Select Shift</h2>
+          <select value={selectedShift} onChange={handleShiftChange} className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
             <option value="">Select Shift</option>
             {shifts.map(shift => (
               <option key={shift._id} value={shift._id}>{shift.shiftname}</option>
             ))}
           </select>
         </div>
-        <div className="w-1/2 p-4">
-          <h2 className="text-2xl font-bold mb-4  text-blue-500">Select Staff</h2>
-          {staff.map(member => (
-            <div key={member._id} className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                value={member._id}
-                checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
-                onChange={handleStaffChange}
-                className="mr-2"
-              />
-              <label>{member.username} - ID: {member.id} - Type: {member.type}</label>
-            </div>
-          ))}
+        <div className="p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Select Staff</h2>
+          <input
+            type="text"
+            placeholder="Search by Name or ID"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:border-blue-500"
+          />
+          <table className="table-auto border border-collapse border-gray-400 w-full">
+            <thead className="bg-blue-500 text-white">
+              <tr>
+                <th className="border border-gray-400 px-4 py-2">Name</th>
+                <th className="border border-gray-400 px-4 py-2">ID</th>
+                <th className="border border-gray-400 px-4 py-2">Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStaff.map(member => (
+                <tr key={member._id} className="border border-gray-400 hover:bg-gray-100">
+                  <td className="border border-gray-400 px-4 py-2">
+                    <input
+                      type="checkbox"
+                      value={member._id}
+                      checked={selectedStaffForShift[selectedShift]?.includes(member._id)}
+                      onChange={handleStaffChange}
+                      className="mr-2 cursor-pointer"
+                    />
+                    {member.username}
+                  </td>
+                  <td className="border border-gray-400 px-4 py-2">{member.id}</td>
+                  <td className="border border-gray-400 px-4 py-2">{member.type}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-      
-      {/* Display selected staff for each shift */}
-      <div className="grid   gap-4 ">
+
+      <div className="mt-8">
         {shifts.map(shift => (
-          <div key={shift._id} className="p-4 border rounded-md shadow-md">
-            <h2 className="text-xl font-bold mb-4 text-slate-500">{shift.shiftname}</h2>
+          <div key={shift._id} className="bg-white rounded-md shadow-md p-6 mb-4">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4 te">{shift.shiftname}</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-200">
+                <thead className="bg-gray-200">
+                  <tr>
                     <th className="py-2 px-4 border">Name</th>
                     <th className="py-2 px-4 border">ID</th>
                     <th className="py-2 px-4 border">Type</th>
@@ -131,8 +154,7 @@ export default function AssignWorkerToShift() {
           </div>
         ))}
       </div>
-      </div>
     </div>
-    </div> 
+    </div>
   );
 }

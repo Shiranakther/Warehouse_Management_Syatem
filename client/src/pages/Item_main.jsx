@@ -153,16 +153,35 @@ const fetchItems = async () => {
   setError(true); //if an error occurs set error true
 }};
 
-//deleting an item from the api
+// deleting an item from the api
+// deleting an item from the api
+// const SetItemDelete = async (id) => { 
+//   try {
+//     const res = await fetch (`/api/Item/item_delete/${id}`,
+//     {method:'DELETE',headers:{'Content-Type':'application/json'},
+//     body:JSON.stringify()}).then((res) => res.json());
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const SetItemDelete = async (id) => { 
   try {
-    const res = await fetch ('api/Item/item_delete',
-    {method:'DELETE',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify()}).then((res) => res.json());
+    await fetch(`/api/Item/item_delete/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    // After successful deletion, filter out the deleted item from AllItems
+    const updatedItems = AllItems.filter(item => item.ItemID !== id);
+    // Update the state with the filtered items
+    getAllItems(updatedItems);
   } catch (error) {
     console.log(error);
   }
 };
+
+
 
 //searching items by ItemID
 const searchItems = AllItems.filter((item) => 
@@ -177,7 +196,7 @@ const handleSearch = (e) => {
 
 function generatePDF(item){
   const doc = new jsPDF();
-  const tableCol = ["ItemID","ItemDiscription","ItemType","ItemNoOfUints"];
+  const tableCol = ["ItemID","ItemDiscription","ItemType","ItemNoOfUints","supplierName"];
   const tableRow = [];
 
   item.forEach(item=>{
@@ -185,7 +204,9 @@ function generatePDF(item){
       item.ItemID,
       item.ItemDiscription,
       item.ItemType,
-      item.ItemNoOfUints
+      item.ItemNoOfUints,
+      item.curruntlevel,
+      item.supplierName
     ];
     tableRow.push(itemData);
   });
@@ -194,18 +215,22 @@ function generatePDF(item){
   doc.text("Item Report",14,15);
   doc.save("report.pdf");
 }
-
+const itemCount = AllItems.length;
+const totalUnitsCount = AllItems.reduce((total, item) => total + item.ItemNoOfUints, 0);
 //rendering all the items from the api
 const renderItems = (data) => {
     return (
       <div className='w-full '>
         <table className=' w-full border-separate border-spacing-y-5'>
           <thead className='bg-slate-700'>
+          
           <tr className=' outline outline-2 rounded-md m-5'>
             <th className='text-center text-lg p-5'>ItemID</th>
-            <th className='text-center text-lg p-5'>Item Type</th>
+            <th className='text-center text-lg p-5'>Item Name</th>
+            <th className='text-center text-lg p-5'>Supplier Name</th>
             <th className='text-center text-lg p-5'>Item Discription</th>
             <th className='text-center text-lg p-5'>Units(Kg/L)</th>
+            <th className='text-center text-lg p-5'>Inventory Level</th>
             <th className='text-center text-lg p-5'>Added Date</th>
             <th className='text-center text-lg p-5'>Updated Date</th>
             <th className='text-center text-lg p-5'>Action</th>
@@ -216,8 +241,10 @@ const renderItems = (data) => {
           <tr key={item.ItemID} className=' outline-2 rounded-md outline outline-black ' >
               <td className=' text-sm p-5' id='iid'>{item.ItemID}</td>
               <td className=' text-sm p-5' id='itype'>{item.ItemType }</td>
+              <td className=' text-sm p-5' id='itype'>{item.supplierName }</td>
               <td className=' text-sm p-5' id='idisc'>{item.ItemDiscription}</td>
               <td className=' text-sm p-5' id='noofunits'>{item.ItemNoOfUints}</td>
+              <td className=' text-sm p-5' id='curruntlevel'>{item.curruntlevel}</td>
               <td className=' text-sm p-5'>{new Date(item.createdAt).toDateString()}</td>
               <td className=' text-sm p-5'>{new Date(item.updatedAt).toDateString()}</td>
               <td><Link to={`/Item_Update/${item.ItemID}`}><button className='w-20 bg-blue-600 rounded-md p-3  text-white  hover:bg-slate-700' >Edit</button></Link></td>

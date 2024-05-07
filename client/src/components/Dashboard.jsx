@@ -5,6 +5,7 @@ import { selectUserType } from '../redux/access/accessSlice';
 
 export default function Dashboard() 
   {
+    
     const userType = useSelector(selectUserType);
   console.log("User type received in Dashboard:", userType);
     const { currentUser } = useSelector((state) => state.user);
@@ -14,7 +15,11 @@ export default function Dashboard()
     const [showReportLinks, setShowReportLinks] = useState(false);
     const [showOperationLinks, setShowOperationLinks] = useState(false);
     const [showStaffLinks, setShowStaffLinks] = useState(false);
-    const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
+// <<<<<<< Dilshan-part
+//     const [showPendingRequestLinks, setShowPendingRequestLinks] = useState(false);
+// =======
+//     const [showShippingLinks, setshowShippingLinks] = useState(false);
+// >>>>>>> dilshantest
   
     const handleInventoryButtonClick = () => {
       setShowInventoryLinks(!showInventoryLinks); // Toggle the state of showInventoryLinks
@@ -22,7 +27,11 @@ export default function Dashboard()
       setShowPurchasesLinks(false);
       setShowReportLinks(false);
       setShowOperationLinks(false);
-      setShowPendingRequestLinks(false);
+// <<<<<<< Dilshan-part
+//       setShowPendingRequestLinks(false);
+// =======
+      
+// >>>>>>> dilshantest
     };
   
     const handlePurchasesButtonClick = () => {
@@ -61,15 +70,25 @@ export default function Dashboard()
       setShowPendingRequestLinks(false);
     };
 
-    const handelPendingRequestclick = () => {
-      setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
-      // Hide other link sections when Operations button is clicked
-      setShowStaffLinks(false);
-      setShowInventoryLinks(false);
-      setShowPurchasesLinks(false);
-      setShowReportLinks(false);
+// <<<<<<< Dilshan-part
+//     const handelPendingRequestclick = () => {
+//       setShowPendingRequestLinks(!showPendingRequestLinks);// Toggle the state of showOperationLinks
+//       // Hide other link sections when Operations button is clicked
+//       setShowStaffLinks(false);
+//       setShowInventoryLinks(false);
+//       setShowPurchasesLinks(false);
+//       setShowReportLinks(false);
 
-    }
+//     }
+// =======
+//     const handleShippingButtonClick = () => {
+//       setshowShippingLinks(!showShippingLinks); // Toggle the state of showOperationLinks
+//       // Hide other link sections when Operations button is clicked
+//       setShowInventoryLinks(false);
+//       setShowPurchasesLinks(false);
+//       setShowReportLinks(false);
+//     };
+// >>>>>>> dilshantest
 
   const [isRotated1, setIsRotated1] = useState(false);
   const [isRotated2, setIsRotated2] = useState(false);
@@ -100,7 +119,11 @@ export default function Dashboard()
 
   const handleRotate6 = () => {
     setIsRotated6(!isRotated6);
-  }
+// <<<<<<< Dilshan-part
+//   }
+// =======
+//   };
+// >>>>>>> dilshantest
 
   const handleBothClicks1 = () => {
     handleRotate1();
@@ -122,10 +145,16 @@ export default function Dashboard()
     handleRotate5();
     handleStaffButtonClick();
   };
+// <<<<<<< Dilshan-part
 
-  const handleBothClicks6 = () => {
-    handleRotate6();
-    handelPendingRequestclick();
+//   const handleBothClicks6 = () => {
+//     handleRotate6();
+//     handelPendingRequestclick();
+// =======
+//   const handleBothClicks6 = () => {
+//     handleRotate6();
+//     handleShippingButtonClick();
+// >>>>>>> dilshantest
   };
     return (
 
@@ -140,7 +169,7 @@ export default function Dashboard()
         </div>
         <div className="navigation-button-bar flex flex-col items-center mt-8">
              
-        {userType === 'user' && (
+        {/* {userType === 'user' && ( */}
                     <Link to='/'>
                         <button
                             className="w-60 bg-blue-500 flex items-center justify-start px-4 py-2 rounded-xl mt-3"
@@ -151,7 +180,7 @@ export default function Dashboard()
                             </div>
                         </button>
                     </Link>
-                )} 
+                {/* )}  */}
             <div>
             <button className=" w-60 flex items-center justify-start px-4 py-2 rounded-xl mt-3 hover:bg-blue-400 " onClick={handleBothClicks1}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 30 32" fill="none" >
@@ -173,11 +202,8 @@ export default function Dashboard()
           <Link to="/Item_add" className="block p-2 text-blue-200 hover:text-white">
             Add Items
           </Link>
-          <Link to="/displaylowinventory" className="block p-2 text-blue-200 hover:text-white">
-         Low Inventery Item List
-          </Link>
-          <Link to="/createlowinventoy" className="block p-2 text-blue-200 hover:text-white">
-          Asign Low Inventory Level
+          <Link to="/lowInventory" className="block p-2 text-blue-200 hover:text-white">
+         Low Inventery Report
           </Link>
           <Link to="/return" className="block p-2 text-blue-200 hover:text-white">
           Add Return Items
@@ -206,6 +232,10 @@ export default function Dashboard()
             </button>
             {showPurchasesLinks && (
         <div className='pl-3'>
+           {userType === 'user' && (
+          <Link to="/pending-po" className="block p-2 text-blue-200 hover:text-white">
+            Purchase Order requests
+          </Link>)}
           <Link to="/create-po" className="block p-2 text-blue-200 hover:text-white">
             Create Purchase Order
           </Link>
@@ -214,6 +244,9 @@ export default function Dashboard()
           </Link>
           <Link to="/Create-Sales-Order" className="block p-2 text-blue-200 hover:text-white">
             Create Sales Order
+          </Link>
+          <Link to="/sales-orders" className="block p-2 text-blue-200 hover:text-white">
+            View Sales Orders
           </Link>
           <Link to="/shippings" className="block p-2 text-blue-200 hover:text-white">
           Shipping MNG
@@ -275,11 +308,39 @@ export default function Dashboard()
             </button>
             {showOperationLinks && (
         <div  className='pl-3'>
-          <Link to="/vehicles" className="block p-2 text-blue-200 hover:text-white">
-          Vehicle MNG 
-           </Link>
-          <Link to="/addVehicles" className="block p-2 text-blue-200 hhover:text-white">
-          Add Vehicles
+          <Link to="/#" className="block p-2 text-blue-200 hover:text-white">
+          <div>
+            <button className="  " onClick={handleBothClicks6}>
+               
+            <div className="flex items-center">
+  <h1 className="mr-2">Shipping Management</h1>
+  <svg xmlns="http://www.w3.org/2000/svg" width="6" height="15" viewBox="0 0 9 10" fill="none" className="transform" style={{ transform: isRotated6 ? 'rotate(90deg)' : 'none' }}>
+    <path d="M0.000411301 8.95104L0.00799345 0.900488C0.00805214 0.821971 0.0292754 0.744854 0.0695296 0.676889C0.109784 0.608924 0.167653 0.552505 0.237315 0.513305C0.306977 0.474105 0.38598 0.453504 0.46638 0.453575C0.546781 0.453645 0.625747 0.474384 0.695338 0.513707L7.8306 4.54557C7.89597 4.58808 7.94955 4.64572 7.98659 4.71334C8.02363 4.78097 8.04298 4.85649 8.04291 4.93318C8.04283 5.00987 8.02335 5.08536 7.98618 5.15292C7.94901 5.22047 7.89532 5.27801 7.82987 5.3204L0.687026 9.33909C0.617361 9.37828 0.538356 9.39888 0.457956 9.3988C0.377555 9.39872 0.298591 9.37797 0.229003 9.33864C0.159415 9.29932 0.101653 9.24279 0.0615262 9.17475C0.0214 9.10671 0.000322093 9.02956 0.000411301 8.95104Z" fill="white"/>
+  </svg>
+</div>
+
+            </button>
+            {showShippingLinks  && (
+        <div className='pl-3'>
+         
+         <Link to="/AddVehicles" className="block p-2 text-blue-200 hover:text-white">
+Add Vehicles 
+ </Link>
+<Link to="/AddShipping" className="block p-2 text-blue-200 hhover:text-white">
+Add Shipping
+</Link>
+<Link to="/vehicleList" className="block p-2 text-blue-200 hhover:text-white">
+Vehicle List
+</Link>
+<Link to="/shippingList" className="block p-2 text-blue-200 hhover:text-white">
+Shipping List
+</Link>
+
+         
+          
+        </div>
+      )}
+      </div>
           </Link>
           <Link to="/MaintenanceListPage" className="block p-2 text-blue-200 hover:text-white">
             Maintanance Schedule
@@ -287,6 +348,12 @@ export default function Dashboard()
           
           <Link to="/Staffmanagement" className="block p-2 text-blue-200">
 
+// <<<<<<< Dilshan-part
+// =======
+
+          
+
+// >>>>>>> dilshantest
           <div>
             <button className="  " onClick={handleBothClicks5}>
                

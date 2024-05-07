@@ -85,6 +85,8 @@ function Item_Update(){
         ItemID<input className='w-full rounded-md p-3 text-center' type="text" value={item.ItemID} onChange={handleUpdate} readOnly/> 
 
         Item Type<input className='w-full rounded-md p-3 text-center' type="text" name='ItemType' value={item.ItemType} onChange={handleUpdate} /> 
+        Suppier Name<input className='w-full rounded-md p-3 text-center' type="text" name='supplierName' value={item.supplierName} onChange={handleUpdate} /> 
+
 
         Item Discription<input className='w-full rounded-md p-3 text-center' type="text"  name='ItemDiscription' value={item.ItemDiscription} onChange={handleUpdate}/> 
 
