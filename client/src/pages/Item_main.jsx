@@ -215,13 +215,15 @@ function generatePDF(item){
   doc.text("Item Report",14,15);
   doc.save("report.pdf");
 }
-
+const itemCount = AllItems.length;
+const totalUnitsCount = AllItems.reduce((total, item) => total + item.ItemNoOfUints, 0);
 //rendering all the items from the api
 const renderItems = (data) => {
     return (
       <div className='w-full '>
         <table className=' w-full border-separate border-spacing-y-5'>
           <thead className='bg-slate-700'>
+          
           <tr className=' outline outline-2 rounded-md m-5'>
             <th className='text-center text-lg p-5'>ItemID</th>
             <th className='text-center text-lg p-5'>Item Name</th>
