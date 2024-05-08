@@ -85,8 +85,8 @@ function generatePDF(item) {
 
   // Add title with underline
   doc.setFontSize(16);
-  doc.setDrawColor(0); // Set underline color to black
-  doc.textWithLink('Item Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
+  doc.setTextColor(129, 129, 129);
+  doc.textWithLink('Low Inventoty Report', doc.internal.pageSize.getWidth() / 2, 60, { align: 'center', url: 'javascript:void(0)', underline: true }); // Adjust the vertical position
 
 
   doc.setFontSize(10);
@@ -101,9 +101,9 @@ function generatePDF(item) {
   item.forEach(item => {
       const itemData = [
           item.ItemID,
-          item.ItemDiscription,
           item.ItemType,
-          item.ItemNoOfUints
+          item.ItemNoOfUints,
+          item.curruntlevel
       ];
       tableRow.push(itemData);
   });

@@ -69,7 +69,7 @@ function Item_Update(){
       body:JSON.stringify(item)
     })
     .then(res=>res.json())
-    .then(() => navigate('/'))
+    .then(() => navigate('/Item_main'))
     .catch(err => console.log(err));
   }
   console.log(item);
