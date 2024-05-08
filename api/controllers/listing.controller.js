@@ -1,7 +1,7 @@
 import Listing from '../models/listing.model.js';
 import { errorHandler } from '../utils/error.js';
 
-export const createListing = async (req, res, next) => {
+export const createPO = async (req, res, next) => {
   try {
     const listing = await Listing.create(req.body);
     return res.status(201).json(listing);
@@ -10,16 +10,13 @@ export const createListing = async (req, res, next) => {
   }
 };
 
-export const deleteListing = async (req, res, next) => {
+export const deletePO = async (req, res, next) => {
   const listing = await Listing.findById(req.params.id);
 
   if (!listing) {
     return next(errorHandler(404, 'Purchase Order not found!'));
   }
 
-  if (req.user.id !== listing.userRef) {
-    return next(errorHandler(401, 'You can only delete your own Purchase Order!'));
-  }
 
   try {
     await Listing.findByIdAndDelete(req.params.id);
@@ -29,7 +26,7 @@ export const deleteListing = async (req, res, next) => {
   }
 };
 
-export const updateListing = async (req, res, next) => {
+export const updatePO = async (req, res, next) => {
   const listing = await Listing.findById(req.params.id);
   if (!listing) {
     return next(errorHandler(404, 'Purchse Order not found!'));
@@ -50,7 +47,7 @@ export const updateListing = async (req, res, next) => {
   }
 };
 
-export const getListing = async (req, res, next) => {
+export const getPO = async (req, res, next) => {
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
@@ -62,7 +59,7 @@ export const getListing = async (req, res, next) => {
   }
 };
 
-export const getListings = async (req, res, next) => {
+export const getPOs = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
