@@ -39,28 +39,58 @@ export default function Item_add() {
     setAddItemData({ ...addItemData, [e.target.id]: e.target.value });
   };
   //handle submit function. this function should wait and fetching the data from the form,hence async
-  const handleSubmit = async (e) => {
-    e.preventDefault(); //preventing the default action of the form
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault(); //preventing the default action of the form
     
-    try{
-      setLoading(true);
-      setError(false); //setting the error status to null afther sending the data
-      const res = await fetch("/api/Item", 
-      {method:'post',headers:{'Content-Type':'application/json'}, //a workaround for api and client loading into two different ports by a proxy
-      body:JSON.stringify(addItemData)}) //fetching the data from the api
+  //   try{
+  //     setLoading(true);
+  //     setError(false); //setting the error status to null afther sending the data
+  //     const res = await fetch("/api/Item", 
+  //     {method:'post',headers:{'Content-Type':'application/json'}, //a workaround for api and client loading into two different ports by a proxy
+  //     body:JSON.stringify(addItemData)}) //fetching the data from the api
     
-      const data = await res.json(); //converting the data into json format
-      setLoading(false); //setting the loading status to false after sending the data
-      setSuccess(true); //setting the success status to true after sending the data
-      //sometimes try catch is ignored by the browser, so we need to check if the data is sent or not for further actions
-      if(data.success==false) {
-        setError(true);
-        return;} //setting the error status to true if the data is not sent 
+  //     const data = await res.json(); //converting the data into json format
+  //     setLoading(false); //setting the loading status to false after sending the data
+  //     setSuccess(true); //setting the success status to true after sending the data
+  //     //sometimes try catch is ignored by the browser, so we need to check if the data is sent or not for further actions
+  //     if(data.success==false) {
+  //       setError(true);
+  //       return;} //setting the error status to true if the data is not sent 
       
-  } catch(error){
-    setLoading(false); //setting the loading status to false after error
-    setError(true); //setting the error status to error after error
-  }};
+  // } catch(error){
+  //   setLoading(false); //setting the loading status to false after error
+  //   setError(true); //setting the error status to error after error
+  // }};
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Preventing the default action of the form
+    
+    try {
+      setLoading(true);
+      setError(false); // Resetting error status to false before sending the data
+      const res = await fetch("/api/Item", {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(addItemData)
+      });
+      
+      const data = await res.json();
+      setLoading(false); // Setting the loading status to false after sending the data
+  
+      // Checking if the data was successfully sent
+      if (data.success === false) {
+        setError(true);
+        setSuccess(false); // Setting success to false if there's an error
+        return;
+      }
+  
+      setSuccess(true); // Setting success to true if the data was sent successfully
+    } catch (error) {
+      setLoading(false); // Setting the loading status to false after error
+      setError(true); // Setting the error status to true after error
+      setSuccess(false); // Setting success to false if there's an error
+    }
+  };
+  
 
   return (
     <div className='bg-sky-900 ml-72' style={{padding:50,alignItems:'center'}}>
@@ -94,9 +124,9 @@ export default function Item_add() {
 
        
         
-        Currunt Level<input className='w-full rounded-md p-3 text-center'
+        Add Low Inventory Level<input className='w-full rounded-md p-3 text-center'
         type="number" 
-        placeholder='Currunt Level' 
+        placeholder='Add Inventory Level' 
         id='curruntlevel' onChange={handleChange} required/> 
 
         

@@ -10,13 +10,12 @@ const UplodeWastageItems = () => {
     quantity: '',
     companyName: '',
     supplierId: '',
-    damageOrExpired: '', // Default value
     reason: '',
   });
 
   useEffect(() => {
     const id = window.location.pathname.split('/')[2];
-    axios.get(`http://localhost:8000/api/wastes/getWaste/${id}`)
+    axios.get(`http://localhost:3000/api/wastes/getWaste/${id}`)
       .then((res) => {
         setFormData(res.data);
       })
@@ -36,7 +35,7 @@ const UplodeWastageItems = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/api/wastes/updateWaste/${formData._id}`, {
+      const response = await fetch(`http://localhost:3000/api/wastes/updateWaste/${formData._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -55,116 +54,122 @@ const UplodeWastageItems = () => {
   };
 
   return (
-    <div className="p-3 w-3/4 mx-auto me-0 pt-14">
-    <div className="border border-blue-500 p-8 rounded-lg mt-4">
+   
 
 
-         <h1 className="text-3xl font-bold mb-6">Uplode Wastage Items</h1>
-      
-         <div className="flex flex-row justify-center"> 
-   <div className="w-2/4">
+
+   <div className="mx-auto w-2/4 px-4 me-64 pt-20">
+    <div className="text-gray-700 font-roboto text-4xl mb-8 ">
+    Uplode Wastage Items
+    <div >
+     {/* Render the select input */}
+     
+     
+  </div>
+ </div>
+
+
+
 
       <form className="mb-80 mt-0 pb-4 pt-5" onSubmit={handleSubmit}>
-        <label htmlFor="name" className="block mb-2">
-         <b>Item name:</b> 
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300 "
-          value={formData.name}
-          onChange={handleChange}
-        />
 
-        <label htmlFor="itemCode" className="block mb-2">
-          <b>Item Code:</b>
-        </label>
-        <input
-          type="text"
-          id="itemCode"
-          name="itemCode"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.itemCode}
-          onChange={handleChange}
-        />
 
-        <label htmlFor="quantity" className="block mb-2">
-          <b>Quantity:</b>
-        </label>
-        <input
-          type="text"
-          id="quantity"
-          name="quantity"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.quantity}
-          onChange={handleChange}
-        />
+      <div className="flex items-center mb-6">
+       <label htmlFor="name" className="text-red-500 w-48" >Item Name</label>
+        <input  type="text" id="name" name="name" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.name}
+        onChange={handleChange}
+         />
+       </div>
 
-        <label htmlFor="companyName" className="block mb-2">
-          <b>Company Name:</b>
-        </label>
-        <input
-          type="text"
-          id="companyName"
-          name="companyName"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.companyName}
-          onChange={handleChange}
-        />
 
-        <label htmlFor="supplierId" className="block mb-2">
-          <b>Supplier Id:</b>
-        </label>
-        <input
-          type="text"
-          id="supplierId"
-          name="supplierId"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.supplierId}
-          onChange={handleChange}
-        />
 
-        <label htmlFor="damageOrExpired" className="block mb-2">
-         <b>Select Damage Or Expired:</b> 
-        </label>
-        <select
-          id="damageOrExpired"
-          name="damageOrExpired"
-          className="block mb-4 px-16 py-4 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.damageOrExpired}
-          onChange={handleChange}
-        >
-          <option value="damage">Damage</option>
-          <option value="expired">Expired</option>
-        </select>
 
-        <label htmlFor="reason" className="block mb-2">
-          <b>Reason:</b>
-        </label>
-        <input
-          type="text"
-          id="reason"
-          name="reason"
-          className="block mb-3 px-16 py-10 border border-blue-500 rounded-md focus:outline-none focus:border-gray-300"
-          value={formData.reason}
-          onChange={handleChange}
-        />
+       <div className="flex items-center mb-6">
+       <label htmlFor="itemCode" className="text-red-500 w-48" >Item Code</label>
+        <input  type="text" id="itemCode" name="itemCode" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.itemCode}
+        onChange={handleChange}
+         />
+       </div>
 
-        <div className="">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2  rounded-md focus:outline-none focus:bg-blue-600">
+
+
+       <div className="flex items-center mb-6">
+       <label htmlFor="quantity" className="text-red-500 w-48" >Quantity</label>
+        <input  type="text" id="quantity" name="quantity" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.quantity}
+        onChange={handleChange}
+         />
+       </div>
+
+
+    
+
+       <div className="flex items-center mb-6">
+       <label htmlFor="companyName" className="text-red-500 w-48" >Company Name</label>
+        <input  type="text" id="companyName" name="companyName" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.companyName}
+        onChange={handleChange}
+         />
+       </div>
+
+
+    
+
+      <div className="flex items-center mb-6">
+       <label htmlFor="supplierId" className="text-red-500 w-48" >Supplier Id:</label>
+        <input  type="text" id="supplierId" name="supplierId" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.supplierId}
+        onChange={handleChange}
+         />
+       </div>
+
+
+
+        <div className="flex items-center mb-6">
+       <label htmlFor="supplierId" className="text-red-500 w-48" >Reason:</label>
+        <input  type="text" id="reason" name="reason" 
+        className="w-full h-12 border border-gray-300 rounded-md px-4 text-gray-700 font-roboto text-lg bg-gray-100" 
+        required
+        
+        value={formData.reason}
+        onChange={handleChange}
+         />
+       </div>
+
+
+
+          <div className="flex justify-between ml-64 mt-4">
+          <button type="submit" className="w-48 h-12 rounded-md bg-red-600 text-white font-roboto font-semibold text-lg cursor-pointer
+          hover:bg-red-700 focus:outline-none">
             Submit
           </button>
-          <button type="button" className="bg-red-500 text-white px-4 py-2 ml-4 rounded-md focus:outline-none focus:bg-red-600">
-            Cancel
+          <button type="button" className="w-48 h-12 rounded-md bg-green-600 text-white font-roboto font-semibold text-lg cursor-pointer
+          hover:bg-green-700 focus:outline-none ml-5">
+            Cancel  
           </button>
         </div>
+
+
       </form>
     </div>
-    </div>
-
-    </div>
-    </div>
+ 
   );
 };
 

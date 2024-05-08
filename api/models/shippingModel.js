@@ -1,6 +1,15 @@
 import mongoose from "mongoose";
 
 const shippingSchema = new mongoose.Schema({
+    shippingId: {
+        type: String,
+        required: true,
+    },
+    orderId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Order', // Referencing the Order model
+        required: true
+    },
     userName: {
         type: String,
         required: true
@@ -24,7 +33,7 @@ const shippingSchema = new mongoose.Schema({
         default: 'In Progress'
     }
     
-},{timestamps:true})
+},{timestamps:true});
 
 const shippingModel = mongoose.model('shippings', shippingSchema);
 export default shippingModel;

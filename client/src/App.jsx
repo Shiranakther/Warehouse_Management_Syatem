@@ -20,8 +20,8 @@ import Item_main from './pages/Item_main';
 import Item_add from './pages/Item_add';
 import Item_Update from './pages/Item_Update';
 import CreateSalesOrder from './pages/createSalesOrder';
-import SelesOrders from './pages/SalesOrders';
-import UpdatePendingSelesOrders from './pages/UpdatePendingSelesOrders';
+import SelesOrders from './pages/salesOrders';
+import UpdatePendingSelesOrders from './pages/updatePendingSelesOrders';
 
 import ShippingMNG from './pages/ShippingMNG';
 import VehicleMNG from './pages/vehicleList';
@@ -56,9 +56,10 @@ import WorkersAssignList from './pages/WorkersAssignList';
 import React, { useState } from 'react';
 import VehicleList from './pages/vehicleList';
 import LowInventoryReport from './pages/LowInventoryReport';
-import LowInventoryUpdate from './pages/LowInventoryUpdate';
+import LowInventoryUpdate from './pages/lowInventoryUpdate';
 import PendingPO from './pages/PendingPO';
 import MaintenanceUpdatePage from './pages/MaintenanceUpdatePage';
+import DisasterManagement from './pages/Disaster_Management';
 
 
 
@@ -69,6 +70,7 @@ export default function App() {
     <BrowserRouter>
   
       <ToastContainer />
+      
       <Routes>
         
       <Route path='/sign-in' element={<SignIn UserType={setUserType} />} />
@@ -130,6 +132,7 @@ export default function App() {
         <Route path="/updatevehicle/:vehicleId" element={<Updatevehicle />} />
         <Route path="/updateShipping/:shippingId" element={<UpdateShipping />} />
         <Route path='/MaintenanceUpdatePage/:id' element={<MaintenanceUpdatePage />} />
+        <Route path="/d-manage" element={<DisasterManagement/>}/>
 
         </Route>
       </Routes>

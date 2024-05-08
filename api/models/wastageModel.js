@@ -8,7 +8,7 @@ const returnSchema = new mongoose.Schema({
     quantity: { type: Number, required: true },
     companyName: { type: String, required: true },
     supplierId: { type: String, required: true },
-    damageOrExpired: { type: String, required: true },
+    // damageOrExpired: { type: String, required: true },
     reason: { type: String, required: true },
 },
 {
@@ -16,6 +16,9 @@ const returnSchema = new mongoose.Schema({
 }
 );
 
+
+
 const Return = mongoose.model('Wastage', returnSchema);
+
 
 export default Return;

@@ -99,7 +99,7 @@ export default function UpdatePO() {
   };
   return (
     <div className="mx-auto pt-24 w-2/4 px-4 me-64">
-      <div className="text-gray-700 font-roboto text-4xl mb-8">
+      <div className="text-gray-700 font-roboto text-4xl mb-14 ml-56">
         Update Purchase Order
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col">
