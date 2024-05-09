@@ -227,7 +227,7 @@ import "jspdf-autotable";
               <th className="border border-gray-400 py-2 px-4">Reason</th>
               <th className="border border-gray-400 py-2 px-4">Createed Date</th>
             <th className="border border-gray-400 py-2 px-4">Updated Date</th>
-            <th className="border border-gray-400 py-2 px-4">Action</th>
+            <th className="border border-gray-400 py-2 px-4 ">Action</th>
             </tr>
           </thead>
 
@@ -245,9 +245,9 @@ import "jspdf-autotable";
                 <td className="border border-gray-400 py-2  px-4">{item.reason}</td>
                 <td className="border border-blue-500 px-4 py-2">{formatDate(item.createdAt)}</td>
               <td className="border border-blue-500 px-4 py-2">{formatDate(item.updatedAt)}</td>
-                <td className="border border-gray-400 py-2 w-96 px-20">
+                <td className="border border-blue-500 px-7 py-2 w-60">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded "
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded w-20 "
                     onClick={() => {
                       window.location.href = `/UplodeReturnItems/${item._id}`;
                     }}
@@ -255,7 +255,7 @@ import "jspdf-autotable";
                     Update
                   </button>
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-20"
                     onClick={() => deleteReturnItem(item._id)}
                   >
                     Delete
