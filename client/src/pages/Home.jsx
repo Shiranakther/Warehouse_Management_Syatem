@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -15,8 +14,8 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
+import { Truck, Package, Users, AlertTriangle, ShoppingCart } from 'lucide-react';
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,17 +31,17 @@ ChartJS.register(
 export default function Home({ userType }) {
   console.log("Home User type selected:", userType);
 
-  // State for data
+  // State declarations (ensure all are present)
   const [items, setItems] = useState([]);
   const [workers, setWorkers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [shippings, setShippings] = useState([]);
   const [lostItems, setLostItems] = useState([]);
   const [purchaseOrders, setPurchaseOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Ensure this is defined
   const [error, setError] = useState(null);
 
-  // Fetch all data on mount
+  // Fetch data on mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,7 +65,7 @@ export default function Home({ userType }) {
           fetch('/api/lostItem/lost_item_list').then((res) => res.json()),
           fetch(`/api/user/listings/${userType === 'user' ? 'currentUserId' : ''}`).then((res) =>
             res.json()
-          ), // Replace 'currentUserId' with actual ID logic
+          ),
         ]);
 
         setItems(itemsRes);
@@ -97,9 +96,9 @@ export default function Home({ userType }) {
   const totalLostItems = lostItems.length;
   const totalPOs = purchaseOrders.length;
 
-  // Chart Data
+  // Chart Data (unchanged)
   const stockChartData = {
-    labels: items.slice(0, 5).map((item) => item.ItemID), // Top 5 items
+    labels: items.slice(0, 5).map((item) => item.ItemID),
     datasets: [
       {
         label: 'Stock Levels (Units)',
@@ -128,7 +127,7 @@ export default function Home({ userType }) {
     datasets: [
       {
         label: 'Lost Items Over Time',
-        data: lostItems.map(() => 1), // Count per date
+        data: lostItems.map(() => 1),
         fill: false,
         borderColor: 'rgba(255, 159, 64, 1)',
         tension: 0.1,
@@ -139,108 +138,122 @@ export default function Home({ userType }) {
   const chartOptions = {
     responsive: true,
     plugins: {
-      legend: { position: 'top' },
-      title: { display: true },
+      legend: { position: 'top', labels: { font: { size: 14, family: 'Inter' } } },
+      title: { display: true, font: { size: 18, family: 'Inter', weight: '600' } },
     },
+    maintainAspectRatio: false,
   };
 
-  if (loading) return <div className="text-center p-10">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center p-10">{error}</div>;
+  // Conditional rendering
+  if (loading) return <div className="text-center p-10 text-gray-600 text-xl">Loading...</div>;
+  if (error) return <div className="text-red-500 text-center p-10 text-xl">{error}</div>;
 
+  // Main UI
   return (
-    <div className='flex'>
+    <div className="flex min-h-screen bg-gray-50">
       <div className="p-8 w-full ml-72">
-    <div className="min-h-screen bg-gray-100 p-6">
-      {/* Header */}
-      <header className="bg-blue-600 text-white p-6 rounded-lg shadow-lg mb-6">
-        <h1 className="text-4xl font-bold text-center">Chaminda WMS Dashboard</h1>
-        <p className="text-center mt-2">No 125, Mapatana, Horana | TP: 075 - 6175658</p>
-      </header>
+        <header className="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-6 rounded-2xl shadow-lg mb-8 transition-all duration-300">
+          <h1 className="text-3xl font-semibold tracking-tight text-center md:text-4xl">Chaminda WMS Dashboard</h1>
+          <p className="text-center mt-2 text-blue-100 text-sm md:text-base">No 125, Mapatana, Horana | TP: 075 - 6175658</p>
+        </header>
 
-      {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Total Items</h2>
-          <p className="text-3xl font-bold text-blue-600">{totalItems}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <Package className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Total Items</h2>
+              <p className="text-2xl font-bold text-blue-700">{totalItems}</p>
+            </div>
+          </div>
+          {/* Other cards remain unchanged, just ensure all use proper syntax */}
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <Package className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Stock in Hand</h2>
+              <p className="text-2xl font-bold text-blue-700">{totalStock} Units</p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <Users className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Total Workers</h2>
+              <p className="text-2xl font-bold text-blue-700">{totalWorkers}</p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <Truck className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Total Vehicles</h2>
+              <p className="text-2xl font-bold text-blue-700">{totalVehicles}</p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <AlertTriangle className="w-8 h-8 text-red-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Lost Items</h2>
+              <p className="text-2xl font-bold text-red-600">{totalLostItems}</p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4">
+            <ShoppingCart className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-lg font-semibold text-gray-600">Purchase Orders</h2>
+              <p className="text-2xl font-bold text-blue-700">{totalPOs}</p>
+            </div>
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Stock in Hand</h2>
-          <p className="text-3xl font-bold text-blue-600">{totalStock} Units</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white p-6 rounded-2xl shadow-md h-96">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Stock Levels (Top 5 Items)</h2>
+            <Bar
+              data={stockChartData}
+              options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Stock Levels' } } }}
+              height={300}
+            />
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md h-96">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Shipping Status</h2>
+            <Pie
+              data={shippingChartData}
+              options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Shipping Status' } } }}
+              height={300}
+            />
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-md lg:col-span-2 h-96">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Lost Items Over Time</h2>
+            <Line
+              data={lostItemsChartData}
+              options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Lost Items Trend' } } }}
+              height={300}
+            />
+          </div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Total Workers</h2>
-          <p className="text-3xl font-bold text-blue-600">{totalWorkers}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Total Vehicles</h2>
-          <p className="text-3xl font-bold text-blue-600">{totalVehicles}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Lost Items</h2>
-          <p className="text-3xl font-bold text-red-600">{totalLostItems}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700">Purchase Orders</h2>
-          <p className="text-3xl font-bold text-blue-600">{totalPOs}</p>
+
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Quick Links</h2>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/Item_main" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Items
+            </Link>
+            <Link to="/Workerlist" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Workers
+            </Link>
+            <Link to="/vehicleList" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Vehicles
+            </Link>
+            <Link to="/shippingList" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Shipping
+            </Link>
+            <Link to="/lost_item_list" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Lost Items
+            </Link>
+            <Link to="/display" className="bg-blue-600 text-white px-5 py-3 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 font-semibold">
+              Purchase Orders
+            </Link>
+          </div>
         </div>
       </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Stock Levels Bar Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Stock Levels (Top 5 Items)</h2>
-          <Bar
-            data={stockChartData}
-            options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Stock Levels' } } }}
-          />
-        </div>
-
-        {/* Shipping Status Pie Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Shipping Status</h2>
-          <Pie
-            data={shippingChartData}
-            options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Shipping Status' } } }}
-          />
-        </div>
-
-        {/* Lost Items Line Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md col-span-1 lg:col-span-2">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Lost Items Over Time</h2>
-          <Line
-            data={lostItemsChartData}
-            options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Lost Items Trend' } } }}
-          />
-        </div>
-      </div>
-
-      {/* Quick Links */}
-      <div className="mt-6">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Quick Links</h2>
-        <div className="flex flex-wrap gap-4">
-          <Link to="/Item_main" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Items
-          </Link>
-          <Link to="/Workerlist" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Workers
-          </Link>
-          <Link to="/vehicleList" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Vehicles
-          </Link>
-          <Link to="/shippingList" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Shipping
-          </Link>
-          <Link to="/lost_item_list" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Lost Items
-          </Link>
-          <Link to="/display" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Purchase Orders
-          </Link>
-        </div>
-      </div>
-    </div>
-    </div>
     </div>
   );
 }
