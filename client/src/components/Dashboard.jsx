@@ -133,7 +133,7 @@ export default function Dashboard()
         </div>
         <div className="navigation-button-bar flex flex-col items-center mt-8">
              
-        {userType === 'user' && (
+        {/* {userType === 'user' && ( */}
                     <Link to='/'>
                         <button
                             className="w-60 bg-blue-500 flex items-center justify-start px-4 py-2 rounded-xl mt-3"
@@ -144,7 +144,7 @@ export default function Dashboard()
                             </div>
                         </button>
                     </Link>
-                )} 
+                {/* )}  */}
             <div>
             <button className=" w-60 flex items-center justify-start px-4 py-2 rounded-xl mt-3 hover:bg-blue-400 " onClick={handleBothClicks1}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="28" viewBox="0 0 30 32" fill="none" >
